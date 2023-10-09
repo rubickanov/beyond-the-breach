@@ -131,6 +131,27 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 243366244190696281, guid: dbbfcdb88dcb5154a97d67c91ab3d9e5,
+        type: 3}
+      propertyPath: controls
+      value: 
+      objectReference: {fileID: 11400000, guid: 7995dc68d6cf06d4abd8813f9ea77073,
+        type: 2}
+    - target: {fileID: 243366244190696281, guid: dbbfcdb88dcb5154a97d67c91ab3d9e5,
+        type: 3}
+      propertyPath: jumpHeight
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 243366244190696281, guid: dbbfcdb88dcb5154a97d67c91ab3d9e5,
+        type: 3}
+      propertyPath: groundCheck
+      value: 
+      objectReference: {fileID: 1784811373}
+    - target: {fileID: 243366244190696281, guid: dbbfcdb88dcb5154a97d67c91ab3d9e5,
+        type: 3}
+      propertyPath: groundLayer.m_Bits
+      value: 64
+      objectReference: {fileID: 0}
     - target: {fileID: 4280005445189145660, guid: dbbfcdb88dcb5154a97d67c91ab3d9e5,
         type: 3}
       propertyPath: m_Name
@@ -299,6 +320,10 @@ PrefabInstance:
     - target: {fileID: 1394681030067758, guid: 7004279a51a72a64581c8412325876d2, type: 3}
       propertyPath: m_Name
       value: FloorB3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1394681030067758, guid: 7004279a51a72a64581c8412325876d2, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4784938725422014, guid: 7004279a51a72a64581c8412325876d2, type: 3}
       propertyPath: m_LocalScale.x
@@ -740,6 +765,12 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 5, y: 5, z: 5.0000024}
   m_Center: {x: 2.5, y: -2.5, z: -2.5000012}
+--- !u!4 &1784811373 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2462499060870609701, guid: dbbfcdb88dcb5154a97d67c91ab3d9e5,
+    type: 3}
+  m_PrefabInstance: {fileID: 31005605}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1832181583 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1394681030067758, guid: 7004279a51a72a64581c8412325876d2,

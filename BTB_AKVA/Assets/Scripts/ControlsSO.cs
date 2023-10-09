@@ -4,8 +4,8 @@ using UnityEngine;
 [CreateAssetMenu()]
 public class ControlsSO : ScriptableObject
 {
-    [SerializeField] KeyCode forward;
-    [SerializeField] KeyCode back;
-    [SerializeField] KeyCode right;
-    [SerializeField] KeyCode left;
+    [SerializeField] public KeyCode forward;
+    [SerializeField] public KeyCode back;
+    [SerializeField] public KeyCode right;
+    [SerializeField] public KeyCode left;
 }
