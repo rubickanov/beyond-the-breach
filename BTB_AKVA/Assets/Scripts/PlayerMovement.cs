@@ -1,3 +1,4 @@
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -6,8 +7,10 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float gravity;
     
     private CharacterController controller;
-
     private Vector3 velocity;
+
+    [SerializeField] private ControlsSO controls;
+
     private void Awake()
     {
         controller = GetComponent<CharacterController>();
@@ -25,5 +28,13 @@ public class PlayerMovement : MonoBehaviour
         velocity.y += gravity * Time.deltaTime;
 
         controller.Move(velocity * Time.deltaTime);
+    }
+
+
+    private float GetAxis(KeyCode negative, KeyCode positive)
+    {
+
+
+        return 0;
     }
 }

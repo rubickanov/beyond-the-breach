@@ -918,6 +918,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 243366244190696281, guid: dbbfcdb88dcb5154a97d67c91ab3d9e5,
+        type: 3}
+      propertyPath: speed
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 4280005445189145660, guid: dbbfcdb88dcb5154a97d67c91ab3d9e5,
         type: 3}
       propertyPath: m_Name
@@ -977,6 +982,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_StepOffset
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8458187998370118994, guid: dbbfcdb88dcb5154a97d67c91ab3d9e5,
+        type: 3}
+      propertyPath: mouseSensitivity
+      value: 1300
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
