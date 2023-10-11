@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -16,11 +15,16 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float jumpHeight;
     [SerializeField] private float groundCheckRadius = 0.5f;
 
+    [SerializeField] private float maxOxygen;
+    private float oxygen;
+
     private bool isGrounded;
  
     private void Awake()
     {
         controller = GetComponent<CharacterController>();
+
+        oxygen = maxOxygen;
     }
 
     private void Update()
@@ -37,6 +41,8 @@ public class PlayerMovement : MonoBehaviour
         
         Vector3 movementVector = transform.right * x + transform.forward * z;
 
+        
+
         controller.Move(movementVector * speed * Time.deltaTime);
 
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
@@ -46,6 +52,11 @@ public class PlayerMovement : MonoBehaviour
         velocity.y += gravity * Time.deltaTime;
         
         controller.Move(velocity * Time.deltaTime);
+        
+        if (movementVector.magnitude != 0 || !isGrounded)
+        {
+            oxygen -= Time.deltaTime;
+        }
     }
 
 
@@ -67,5 +78,10 @@ public class PlayerMovement : MonoBehaviour
         }
 
         return 0;
+    }
+
+    public float GetOxygen()
+    {
+        return oxygen;
     }
 }
