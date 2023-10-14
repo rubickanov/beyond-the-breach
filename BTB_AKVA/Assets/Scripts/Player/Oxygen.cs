@@ -24,8 +24,6 @@ public class Oxygen : MonoBehaviour
         {
             oxygen -= Time.deltaTime;
         }
-        
-        Debug.Log(playerMovement.IsMoving());
     }
 
     public float GetOxygen()
