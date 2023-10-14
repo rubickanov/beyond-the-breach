@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: DefaultControls
   m_EditorClassIdentifier: 
   forward: 119
-  back: 115
+  backwards: 115
   right: 100
   left: 97
+  jump: 32

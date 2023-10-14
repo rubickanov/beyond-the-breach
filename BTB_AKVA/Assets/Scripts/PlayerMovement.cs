@@ -2,63 +2,71 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField] private float speed;
+    [SerializeField] private float moveSmoothTime;
     [SerializeField] private float gravity;
-    
-    private CharacterController controller;
-    private Vector3 velocity;
+    [SerializeField] private float jumpHeight;
+    [SerializeField] private float walkSpeed;
+
+    [SerializeField] private Transform groundCheck;
+    [SerializeField] private float groundCheckRadius;
+    [SerializeField] private LayerMask groundMask;
 
     [SerializeField] private ControlsSO controls;
+        
+    private CharacterController controller;
+    private Vector3 playerInput;
+    private Vector3 currentMoveVelocity;
+    private Vector3 moveDampVelocity;
 
-    [SerializeField] private LayerMask groundLayer;
-    [SerializeField] private Transform groundCheck;
-    [SerializeField] private float jumpHeight;
-    [SerializeField] private float groundCheckRadius = 0.5f;
+    private Vector3 currentForceVelocity;
 
-    [SerializeField] private float maxOxygen;
-    private float oxygen;
-
-    private bool isGrounded;
- 
-    private void Awake()
+    private void Start()
     {
         controller = GetComponent<CharacterController>();
-
-        oxygen = maxOxygen;
     }
 
     private void Update()
     {
-        isGrounded = Physics.CheckSphere(groundCheck.position, groundCheckRadius, groundLayer);
-
-        if (isGrounded && velocity.y < 0)
+        playerInput = new Vector3
         {
-            velocity.y = -2f;
-        }
-        
-        float x = GetAxis(controls.left, controls.right);
-        float z = GetAxis(controls.back, controls.forward);
-        
-        Vector3 movementVector = transform.right * x + transform.forward * z;
+            x = GetAxis(controls.left, controls.right),
+            y = 0f,
+            z = GetAxis(controls.backwards, controls.forward)
+        };
 
-        
-
-        controller.Move(movementVector * speed * Time.deltaTime);
-
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+        if (playerInput.magnitude > 1f)
         {
-            velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+            playerInput.Normalize();
         }
-        velocity.y += gravity * Time.deltaTime;
+
+        Vector3 moveVector = transform.TransformDirection(playerInput);
         
-        controller.Move(velocity * Time.deltaTime);
-        
-        if (movementVector.magnitude != 0 || !isGrounded)
+        // Check if shift (CAN BE ADDED HERE)
+
+        currentMoveVelocity = Vector3.SmoothDamp(
+            currentMoveVelocity, 
+            moveVector * walkSpeed, 
+            ref moveDampVelocity,
+            moveSmoothTime
+        );
+
+        controller.Move(currentMoveVelocity * Time.deltaTime);
+
+        if (IsGrounded())
         {
-            oxygen -= Time.deltaTime;
+            currentForceVelocity.y = -2f;
+            if (Input.GetKey(controls.jump))
+            {
+                currentForceVelocity.y = jumpHeight;
+            }
         }
+        else
+        {
+            currentForceVelocity.y -= gravity * Time.deltaTime;
+        }
+
+        controller.Move(currentForceVelocity * Time.deltaTime);
     }
-
 
     private float GetAxis(KeyCode negative, KeyCode positive)
     {
@@ -80,8 +88,18 @@ public class PlayerMovement : MonoBehaviour
         return 0;
     }
 
-    public float GetOxygen()
+    private bool IsGrounded()
     {
-        return oxygen;
+        return Physics.CheckSphere(groundCheck.position, groundCheckRadius, groundMask);
+    }
+
+    public bool IsMoving()
+    {
+        return  playerInput.magnitude != 0 || currentForceVelocity.y >= 1f;
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.DrawSphere(groundCheck.position, groundCheckRadius);
     }
 }

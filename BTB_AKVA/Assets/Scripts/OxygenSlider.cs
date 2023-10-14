@@ -4,7 +4,7 @@ using UnityEngine.UI;
 public class OxygenSlider : MonoBehaviour
 {
     private Slider oxygenSlider;
-    [SerializeField] private PlayerMovement playerMovement;
+    [SerializeField] private Oxygen oxygen;
 
     private void Awake()
     {
@@ -13,6 +13,6 @@ public class OxygenSlider : MonoBehaviour
 
     private void Update()
     {
-        oxygenSlider.value = playerMovement.GetOxygen();
+        oxygenSlider.value = oxygen.GetOxygen();
     }
 }
