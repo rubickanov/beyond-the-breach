@@ -1,31 +1,33 @@
-using System;
 using UnityEngine;
 
-public class MouseLook : MonoBehaviour
+namespace Player
 {
-    [SerializeField] private  float mouseSensitivity = 100f;
-
-    [SerializeField] private Transform playerBody;
-
-    private float upRotation;
-
-    private void Start()
+    public class MouseLook : MonoBehaviour
     {
-        Cursor.lockState = CursorLockMode.Locked;
-    }
+        [SerializeField] private  float mouseSensitivity = 100f;
 
-    private void Update()
-    {
-        float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
-        float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
+        [SerializeField] private Transform playerBody;
 
-        upRotation -= mouseY;
-        upRotation = Mathf.Clamp(upRotation, -90f, 90f);
+        private float upRotation;
+
+        private void Start()
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+        }
+
+        private void Update()
+        {
+            float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
+            float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
+
+            upRotation -= mouseY;
+            upRotation = Mathf.Clamp(upRotation, -90f, 90f);
         
         
-        transform.localRotation = Quaternion.Euler(upRotation, 0f, 0f);
+            transform.localRotation = Quaternion.Euler(upRotation, 0f, 0f);
         
-        playerBody.Rotate(Vector3.up * mouseX);
+            playerBody.Rotate(Vector3.up * mouseX);
            
+        }
     }
 }

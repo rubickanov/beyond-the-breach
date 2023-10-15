@@ -1,18 +1,21 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class OxygenSlider : MonoBehaviour
+namespace Player
 {
-    private Slider oxygenSlider;
-    [SerializeField] private Oxygen oxygen;
-
-    private void Awake()
+    public class OxygenSlider : MonoBehaviour
     {
-        oxygenSlider = GetComponent<Slider>();
-    }
+        private Slider oxygenSlider;
+        [SerializeField] private Oxygen oxygen;
 
-    private void Update()
-    {
-        oxygenSlider.value = oxygen.GetOxygen();
+        private void Awake()
+        {
+            oxygenSlider = GetComponent<Slider>();
+        }
+
+        private void Update()
+        {
+            oxygenSlider.value = oxygen.GetOxygen();
+        }
     }
 }

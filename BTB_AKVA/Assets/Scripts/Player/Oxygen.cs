@@ -1,33 +1,36 @@
 using UnityEngine;
 
-public class Oxygen : MonoBehaviour
+namespace Player
 {
-    [SerializeField] private float maxOxygen;
+    public class Oxygen : MonoBehaviour
+    {
+        [SerializeField] private float maxOxygen;
      
-    private float oxygen;
+        private float oxygen;
 
-    private PlayerMovement playerMovement;
+        private PlayerMovement playerMovement;
 
-    private void Awake()
-    {
-        playerMovement = GetComponent<PlayerMovement>();
-    }
-
-    private void Start()
-    {
-        oxygen = maxOxygen;
-    }
-
-    private void Update()
-    {
-        if (playerMovement.IsMoving())
+        private void Awake()
         {
-            oxygen -= Time.deltaTime;
+            playerMovement = GetComponent<PlayerMovement>();
         }
-    }
 
-    public float GetOxygen()
-    {
-        return oxygen;
+        private void Start()
+        {
+            oxygen = maxOxygen;
+        }
+
+        private void Update()
+        {
+            if (playerMovement.IsMoving())
+            {
+                oxygen -= Time.deltaTime;
+            }
+        }
+
+        public float GetOxygen()
+        {
+            return oxygen;
+        }
     }
 }

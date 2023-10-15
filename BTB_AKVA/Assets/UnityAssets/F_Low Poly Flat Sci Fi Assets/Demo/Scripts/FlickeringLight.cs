@@ -10,7 +10,7 @@ using UnityEngine;
 [RequireComponent(typeof(MeshRenderer))]
 public class FlickeringLight : MonoBehaviour {
 
-	Light light;
+	Light lightC;
 	[SerializeField]
 	private float minWaitTime	= 0.1f;
 	[SerializeField]
@@ -28,8 +28,8 @@ public class FlickeringLight : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		light = GetComponentInChildren <Light>();
-		if (light != null) {
+		lightC = GetComponentInChildren <Light>();
+		if (lightC != null) {
 			StartCoroutine (FlickerLight ());
 		}
 		meshRenderer	= GetComponent<MeshRenderer> ();
@@ -40,10 +40,10 @@ public class FlickeringLight : MonoBehaviour {
 	IEnumerator FlickerLight () {
 		while (true) {
 			yield return new WaitForSeconds(Random.Range (minWaitTime, maxWaitTime));
-			light.enabled = ! light.enabled;
+			lightC.enabled = ! lightC.enabled;
 
 			//	Updates the model material based on the real light status
-			if (light.enabled) {
+			if (lightC.enabled) {
 				materials [materialIdx]	= onMaterial;
 			} else {
 				materials [materialIdx]	= offMaterial;

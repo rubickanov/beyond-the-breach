@@ -1,13 +1,15 @@
 using UnityEngine;
 
-
-[CreateAssetMenu()]
-public class ControlsSO : ScriptableObject
+namespace AKVA.Controls
 {
-    [SerializeField] public KeyCode forward;
-    [SerializeField] public KeyCode backwards;
-    [SerializeField] public KeyCode right;
-    [SerializeField] public KeyCode left;
+    [CreateAssetMenu()]
+    public class ControlsSO : ScriptableObject
+    {
+        [SerializeField] public KeyCode forward;
+        [SerializeField] public KeyCode backwards;
+        [SerializeField] public KeyCode right;
+        [SerializeField] public KeyCode left;
 
-    [SerializeField] public KeyCode jump;
+        [SerializeField] public KeyCode jump;
+    }
 }
