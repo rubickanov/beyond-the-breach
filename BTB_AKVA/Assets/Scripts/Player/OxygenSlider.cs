@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Player
+namespace AKVA.Player
 {
     public class OxygenSlider : MonoBehaviour
     {

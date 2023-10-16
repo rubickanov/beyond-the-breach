@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Player
+namespace AKVA.Player
 {
     public class Oxygen : MonoBehaviour
     {

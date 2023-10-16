@@ -1,6 +1,6 @@
 {
     "name": "Interactions",
-    "rootNamespace": "",
+    "rootNamespace": "AKVA",
     "references": [
         "GUID:3c962dcfd553f8b40be65bffc22f58ce"
     ],

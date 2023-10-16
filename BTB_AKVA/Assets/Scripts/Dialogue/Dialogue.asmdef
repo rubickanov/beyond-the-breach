@@ -1,4 +1,5 @@
 {
 	"name": "Dialogue",
-	"references": ["Unity.TextMeshPro"]
+	"references": ["Unity.TextMeshPro"],
+	"rootNamespace": "AKVA"
 }

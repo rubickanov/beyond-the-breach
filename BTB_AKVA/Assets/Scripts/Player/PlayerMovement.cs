@@ -1,7 +1,7 @@
 using AKVA.Controls;
 using UnityEngine;
 
-namespace Player
+namespace AKVA.Player
 {
     public class PlayerMovement : MonoBehaviour
     {
