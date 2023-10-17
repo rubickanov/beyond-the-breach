@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace AKVA.Player
 {
+    [RequireComponent(typeof(CharacterController))]
     public class PlayerMovement : MonoBehaviour
     {
         [SerializeField] private float moveSmoothTime;
@@ -30,6 +31,14 @@ namespace AKVA.Player
 
         private void Update()
         {
+            HandleMovement();
+            HandleJumpAndGravity();
+        }
+
+ 
+
+        private void HandleMovement()
+        {
             playerInput = new Vector3
             {
                 x = GetAxis(controls.left, controls.right),
@@ -54,7 +63,10 @@ namespace AKVA.Player
             );
 
             controller.Move(currentMoveVelocity * Time.deltaTime);
+        }
 
+        private void HandleJumpAndGravity()
+        {
             if (IsGrounded())
             {
                 currentForceVelocity.y = -2f;
@@ -70,7 +82,7 @@ namespace AKVA.Player
 
             controller.Move(currentForceVelocity * Time.deltaTime);
         }
-
+        
         private float GetAxis(KeyCode negative, KeyCode positive)
         {
             if (Input.GetKey(negative) && Input.GetKey(positive))

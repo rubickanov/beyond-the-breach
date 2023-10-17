@@ -1,6 +1,7 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using AKVA.Player;
 
 namespace AKVA.Dialogue
 {
@@ -56,7 +57,7 @@ namespace AKVA.Dialogue
 
         private void ShowDialogue()
         {
-            if (_currentDialogue.Sentences[_currentSentenceIndex].IsFirstSpeaker)
+             if (_currentDialogue.Sentences[_currentSentenceIndex].IsFirstSpeaker)
             {
                 ShowLeftSpeaker();
             }
@@ -127,14 +128,15 @@ namespace AKVA.Dialogue
         private void OpenDialogueWindow()
         {
             // disable player controls
-            //GameInput.Instance.DisalbePlayerControls();
+            PlayerInput.Instance.DisablePlayerInput();
             gameObject.SetActive(true);
         }
         private void CloseDialogueWindow()
         {
             // enable player controls with delay
             //GameInput.Instance.EnableControlsWithDelay(delayToEnableControls);
-        
+            PlayerInput.Instance.EnablePlayerInput();
+
             _isActiveAlready = false;
 
             speakerOneSprite.SetActive(false);

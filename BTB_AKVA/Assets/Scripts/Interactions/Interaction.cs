@@ -7,7 +7,7 @@ namespace AKVA.Interaction
         [SerializeField] private float distanceToInteract;
         [SerializeField] private GameObject interactionUI;
 
-        private static IInteractable currentInteraction;
+        private IInteractable currentInteraction;
         private void Update()
         {
             RaycastHit hit;
@@ -26,8 +26,6 @@ namespace AKVA.Interaction
             {
                 interactionUI.SetActive(false);
             }
-
-       
         }
 
 

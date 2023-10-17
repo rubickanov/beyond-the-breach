@@ -2,7 +2,8 @@ using UnityEngine;
 
 namespace AKVA.Player
 {
-    public class Oxygen : MonoBehaviour
+    [RequireComponent(typeof(CharacterController))]
+    public class PlayerOxygen : MonoBehaviour
     {
         [SerializeField] private float maxOxygen;
      

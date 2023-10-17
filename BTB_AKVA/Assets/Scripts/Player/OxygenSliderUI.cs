@@ -1,12 +1,13 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace AKVA.Player
 {
-    public class OxygenSlider : MonoBehaviour
+    public class OxygenSliderUI : MonoBehaviour
     {
         private Slider oxygenSlider;
-        [SerializeField] private Oxygen oxygen;
+        [SerializeField] private PlayerOxygen playerOxygen;
 
         private void Awake()
         {
@@ -15,7 +16,7 @@ namespace AKVA.Player
 
         private void Update()
         {
-            oxygenSlider.value = oxygen.GetOxygen();
+            oxygenSlider.value = playerOxygen.GetOxygen();
         }
     }
 }
