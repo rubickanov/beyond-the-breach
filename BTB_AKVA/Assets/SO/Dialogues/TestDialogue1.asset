@@ -15,7 +15,7 @@ MonoBehaviour:
   SpeakerOne: {fileID: 11400000, guid: 16dea6c43c2fad54b9eef85b57e1195d, type: 2}
   SpeakerTwo: {fileID: 11400000, guid: 34f7759b50cfe564298d59e16850997b, type: 2}
   Sentences:
-  - sentenceText: Hi suka
+  - sentenceText: Hi
     IsFirstSpeaker: 1
-  - sentenceText: Hi EBANAT!
+  - sentenceText: HIIIIIIIIIIIIIIIII
     IsFirstSpeaker: 0

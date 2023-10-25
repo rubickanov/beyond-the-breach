@@ -1,4 +1,4 @@
-using System;
+using AKVA.Controls;
 using UnityEngine;
 
 namespace AKVA.Player
@@ -9,6 +9,8 @@ namespace AKVA.Player
         [SerializeField] private MouseLook mouseLook;
         
         public static PlayerInput Instance { get; private set; }
+
+        [SerializeField] public ControlsSO Controls;
 
         private void Awake()
         {

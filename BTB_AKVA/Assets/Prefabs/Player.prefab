@@ -92,9 +92,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6183057410656520530}
+  - component: {fileID: 3526250696873051052}
   - component: {fileID: 8892759576968516042}
   - component: {fileID: 741005390888767928}
-  - component: {fileID: 3217746339318208608}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -120,6 +120,20 @@ Transform:
   - {fileID: 8357436912666925387}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3526250696873051052
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2557649736286915133}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3889ef9ee3ea8604ea43381b60f1a315, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerMovement: {fileID: 741005390888767928}
+  mouseLook: {fileID: 754679132799595029}
 --- !u!143 &8892759576968516042
 CharacterController:
   m_ObjectHideFlags: 0
@@ -168,19 +182,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   controls: {fileID: 11400000, guid: e759b1b6768ef094e8f0b751829d8c57, type: 2}
---- !u!114 &3217746339318208608
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2557649736286915133}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ef5db76c33bd84845a9995ca51c5213d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxOxygen: 100
 --- !u!1 &6289973324348462963
 GameObject:
   m_ObjectHideFlags: 0
@@ -348,6 +349,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   distanceToInteract: 1.5
   interactionUI: {fileID: 0}
+  controls: {fileID: 11400000, guid: e759b1b6768ef094e8f0b751829d8c57, type: 2}
 --- !u!1 &6406361588998757695
 GameObject:
   m_ObjectHideFlags: 0

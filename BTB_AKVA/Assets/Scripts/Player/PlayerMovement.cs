@@ -15,8 +15,6 @@ namespace AKVA.Player
         [SerializeField] private float groundCheckRadius;
         [SerializeField] private LayerMask groundMask;
 
-        [SerializeField] private ControlsSO controls;
-        
         private CharacterController controller;
         private Vector3 playerInput;
         private Vector3 currentMoveVelocity;
@@ -41,9 +39,9 @@ namespace AKVA.Player
         {
             playerInput = new Vector3
             {
-                x = GetAxis(controls.left, controls.right),
+                x = GetAxis(PlayerInput.Instance.Controls.left, PlayerInput.Instance.Controls.right),
                 y = 0f,
-                z = GetAxis(controls.backwards, controls.forward)
+                z = GetAxis(PlayerInput.Instance.Controls.backwards, PlayerInput.Instance.Controls.forward)
             };
 
             if (playerInput.magnitude > 1f)
@@ -70,7 +68,7 @@ namespace AKVA.Player
             if (IsGrounded())
             {
                 currentForceVelocity.y = -2f;
-                if (Input.GetKey(controls.jump))
+                if (Input.GetKey(PlayerInput.Instance.Controls.jump))
                 {
                     currentForceVelocity.y = jumpHeight;
                 }

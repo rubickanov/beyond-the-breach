@@ -1,4 +1,5 @@
 using UnityEngine;
+using AKVA.Player;
 
 namespace AKVA.Interaction
 {
@@ -7,7 +8,10 @@ namespace AKVA.Interaction
         [SerializeField] private float distanceToInteract;
         [SerializeField] private GameObject interactionUI;
 
+        [SerializeField] private Transform transformToAttach;
+
         private IInteractable currentInteraction;
+
         private void Update()
         {
             RaycastHit hit;
@@ -16,7 +20,7 @@ namespace AKVA.Interaction
                 if (hit.transform.TryGetComponent(out currentInteraction))
                 {
                     interactionUI.SetActive(true);
-                    if (Input.GetKeyDown(KeyCode.E))
+                    if (Input.GetKeyDown(PlayerInput.Instance.Controls.interact))
                     {
                         currentInteraction.Interact();
                     }

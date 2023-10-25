@@ -17,3 +17,5 @@ MonoBehaviour:
   right: 100
   left: 97
   jump: 32
+  interact: 101
+  pick: 0

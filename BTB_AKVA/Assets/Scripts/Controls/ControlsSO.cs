@@ -11,5 +11,9 @@ namespace AKVA.Controls
         [SerializeField] public KeyCode left;
 
         [SerializeField] public KeyCode jump;
+
+        [SerializeField] public KeyCode interact;
+
+        [SerializeField] public KeyCode pick;
     }
 }
