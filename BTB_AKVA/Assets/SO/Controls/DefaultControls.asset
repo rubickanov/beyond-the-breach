@@ -18,4 +18,4 @@ MonoBehaviour:
   left: 97
   jump: 32
   interact: 101
-  pick: 0
+  pick: 101

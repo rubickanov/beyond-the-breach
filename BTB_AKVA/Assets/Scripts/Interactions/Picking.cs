@@ -1,6 +1,5 @@
-using AKVA.Controls;
-using AKVA.Player;
 using UnityEngine;
+using AKVA.Player;
 
 namespace AKVA.Interaction
 {
@@ -15,7 +14,7 @@ namespace AKVA.Interaction
 
         void Update()
         {
-            if(Input.GetMouseButton(0))
+            if(Input.GetKeyDown(PlayerInput.Instance.Controls.pick))
             {
                 if(CurrentObject)
                 {
