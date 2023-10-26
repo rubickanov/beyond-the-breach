@@ -5,9 +5,15 @@ using UnityEngine;
 
 public class DoubleDoor : MonoBehaviour
 {
+    [Header("Connect to button")]
+    [SerializeField] FloorButton[] floorButton;
+    [SerializeField] float numberOfBtnsActivated;
+
+    [Header("Door Settings")]
     [SerializeField] Transform leftDoor, rightDoor;
     [SerializeField] bool activated;
     [SerializeField] float doorSpeed = 3f;
+    [SerializeField] Material doorActivated, doorDeactivated;
 
     [Header("RayCast")]
     [SerializeField] Transform rayOrigin;
@@ -15,6 +21,31 @@ public class DoubleDoor : MonoBehaviour
     [SerializeField] float rayLength = 1f;
     RaycastHit hit;
     float leftDoorInitPos, rightDoorInitPos;
+
+    private void OnEnable()
+    {
+        if (floorButton.Length > 0 || floorButton != null)
+        {
+            foreach (FloorButton button in floorButton)
+            {
+                button.onButtonPressed += ActivateDoor;
+                button.onButtonReleased += DeactivateDoor;
+            }
+        }
+    }
+
+    private void OnDisable()
+    {
+        if (floorButton.Length > 0)
+        {
+            foreach (FloorButton button in floorButton)
+            {
+                button.onButtonPressed -= ActivateDoor;
+                button.onButtonReleased -= ActivateDoor;
+            }
+        }
+    }
+
     void Start()
     {
         leftDoorInitPos = leftDoor.position.x;
@@ -30,10 +61,10 @@ public class DoubleDoor : MonoBehaviour
     {
         if (activated)
         {
+            ChangeDoorColor(doorActivated);
             Ray ray = new Ray(rayOrigin.position, -rayOrigin.forward);
             if (Physics.Raycast(ray, out hit, rayLength, allowedToOpen))
             {
-                print("Person Detected");
                 OpenDoor();
             }
             else
@@ -41,6 +72,40 @@ public class DoubleDoor : MonoBehaviour
                 CloseDoor();
             }
         }
+        else
+        {
+            ChangeDoorColor(doorDeactivated);
+        }
+
+        if (numberOfBtnsActivated < 0)
+        {
+            numberOfBtnsActivated = 0;
+        }
+    }
+
+    void ChangeDoorColor(Material material)
+    {
+        leftDoor.GetComponent<Renderer>().material = material;
+        rightDoor.GetComponent<Renderer>().material = material;
+    }
+
+    void ActivateDoor()
+    {
+        numberOfBtnsActivated++;
+        if (numberOfBtnsActivated >= floorButton.Length)
+        {
+            activated = true;
+        }
+        else
+        {
+            activated = false;
+        }
+    }
+
+    void DeactivateDoor()
+    {
+        numberOfBtnsActivated--;
+        activated = false;
     }
 
     private void OpenDoor()
