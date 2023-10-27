@@ -1,0 +1,18 @@
+{
+    "name": "Interactions",
+    "rootNamespace": "AKVA",
+    "references": [
+        "GUID:3c962dcfd553f8b40be65bffc22f58ce",
+        "GUID:ef5a9a3f348b8a34b9434632446eb982",
+        "GUID:8c98f640b2e9f894cb6998e097e308c3"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
