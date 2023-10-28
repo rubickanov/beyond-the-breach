@@ -10,8 +10,7 @@ public class FloorButton : MonoBehaviour
     [SerializeField] LayerMask allowedObjects;
     [SerializeField] Transform btn;
     Vector3 btnInitPos;
-    bool pressed;
-    bool unpressed;
+    public bool btnIsActive;
 
     public delegate void OnButtonPressed();
     public event OnButtonPressed onButtonPressed;
@@ -25,37 +24,6 @@ public class FloorButton : MonoBehaviour
         btnInitPos = btn.localPosition;
     }
 
-    private void Update()
-    {
-        DetectObject();
-    }
-
-    private void DetectObject()
-    {
-        if (Physics.CheckBox(transform.position, Vector3.one/2, Quaternion.identity, allowedObjects))
-        {
-            ChangeBtnColor(Color.green);
-            if (!pressed)
-            {
-                pressed = true;
-                onButtonPressed?.Invoke();
-            }
-            MoveBtn(new Vector3(btn.localPosition.x, btn.localPosition.y, -0.0006f));
-            unpressed = false;
-        }
-        else
-        {
-            if (!unpressed)
-            {
-                pressed = false;
-                onButtonReleased?.Invoke();
-                unpressed = true;
-            }
-            ChangeBtnColor(Color.red);
-            MoveBtn(btnInitPos);
-        }
-    }
-
     void ChangeBtnColor(Color color)
     {
         btnMat.material.color = color;
@@ -66,9 +34,25 @@ public class FloorButton : MonoBehaviour
         btn.localPosition = pos;
     }
 
-    private void OnDrawGizmos()
+    private void OnTriggerEnter(Collider other)
     {
-        Gizmos.color = Color.green;
-        Gizmos.DrawWireCube(transform.position, new Vector3(1, 0.5f, 1));
+        if (other.tag == "Box" || other.tag == "Player")
+        {
+            ChangeBtnColor(Color.green);
+            btnIsActive = true;
+            onButtonPressed?.Invoke();
+            MoveBtn(new Vector3(btn.localPosition.x, btn.localPosition.y, -0.0006f));
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.tag == "Box" || other.tag == "Player")
+        {
+            onButtonReleased?.Invoke();
+            btnIsActive = false;
+            ChangeBtnColor(Color.red);
+            MoveBtn(btnInitPos);
+        }
     }
 }

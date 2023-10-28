@@ -22,6 +22,10 @@ public class DoubleDoor : MonoBehaviour
     RaycastHit hit;
     float leftDoorInitPos, rightDoorInitPos;
 
+    #region Properties
+    public bool EnableDoor { set => activated = value; }
+    #endregion
+
     private void OnEnable()
     {
         if (floorButton.Length > 0 || floorButton != null)
@@ -66,7 +70,7 @@ public class DoubleDoor : MonoBehaviour
             if (Physics.Raycast(ray, out hit, rayLength, allowedToOpen))
             {
                 OpenDoor();
-            }
+            } 
             else
             {
                 CloseDoor();

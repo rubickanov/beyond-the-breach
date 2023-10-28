@@ -8,11 +8,11 @@ public class PickUpState : AIState
 {
     public override void OnCollisionEnter(AIStateManager state, Collider collider)
     {
-        throw new System.NotImplementedException();
     }
 
     public override void OnEnterState(AIStateManager state)
     {
+        Debug.Log("PickUpState");
         LookForObjectsToPick(state);
     }
 
