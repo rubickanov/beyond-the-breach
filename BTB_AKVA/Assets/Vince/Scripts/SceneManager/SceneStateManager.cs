@@ -1,3 +1,6 @@
+using AKVA;
+using AKVA.Controls;
+using AKVA.Player;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,14 +10,15 @@ public class SceneStateManager : MonoBehaviour
     SceneState currentState;
     public MovementTutorialState movementTutorial = new MovementTutorialState();
     public Room1State room1State = new Room1State();
+    public Room2State room2State = new Room2State();
+
+    [HideInInspector] public Transform playerTransform;
 
     [Header("Movement Tutorial")]
-    public ControlsSO controlsSO;
     public float timeDelayBeforePlayerMovement;
     public float timeDelayDuringTutorial;
     public DoubleDoor roomDoor;
-    [HideInInspector] public PlayerMovement playerMovement;
-    //[HideInInspector] public bool[] movementTask;
+    
 
     [Header("Room 1 Scene")]
     public Transform playerPlaceHolder;
@@ -23,7 +27,7 @@ public class SceneStateManager : MonoBehaviour
 
     private void Start()
     {
-        playerMovement = FindObjectOfType<PlayerMovement>();
+        playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
         MovementTutorial();
     }
 
@@ -43,7 +47,7 @@ public class SceneStateManager : MonoBehaviour
 
     private void MovementTutorial()
     {
-        playerMovement.enabled = false;
+        PlayerInput.Instance.DisablePlayerMovement(false);
         StartCoroutine(StartMovementTutorial());
     }
 

@@ -1,3 +1,4 @@
+using AKVA;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -9,6 +10,11 @@ public class FloorButton : MonoBehaviour
     [SerializeField] Renderer btnMat;
     [SerializeField] LayerMask allowedObjects;
     [SerializeField] Transform btn;
+
+    [Header("Colored Button")]
+    [SerializeField] bool isColored;
+    public Color buttonColor;
+
     Vector3 btnInitPos;
     public bool btnIsActive;
 
@@ -22,6 +28,11 @@ public class FloorButton : MonoBehaviour
     private void Start()
     {
         btnInitPos = btn.localPosition;
+
+        if (isColored)
+        {
+            ChangeBtnColor(buttonColor);
+        }
     }
 
     void ChangeBtnColor(Color color)
@@ -38,10 +49,23 @@ public class FloorButton : MonoBehaviour
     {
         if (other.tag == "Box" || other.tag == "Player")
         {
-            ChangeBtnColor(Color.green);
-            btnIsActive = true;
-            onButtonPressed?.Invoke();
-            MoveBtn(new Vector3(btn.localPosition.x, btn.localPosition.y, -0.0006f));
+            if (!isColored)
+            {
+                ChangeBtnColor(Color.green);
+                MoveBtn(new Vector3(btn.localPosition.x, btn.localPosition.y, -0.0006f));
+                onButtonPressed?.Invoke();
+                btnIsActive = true;
+            }
+            else if (isColored && other.GetComponent<InteractableBox>() != null)
+            {
+                InteractableBox box = other.GetComponent<InteractableBox>();
+                if (box.boxColor == buttonColor)
+                {
+                    MoveBtn(new Vector3(btn.localPosition.x, btn.localPosition.y, -0.0006f));
+                    onButtonPressed?.Invoke();
+                    btnIsActive = true;
+                }
+            }
         }
     }
 
@@ -49,10 +73,13 @@ public class FloorButton : MonoBehaviour
     {
         if (other.tag == "Box" || other.tag == "Player")
         {
+            if (!isColored)
+            {
+                ChangeBtnColor(Color.red);
+            }
+            MoveBtn(btnInitPos);
             onButtonReleased?.Invoke();
             btnIsActive = false;
-            ChangeBtnColor(Color.red);
-            MoveBtn(btnInitPos);
         }
     }
 }
