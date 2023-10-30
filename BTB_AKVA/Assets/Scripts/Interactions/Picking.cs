@@ -39,6 +39,9 @@ namespace AKVA.Interaction
                 Vector3 DirectionToPoint = PickupTarget.position - CurrentObject.position;
                 float DistanceToPoint = DirectionToPoint.magnitude;
 
+                Vector3 targetRotation = new Vector3(0, PickupTarget.rotation.y, 0);
+                CurrentObject.rotation = Quaternion.Euler(targetRotation);
+
                 CurrentObject.velocity = DirectionToPoint * 12f * DistanceToPoint;
             }
         }

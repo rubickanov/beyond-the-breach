@@ -127,7 +127,6 @@ GameObject:
   - component: {fileID: 8892759576968516042}
   - component: {fileID: 741005390888767928}
   - component: {fileID: 165998808785362119}
-  - component: {fileID: 3255277364481798815}
   - component: {fileID: 7211653923379537257}
   m_Layer: 0
   m_Name: Player
@@ -230,23 +229,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   camera: {fileID: 9176447138158732522}
   distanceToInteract: 1.5
-  interactionUI: {fileID: 0}
---- !u!114 &3255277364481798815
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2557649736286915133}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f3713e4b13bdb934fabe72a8be918b47, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cameraTransform: {fileID: 9176447138158732522}
-  pickUpTarget: {fileID: 3641686031981959347}
-  pickUpDistance: 3
-  objectGrabbable: {fileID: 0}
+  interactionUI: {fileID: 8810586689853253204, guid: 1a74b924dccc24d4c8d25f62d842dc8d,
+    type: 3}
 --- !u!114 &7211653923379537257
 MonoBehaviour:
   m_ObjectHideFlags: 0
