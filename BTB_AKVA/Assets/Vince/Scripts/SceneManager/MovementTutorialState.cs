@@ -3,13 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using AKVA.Player;
 
 public class MovementTutorialState : SceneState
 {
     bool[] movementTask;
     public override void OnEnterState(SceneStateManager state)
     {
-        state.playerMovement.enabled = true;
+        PlayerInput.Instance.DisablePlayerMovement(false);
         movementTask = new bool[3];
     }
     public override void OnUpdateState(SceneStateManager state)
@@ -23,24 +24,24 @@ public class MovementTutorialState : SceneState
 
     private void CheckPlayerMovement(SceneStateManager state)
     {
-        if (state.playerMovement.enabled)
+        if (PlayerInput.Instance.GetPlayerMovement)
         {
-            if (Input.GetKeyDown(state.controlsSO.forward) && !movementTask[0]) // move forward
+            if (Input.GetKeyDown(PlayerInput.Instance.Controls.forward) && !movementTask[0]) // move forward
             {
                 movementTask[0] = true;
                 state.StartCoroutine(EnableMovement(state));
             }
-            else if (movementTask[0] && Input.GetKeyDown(state.controlsSO.back)) // move back
+            else if (movementTask[0] && Input.GetKeyDown(PlayerInput.Instance.Controls.backwards)) // move back
             {
                 movementTask[1] = true;
                 state.StartCoroutine(EnableMovement(state));
             }
-            else if (movementTask[1] && Input.GetKeyDown(state.controlsSO.right)) // move right
+            else if (movementTask[1] && Input.GetKeyDown(PlayerInput.Instance.Controls.right)) // move right
             {
                 movementTask[2] = true;
                 state.StartCoroutine(EnableMovement(state));
             }
-            else if (movementTask[2] && Input.GetKeyDown(state.controlsSO.left)) // move left
+            else if (movementTask[2] && Input.GetKeyDown(PlayerInput.Instance.Controls.left)) // move left
             {
                 state.StartCoroutine(EnableMovement(state));
                 state.roomDoor.EnableDoor = true;
@@ -53,11 +54,11 @@ public class MovementTutorialState : SceneState
     {
         // after pressing the key it will disable movement after a sec
         yield return new WaitForSeconds(1f);
-        state.playerMovement.enabled = false;
+        PlayerInput.Instance.DisablePlayerMovement(true);
 
         //Enables Movement again after disabling it
         yield return new WaitForSeconds(state.timeDelayDuringTutorial);
         Debug.Log("Movement Enabled");
-        state.playerMovement.enabled = true;
+        PlayerInput.Instance.DisablePlayerMovement(false);
     }
 }

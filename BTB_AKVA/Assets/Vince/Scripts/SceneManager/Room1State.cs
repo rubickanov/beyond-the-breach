@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using AKVA.Player;
 
 public class Room1State : SceneState
 {
@@ -27,10 +28,10 @@ public class Room1State : SceneState
 
     private void CheckIfPlayerIsInThePlaceHolder(SceneStateManager state)
     {
-        if (Vector3.Distance(state.playerMovement.transform.position, state.playerPlaceHolder.position) < 1.5f && !playerInPosition) // if player has positioned to its place holder
+        if (Vector3.Distance(state.playerTransform.position, state.playerPlaceHolder.position) < 1.5f && !playerInPosition) // if player has positioned to its place holder
         {
             Debug.Log("Player is In position");
-            state.playerMovement.enabled = false;
+            PlayerInput.Instance.DisablePlayerMovement(true);
             state.StartCoroutine(StartAITask(state, 0));
             playerInPosition = true;
         }
@@ -54,21 +55,16 @@ public class Room1State : SceneState
             }
             else if (state.listOfButtons[2].btnIsActive && !buttonActive[3] && !enableAI)
             {
-                state.playerMovement.enabled = true;
+                PlayerInput.Instance.DisablePlayerMovement(false);
             }
-            if (state.listOfButtons[3].btnIsActive && Vector3.Distance(state.playerMovement.transform.position, state.playerPlaceHolder.position) < 1.5f && !buttonActive[4])
+            if (state.listOfButtons[3].btnIsActive && Vector3.Distance(state.playerTransform.position, state.playerPlaceHolder.position) < 1.5f && !buttonActive[4])
             {
                 for (int i = 0; i < state.listOfAI.Length; i++)
                 {
                     state.listOfAI[i].moveOnly = true;
                     state.listOfAI[i].currentTarget = state.listOfAI[i].fourthTarget;
-                    state.listOfAI[i].SwitchState(state.listOfAI[i].moveState);
+                    state.StartCoroutine(ProceedToNextRoom(state, i));
                 }
-                //foreach (AIStateManager ai in state.listOfAI)
-                //{
-                //    ai.moveOnly = true;
-                //    ai.currentState = ai.moveState;
-                //}
                 buttonActive[4] = true;
             }
         }
@@ -81,5 +77,12 @@ public class Room1State : SceneState
         state.listOfAI[aiIndex].activateAI = true;
         aiActive = true;
         enableAI = false;
+    }
+
+    IEnumerator ProceedToNextRoom(SceneStateManager state, int index)
+    {
+        yield return new WaitForSeconds(2f);
+        state.listOfAI[index].SwitchState(state.listOfAI[index].moveState);
+        state.SwitchState(state.room2State);
     }
 }

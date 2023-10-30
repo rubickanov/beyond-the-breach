@@ -261,7 +261,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PickupMask:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 2048
   PlayerCam: {fileID: 2746141277739944398}
   PickupTarget: {fileID: 3641686031981959347}
   PickupRange: 6
