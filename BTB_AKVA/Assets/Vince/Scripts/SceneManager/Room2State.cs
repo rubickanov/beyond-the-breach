@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace AKVA
+namespace AKVA.Assets.Vince.Scripts.SceneManager
 {
     public class Room2State : SceneState
     {

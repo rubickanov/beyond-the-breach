@@ -2,66 +2,69 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MoveAI : MonoBehaviour
+namespace AKVA.Assets.Vince.Scripts.Astar
 {
-    public Transform target;
-    public float speed = 1;
-    Vector3[] path;
-    int targetIndex;
-
-    public void FindPath(Transform target)
+    public class MoveAI : MonoBehaviour
     {
-        PathRequestManager.RequestPath(transform.position, target.position, OnPathFound);
-    }
+        public Transform target;
+        public float speed = 1;
+        Vector3[] path;
+        int targetIndex;
 
-    public void OnPathFound(Vector3[] newPath, bool pathSuccessful)
-    {
-        if (pathSuccessful)
+        public void FindPath(Transform target)
         {
-            path = newPath;
-            targetIndex = 0;
-            StopCoroutine("FollowPath");
-            StartCoroutine("FollowPath");
+            PathRequestManager.RequestPath(transform.position, target.position, OnPathFound);
         }
-    }
 
-    IEnumerator FollowPath()
-    {
-        Vector3 currentWaypoint = path[0];
-        while (true)
+        public void OnPathFound(Vector3[] newPath, bool pathSuccessful)
         {
-            if (transform.position == currentWaypoint)
+            if (pathSuccessful)
             {
-                targetIndex++;
-                if (targetIndex >= path.Length)
-                {
-                    yield break;
-                }
-                currentWaypoint = path[targetIndex];
+                path = newPath;
+                targetIndex = 0;
+                StopCoroutine("FollowPath");
+                StartCoroutine("FollowPath");
             }
-
-            transform.position = Vector3.MoveTowards(transform.position, currentWaypoint, speed * Time.deltaTime);
-            transform.LookAt(currentWaypoint);
-            yield return null;
         }
-    }
 
-    public void OnDrawGizmos()
-    {
-        if (path != null)
+        IEnumerator FollowPath()
         {
-            for (int i = targetIndex; i < path.Length; i++)
+            Vector3 currentWaypoint = path[0];
+            while (true)
             {
-                Gizmos.color = Color.black;
-                Gizmos.DrawCube(path[i], Vector3.one);
-
-                if (i == targetIndex)
+                if (transform.position == currentWaypoint)
                 {
-                    Gizmos.DrawLine(transform.position, path[i]);
+                    targetIndex++;
+                    if (targetIndex >= path.Length)
+                    {
+                        yield break;
+                    }
+                    currentWaypoint = path[targetIndex];
                 }
-                else
+
+                transform.position = Vector3.MoveTowards(transform.position, currentWaypoint, speed * Time.deltaTime);
+                transform.LookAt(currentWaypoint);
+                yield return null;
+            }
+        }
+
+        public void OnDrawGizmos()
+        {
+            if (path != null)
+            {
+                for (int i = targetIndex; i < path.Length; i++)
                 {
-                    Gizmos.DrawLine(path[i - 1], path[i]);
+                    Gizmos.color = Color.black;
+                    Gizmos.DrawCube(path[i], Vector3.one);
+
+                    if (i == targetIndex)
+                    {
+                        Gizmos.DrawLine(transform.position, path[i]);
+                    }
+                    else
+                    {
+                        Gizmos.DrawLine(path[i - 1], path[i]);
+                    }
                 }
             }
         }

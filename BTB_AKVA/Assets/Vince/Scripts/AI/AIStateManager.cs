@@ -1,83 +1,87 @@
+using AKVA.Assets.Vince.Scripts.Astar;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AIStateManager : MonoBehaviour
+namespace AKVA.Assets.Vince.Scripts.AI
 {
-    public bool activateAI;
-
-    [Header("PickUp")]
-    public GameObject objOnHand;
-    public Transform itemPlaceHolder;
-    public LayerMask objectsToPick;
-    public float sphereRadius = 1f;
-
-    [Header("PickUp")]
-    public LayerMask placesToDrop;
-
-    [Header("Movement")]
-    [HideInInspector] public MoveAI pathFind;
-    [HideInInspector] public Transform currentTarget;
-    public Transform firstTarget, secondTarget, thirdTarget, fourthTarget;
-    public bool moveOnly;
-
-    //states
-    public AIState currentState;
-    public MoveState moveState = new MoveState();
-    public PickUpState pickUpState = new PickUpState();
-    public DropState dropState = new DropState();
-    void Start()
+    public class AIStateManager : MonoBehaviour
     {
-        pathFind = GetComponent<MoveAI>();
-    }
+        public bool activateAI;
 
-    void Update()
-    {
-        ActivateAI();
-        if (currentState != null)
+        [Header("PickUp")]
+        public GameObject objOnHand;
+        public Transform itemPlaceHolder;
+        public LayerMask objectsToPick;
+        public float sphereRadius = 1f;
+
+        [Header("PickUp")]
+        public LayerMask placesToDrop;
+
+        [Header("Movement")]
+        [HideInInspector] public MoveAI pathFind;
+        [HideInInspector] public Transform currentTarget;
+        public Transform firstTarget, secondTarget, thirdTarget, fourthTarget;
+        public bool moveOnly;
+
+        //states
+        public AIState currentState;
+        public MoveState moveState = new MoveState();
+        public PickUpState pickUpState = new PickUpState();
+        public DropState dropState = new DropState();
+        void Start()
         {
-            currentState.OnUpdateState(this);
-            transform.rotation = Quaternion.identity;
+            pathFind = GetComponent<MoveAI>();
         }
-        HoldObject();
-    }
 
-    private void HoldObject()
-    {
-        if (objOnHand != null)
+        void Update()
         {
-            objOnHand.transform.position = itemPlaceHolder.position;
-            objOnHand.GetComponent<Collider>().isTrigger = true;
+            ActivateAI();
+            if (currentState != null)
+            {
+                currentState.OnUpdateState(this);
+                transform.rotation = Quaternion.identity;
+            }
+            HoldObject();
         }
-    }
 
-    public void ActivateAI()
-    {
-        if(activateAI)
+        private void HoldObject()
         {
-            currentTarget = firstTarget;
-            SwitchState(moveState);
-            activateAI = false;
+            if (objOnHand != null)
+            {
+                objOnHand.transform.position = itemPlaceHolder.position;
+                objOnHand.GetComponent<Collider>().isTrigger = true;
+            }
         }
-    }
 
-    public void SwitchState(AIState state)
-    {
-        currentState = state;
-        state.OnEnterState(this);
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        //currentState.OnCollisionEnter(this,other);
-    }
-
-    private void OnDrawGizmos()
-    {
-        if(itemPlaceHolder != null)
+        public void ActivateAI()
         {
-            Gizmos.color = Color.green;
-            Gizmos.DrawWireSphere(itemPlaceHolder.position, sphereRadius);
+            if (activateAI)
+            {
+                currentTarget = firstTarget;
+                SwitchState(moveState);
+                activateAI = false;
+            }
+        }
+
+        public void SwitchState(AIState state)
+        {
+            currentState = state;
+            state.OnEnterState(this);
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            //currentState.OnCollisionEnter(this,other);
+        }
+
+        private void OnDrawGizmos()
+        {
+            if (itemPlaceHolder != null)
+            {
+                Gizmos.color = Color.green;
+                Gizmos.DrawWireSphere(itemPlaceHolder.position, sphereRadius);
+            }
         }
     }
 }

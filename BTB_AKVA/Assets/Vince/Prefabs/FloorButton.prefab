@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 117353138580844872}
   - component: {fileID: 8255669411065918252}
   - component: {fileID: 6472146578581107312}
+  - component: {fileID: 5994580984906583427}
   m_Layer: 9
   m_Name: LS_plate_SButton_2
   m_TagString: Untagged
@@ -105,8 +106,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.012758568, y: 0.012815578, z: 0.0008687575}
-  m_Center: {x: -0.0000000023283064, y: 6.9849204e-10, z: 0.0015170958}
+  m_Size: {x: 0.012758567, y: 0.015796108, z: 0.00086875755}
+  m_Center: {x: -0.0000000023841857, y: 0.0014902655, z: 0.0015170958}
 --- !u!114 &6472146578581107312
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -124,6 +125,22 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 264
   btn: {fileID: 7592017795519852007}
+  isColored: 0
+  buttonColor: {r: 0, g: 0, b: 0, a: 0}
+  btnIsActive: 0
+--- !u!114 &5994580984906583427
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 138126781962293286}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19e8570b44032c043b3fa9903354e90a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  runtimeList: {fileID: 11400000, guid: 3faa49a49bd6922429b1d235696c709b, type: 2}
 --- !u!1 &5034221606991807034
 GameObject:
   m_ObjectHideFlags: 0

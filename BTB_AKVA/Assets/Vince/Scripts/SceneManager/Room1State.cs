@@ -3,86 +3,92 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using AKVA.Player;
+using AKVA.Assets.Vince.Scripts.AI;
+using AKVA.Assets.Vince.Scripts.Environment;
 
-public class Room1State : SceneState
+namespace AKVA.Assets.Vince.Scripts.SceneManager
 {
-    bool playerInPosition;
-    bool aiActive; //Initiates the AI task
-    bool enableAI; //Initiate Each AI to be activated
-    bool[] buttonActive;
-    public override void OnEnterState(SceneStateManager state)
+    public class Room1State : SceneState
     {
-        Debug.Log("Room 1 State");
-        buttonActive = new bool[5];
-    }
-
-    public override void OnUpdateState(SceneStateManager state)
-    {
-        CheckIfPlayerIsInThePlaceHolder(state);
-        ActivateAI(state);
-    }
-
-    public override void OnExitState(SceneStateManager state)
-    {
-    }
-
-    private void CheckIfPlayerIsInThePlaceHolder(SceneStateManager state)
-    {
-        if (Vector3.Distance(state.playerTransform.position, state.playerPlaceHolder.position) < 1.5f && !playerInPosition) // if player has positioned to its place holder
+        bool playerInPosition;
+        bool aiActive; //Initiates the AI task
+        bool enableAI; //Initiate Each AI to be activated
+        bool[] buttonActive;
+        public override void OnEnterState(SceneStateManager state)
         {
-            Debug.Log("Player is In position");
-            PlayerInput.Instance.DisablePlayerMovement(true);
-            state.StartCoroutine(StartAITask(state, 0));
-            playerInPosition = true;
+            Debug.Log("Room 1 State");
+            buttonActive = new bool[5];
         }
-    }
 
-    private void ActivateAI(SceneStateManager state)
-    {
-        if (aiActive)
+        public override void OnUpdateState(SceneStateManager state)
         {
-            if (state.listOfButtons[0].btnIsActive && !buttonActive[0] && !enableAI)
+            CheckIfPlayerIsInThePlaceHolder(state);
+            ActivateAI(state);
+        }
+
+        public override void OnExitState(SceneStateManager state)
+        {
+        }
+
+        private void CheckIfPlayerIsInThePlaceHolder(SceneStateManager state)
+        {
+            if (Vector3.Distance(state.playerTransform.position, state.playerPlaceHolder.position) < 1.5f && !playerInPosition) // if player has positioned to its place holder
             {
-                state.StartCoroutine(StartAITask(state, 1));
-                enableAI = true;
-                buttonActive[0] = true;
+                Debug.Log("Player is In position");
+                PlayerInput.Instance.DisablePlayerMovement(true);
+                state.StartCoroutine(StartAITask(state, 0));
+                playerInPosition = true;
             }
-            else if (state.listOfButtons[1].btnIsActive && !buttonActive[1] && !enableAI)
+        }
+
+        private void ActivateAI(SceneStateManager state)
+        {
+            if (aiActive)
             {
-                state.StartCoroutine(StartAITask(state, 2));
-                enableAI = true;
-                buttonActive[1] = true;
-            }
-            else if (state.listOfButtons[2].btnIsActive && !buttonActive[3] && !enableAI)
-            {
-                PlayerInput.Instance.DisablePlayerMovement(false);
-            }
-            if (state.listOfButtons[3].btnIsActive && Vector3.Distance(state.playerTransform.position, state.playerPlaceHolder.position) < 1.5f && !buttonActive[4])
-            {
-                for (int i = 0; i < state.listOfAI.Length; i++)
+                if (state.room1Buttons.items[0].GetComponent<FloorButton>().btnIsActive && !buttonActive[0] && !enableAI)
                 {
-                    state.listOfAI[i].moveOnly = true;
-                    state.listOfAI[i].currentTarget = state.listOfAI[i].fourthTarget;
-                    state.StartCoroutine(ProceedToNextRoom(state, i));
+                    state.StartCoroutine(StartAITask(state, 1));
+                    enableAI = true;
+                    buttonActive[0] = true;
                 }
-                buttonActive[4] = true;
+                else if (state.room1Buttons.items[1].GetComponent<FloorButton>().btnIsActive && !buttonActive[1] && !enableAI)
+                {
+                    state.StartCoroutine(StartAITask(state, 2));
+                    enableAI = true;
+                    buttonActive[1] = true;
+                }
+                else if (state.room1Buttons.items[2].GetComponent<FloorButton>().btnIsActive && !buttonActive[3] && !enableAI)
+                {
+                    PlayerInput.Instance.DisablePlayerMovement(false);
+                }
+                if (state.room1Buttons.items[3].GetComponent<FloorButton>().btnIsActive && Vector3.Distance(state.playerTransform.position, state.playerPlaceHolder.position) < 1.5f && !buttonActive[4])
+                {
+                    for (int i = 0; i < state.listOfAI.Count; i++)
+                    {
+                        AIStateManager ai = state.listOfAI.items[i].GetComponent<AIStateManager>();
+                        ai.moveOnly = true;
+                        ai.currentTarget = ai.fourthTarget;
+                        state.StartCoroutine(ProceedToNextRoom(state,ai));
+                    }
+                    buttonActive[4] = true;
+                }
             }
         }
-    }
 
 
-    IEnumerator StartAITask(SceneStateManager state, int aiIndex) //Starting AI to do its task
-    {
-        yield return new WaitForSeconds(3f);
-        state.listOfAI[aiIndex].activateAI = true;
-        aiActive = true;
-        enableAI = false;
-    }
+        IEnumerator StartAITask(SceneStateManager state, int aiIndex) //Starting AI to do its task
+        {
+            yield return new WaitForSeconds(3f);
+            state.listOfAI.items[aiIndex].GetComponent<AIStateManager>().activateAI = true;
+            aiActive = true;
+            enableAI = false;
+        }
 
-    IEnumerator ProceedToNextRoom(SceneStateManager state, int index)
-    {
-        yield return new WaitForSeconds(2f);
-        state.listOfAI[index].SwitchState(state.listOfAI[index].moveState);
-        state.SwitchState(state.room2State);
+        IEnumerator ProceedToNextRoom(SceneStateManager state, AIStateManager ai)
+        {
+            yield return new WaitForSeconds(2f);
+            ai.SwitchState(ai.moveState);
+            state.SwitchState(state.room2State);
+        }
     }
 }
