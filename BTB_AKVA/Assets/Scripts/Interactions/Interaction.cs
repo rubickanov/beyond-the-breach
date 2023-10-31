@@ -1,13 +1,15 @@
 using UnityEngine;
 using AKVA.Player;
+using UnityEngine.Serialization;
 
 namespace AKVA.Interaction
 {
     public class Interaction : MonoBehaviour
     {
-        [SerializeField] private Transform camera;
+        [SerializeField] private Transform playerCamera;
         
         [SerializeField] private float distanceToInteract;
+        
         [SerializeField] private GameObject interactionUI;
 
         private IInteractable currentInteraction;
@@ -15,7 +17,7 @@ namespace AKVA.Interaction
         private void Update()
         {
             RaycastHit hit;
-            if (Physics.Raycast(camera.position, camera.forward, out hit, distanceToInteract))
+            if (Physics.Raycast(playerCamera.position, playerCamera.forward, out hit, distanceToInteract))
             {
                 if (hit.transform.TryGetComponent(out currentInteraction))
                 {
@@ -35,7 +37,7 @@ namespace AKVA.Interaction
 
         private void OnDrawGizmosSelected()
         {
-            Debug.DrawRay(camera.position, camera.forward * distanceToInteract, Color.green);
+            Debug.DrawRay(playerCamera.position, playerCamera.forward * distanceToInteract, Color.green);
         }
     }
 }

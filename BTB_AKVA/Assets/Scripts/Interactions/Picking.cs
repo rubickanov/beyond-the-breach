@@ -39,6 +39,7 @@ namespace AKVA.Interaction
                 Vector3 DirectionToPoint = PickupTarget.position - CurrentObject.position;
                 float DistanceToPoint = DirectionToPoint.magnitude;
 
+                CurrentObject.transform.forward = transform.forward;
                 CurrentObject.velocity = DirectionToPoint * 12f * DistanceToPoint;
             }
         }
