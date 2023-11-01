@@ -854,7 +854,7 @@ MonoBehaviour:
   playerTransform: {fileID: 0}
   listOfAI: {fileID: 11400000, guid: 14be574e1ff3218429b9c35b9b827178, type: 2}
   timeDelayBeforePlayerMovement: 2
-  timeDelayDuringTutorial: 0.5
+  timeDelayDuringTutorial: 1
   roomDoor: {fileID: 2089524979}
   playerPlaceHolder: {fileID: 143432850}
   room1Buttons: {fileID: 11400000, guid: 3faa49a49bd6922429b1d235696c709b, type: 2}
@@ -935,6 +935,12 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4957478770538164, guid: 46e18d94e2668c5479029197e6379a8e,
     type: 3}
   m_PrefabInstance: {fileID: 299206360}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &347957053 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7592017795519852007, guid: 8b569432e43128a4cb7ce821238d913c,
+    type: 3}
+  m_PrefabInstance: {fileID: 2026425358}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &349749734
 PrefabInstance:
@@ -1084,7 +1090,7 @@ PrefabInstance:
         type: 3}
       propertyPath: secondTarget
       value: 
-      objectReference: {fileID: 1405352379}
+      objectReference: {fileID: 349749736}
     - target: {fileID: 1704169235667474361, guid: a64e6e6b50e33354ebed95fbe082b069,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3667,7 +3673,7 @@ PrefabInstance:
         type: 3}
       propertyPath: secondTarget
       value: 
-      objectReference: {fileID: 349749736}
+      objectReference: {fileID: 347957053}
     - target: {fileID: 1704169235667474361, guid: a64e6e6b50e33354ebed95fbe082b069,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -4160,12 +4166,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7877273732328524659, guid: f0a622611f0f9414b98b3bc68d44e094,
     type: 3}
   m_PrefabInstance: {fileID: 763386490}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &1965724958 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 7592017795519852007, guid: 8b569432e43128a4cb7ce821238d913c,
-    type: 3}
-  m_PrefabInstance: {fileID: 1733021260}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1969124938
 PrefabInstance:
@@ -4946,7 +4946,7 @@ PrefabInstance:
         type: 3}
       propertyPath: secondTarget
       value: 
-      objectReference: {fileID: 1965724958}
+      objectReference: {fileID: 1405352379}
     - target: {fileID: 1704169235667474361, guid: a64e6e6b50e33354ebed95fbe082b069,
         type: 3}
       propertyPath: m_LocalPosition.x

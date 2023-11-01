@@ -38,7 +38,7 @@ namespace AKVA.Interaction
             transform.position = objectTransform.position;
             objectTransform.position = position;
         }
-        
+
         private void OnDrawGizmosSelected()
         {
             Debug.DrawRay(playerCamera.position, playerCamera.forward * distanceToMindControl, Color.red);
