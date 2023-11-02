@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using AKVA.Assets.Vince.Scripts.Environment;
 using UnityEngine;
+using UnityEngine.Experimental.Rendering;
 
 namespace AKVA.Assets.Vince.Scripts.AI
 {
@@ -20,15 +22,30 @@ namespace AKVA.Assets.Vince.Scripts.AI
         private void LookForAPlaceToDrop(AIStateManager state)
         {
             Collider[] colliders = Physics.OverlapSphere(state.transform.position, state.sphereRadius, state.placesToDrop);
-            Debug.Log(colliders.Length);
+            Debug.Log("Collider length " + colliders.Length);
 
             if (colliders.Length > 0 && state.objOnHand != null)
             {
-                state.objOnHand.transform.position = colliders[0].transform.position;
+                Transform colliderPos = colliders[0].transform;
+
+                if(colliders.Length > 1)
+                {
+                    foreach (Collider collider in colliders)
+                    {
+                        if (!collider.GetComponent<FloorButton>().btnIsActive)
+                        {
+                            colliderPos = collider.transform;
+                            break;
+                        }
+                    }
+                }
+               
+                state.objOnHand.transform.position = colliderPos.position;
                 state.objOnHand.GetComponent<Collider>().isTrigger = false;
                 state.objOnHand = null;
                 state.moveOnly = true;
-                state.currentTarget = state.thirdTarget;
+                state.targetIndex++;
+                state.currentTarget = state.targets[state.targetIndex];
                 state.StartCoroutine(SwitchStateDelay(state, 1f));
             }
         }

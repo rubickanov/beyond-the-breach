@@ -6,7 +6,6 @@ namespace AKVA.Assets.Vince.Scripts.Astar
 {
     public class MoveAI : MonoBehaviour
     {
-        public Transform target;
         public float speed = 1;
         Vector3[] path;
         int targetIndex;

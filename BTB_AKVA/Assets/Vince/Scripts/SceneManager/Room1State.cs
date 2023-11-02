@@ -5,6 +5,9 @@ using UnityEngine;
 using AKVA.Player;
 using AKVA.Assets.Vince.Scripts.AI;
 using AKVA.Assets.Vince.Scripts.Environment;
+using PlasticGui.WorkspaceWindow;
+using UnityEditor;
+using UnityEditor.Build;
 
 namespace AKVA.Assets.Vince.Scripts.SceneManager
 {
@@ -13,11 +16,11 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
         bool playerInPosition;
         bool aiActive; //Initiates the AI task
         bool enableAI; //Initiate Each AI to be activated
-        bool[] buttonActive;
+        bool[] taskDone;
         public override void OnEnterState(SceneStateManager state)
         {
             Debug.Log("Room 1 State");
-            buttonActive = new bool[5];
+            taskDone = new bool[5];
         }
 
         public override void OnUpdateState(SceneStateManager state)
@@ -32,7 +35,7 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
 
         private void CheckIfPlayerIsInThePlaceHolder(SceneStateManager state)
         {
-            if (Vector3.Distance(state.playerTransform.position, state.playerPlaceHolder.position) < 1.5f && !playerInPosition) // if player has positioned to its place holder
+            if (Vector3.Distance(state.playerTransform.position, state.room1PlayerPos.position) < 1.5f && !playerInPosition) // if player has positioned to its place holder
             {
                 Debug.Log("Player is In position");
                 PlayerInput.Instance.DisablePlayerMovement(true);
@@ -45,33 +48,38 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
         {
             if (aiActive)
             {
-                if (state.room1Buttons.items[0].GetComponent<FloorButton>().btnIsActive && !buttonActive[0] && !enableAI)
+                if (GetNumberOfActiveButtons(state) == 1 && !taskDone[0] && !enableAI)
                 {
                     state.StartCoroutine(StartAITask(state, 1));
                     enableAI = true;
-                    buttonActive[0] = true;
+                    taskDone[0] = true;
                 }
-                else if (state.room1Buttons.items[1].GetComponent<FloorButton>().btnIsActive && !buttonActive[1] && !enableAI)
+                else if (GetNumberOfActiveButtons(state) == 2 && !taskDone[1] && !enableAI)
                 {
                     state.StartCoroutine(StartAITask(state, 2));
                     enableAI = true;
-                    buttonActive[1] = true;
+                    taskDone[1] = true;
                 }
-                else if (state.room1Buttons.items[2].GetComponent<FloorButton>().btnIsActive && !buttonActive[3] && !enableAI)
+                else if (GetNumberOfActiveButtons(state) == 3 && !taskDone[2] && !enableAI)
                 {
+                    state.playerPicking.enabled = true;
                     PlayerInput.Instance.DisablePlayerMovement(false);
+                    taskDone[2] = true;
                 }
-                if (state.room1Buttons.items[3].GetComponent<FloorButton>().btnIsActive && Vector3.Distance(state.playerTransform.position, state.playerPlaceHolder.position) < 1.5f && !buttonActive[4])
+                if (GetNumberOfActiveButtons(state) == 4 && Vector3.Distance(state.playerTransform.position, state.room1PlayerPos.position) < 1.5f && !taskDone[4])
                 {
+                    state.room1Door.EnableDoor = true;
                     for (int i = 0; i < state.listOfAI.Count; i++)
                     {
                         AIStateManager ai = state.listOfAI.items[i].GetComponent<AIStateManager>();
+                        ai.targetIndex++;
                         ai.moveOnly = true;
-                        ai.currentTarget = ai.fourthTarget;
-                        state.StartCoroutine(ProceedToNextRoom(state,ai));
+                        ai.currentTarget = ai.targets[ai.targetIndex];
+                        state.StartCoroutine(ProceedToNextRoom(state, ai));
                     }
-                    buttonActive[4] = true;
+                    taskDone[4] = true;
                 }
+                
             }
         }
 
@@ -83,6 +91,21 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
             aiActive = true;
             enableAI = false;
         }
+
+        public int GetNumberOfActiveButtons(SceneStateManager state)
+        {
+            int activeBtns = 0;
+
+            foreach (var btn in state.room1Buttons.Items)
+            {
+                if (btn.GetComponent<FloorButton>().btnIsActive)
+                {
+                    activeBtns++;
+                }
+            }
+            return activeBtns;
+        }
+
 
         IEnumerator ProceedToNextRoom(SceneStateManager state, AIStateManager ai)
         {
