@@ -75,7 +75,7 @@ namespace AKVA.Interaction
             transform.forward = forward;
             controller.enabled = true;
         }
-        
+
         private void OnDrawGizmosSelected()
         {
             Debug.DrawRay(playerCamera.position, playerCamera.forward * distanceToMindControl, Color.red);

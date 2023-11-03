@@ -21,8 +21,10 @@ namespace AKVA.Assets.Vince.Scripts.AI
         [Header("Movement")]
         [HideInInspector] public MoveAI pathFind;
         [HideInInspector] public Transform currentTarget;
-        public Transform firstTarget, secondTarget, thirdTarget, fourthTarget;
+        public int targetIndex;
+        public Transform[] targets;
         public bool moveOnly;
+       
 
         //states
         public AIState currentState;
@@ -58,7 +60,11 @@ namespace AKVA.Assets.Vince.Scripts.AI
         {
             if (activateAI)
             {
-                currentTarget = firstTarget;
+                if(targetIndex >  0)
+                {
+                    targetIndex++;
+                }
+                currentTarget = targets[targetIndex];
                 SwitchState(moveState);
                 activateAI = false;
             }

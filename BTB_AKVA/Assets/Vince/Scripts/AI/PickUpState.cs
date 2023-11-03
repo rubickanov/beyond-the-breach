@@ -15,11 +15,11 @@ namespace AKVA.Assets.Vince.Scripts.AI
         public override void OnEnterState(AIStateManager state)
         {
             Debug.Log("PickUpState");
-            LookForObjectsToPick(state);
         }
 
         public override void OnUpdateState(AIStateManager state)
         {
+            LookForObjectsToPick(state);
         }
 
         private void LookForObjectsToPick(AIStateManager state)
@@ -29,7 +29,8 @@ namespace AKVA.Assets.Vince.Scripts.AI
             if (colliders.Length > 0)
             {
                 state.objOnHand = colliders[0].gameObject;
-                state.currentTarget = state.secondTarget;
+                state.targetIndex++;
+                state.currentTarget = state.targets[state.targetIndex];
                 state.SwitchState(state.moveState);
             }
         }
