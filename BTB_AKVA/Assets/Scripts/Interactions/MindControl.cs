@@ -1,7 +1,5 @@
 using UnityEngine;
 using AKVA.Player;
-using System.Collections;
-using System;
 
 namespace AKVA.Interaction
 {
