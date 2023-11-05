@@ -1,3 +1,16 @@
 {
-	"name": "Environment"
+    "name": "Environment",
+    "rootNamespace": "",
+    "references": [
+        "GUID:31518e2d21c4a7f4c935265da47f9ada"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
 }

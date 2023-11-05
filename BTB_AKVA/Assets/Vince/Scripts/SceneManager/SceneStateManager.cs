@@ -7,6 +7,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using AKVA.Assets.Vince.SO;
+using AKVA.Vince.SO;
 
 namespace AKVA.Assets.Vince.Scripts.SceneManager
 {
@@ -16,6 +17,7 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
         public MovementTutorialState movementTutorial = new MovementTutorialState();
         public Room1State room1State = new Room1State();
         public Room2State room2State = new Room2State();
+        public Room3State room3State = new Room3State();
 
         [HideInInspector] public Transform playerTransform;
         [HideInInspector] public Picking playerPicking;
@@ -39,6 +41,14 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
         [Header("Room 2 Scene")]
         public Transform room2PlayerPos;
         public RuntimeList room2Buttons;
+        public DoubleDoor room2Door;
+        public Transform aiInitPos;
+
+        [Header("Room 3 Scene")]
+        public Transform room3PlayerPos;
+        public BoolReference[] imagesAppeared;
+        public BoolReference tvTurnedOn;
+        public Transform[] aiDestination; 
 
         private void Start()
         {
