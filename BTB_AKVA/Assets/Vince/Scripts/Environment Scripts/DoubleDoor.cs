@@ -8,7 +8,7 @@ namespace AKVA.Assets.Vince.Scripts.Environment
     public class DoubleDoor : MonoBehaviour
     {
         [Header("Connect to button")]
-        [SerializeField] FloorButton[] floorButton;
+        [SerializeField] BatterySocket[] floorButton;
         [SerializeField] float numberOfBtnsActivated;
 
         [Header("Door Settings")]
@@ -32,10 +32,10 @@ namespace AKVA.Assets.Vince.Scripts.Environment
         {
             if (floorButton.Length > 0 || floorButton != null)
             {
-                foreach (FloorButton button in floorButton)
+                foreach (BatterySocket button in floorButton)
                 {
-                    button.onButtonPressed += ActivateDoor;
-                    button.onButtonReleased += DeactivateDoor;
+                    button.onBatteryPlaced += ActivateDoor;
+                    button.onBatteryRemoved += DeactivateDoor;
                 }
             }
         }
@@ -44,10 +44,10 @@ namespace AKVA.Assets.Vince.Scripts.Environment
         {
             if (floorButton.Length > 0)
             {
-                foreach (FloorButton button in floorButton)
+                foreach (BatterySocket button in floorButton)
                 {
-                    button.onButtonPressed -= ActivateDoor;
-                    button.onButtonReleased -= ActivateDoor;
+                    button.onBatteryPlaced -= ActivateDoor;
+                    button.onBatteryRemoved -= ActivateDoor;
                 }
             }
         }

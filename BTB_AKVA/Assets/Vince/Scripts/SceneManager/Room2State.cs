@@ -94,7 +94,7 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
 
             foreach (var btn in state.room2Buttons.Items)
             {
-                if (btn.GetComponent<FloorButton>().btnIsActive)
+                if (btn.GetComponent<BatterySocket>().socketIsActive)
                 {
                     activeBtns++;
                 }

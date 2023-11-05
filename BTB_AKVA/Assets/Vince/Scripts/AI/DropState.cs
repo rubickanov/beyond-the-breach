@@ -22,17 +22,16 @@ namespace AKVA.Assets.Vince.Scripts.AI
         private void LookForAPlaceToDrop(AIStateManager state)
         {
             Collider[] colliders = Physics.OverlapSphere(state.transform.position, state.sphereRadius, state.placesToDrop);
-            Debug.Log("Collider length " + colliders.Length);
 
             if (colliders.Length > 0 && state.objOnHand != null)
             {
-                Transform colliderPos = colliders[0].transform;
+                Transform colliderPos = colliders[0].GetComponentInChildren<Transform>().transform;
 
                 if(colliders.Length > 1)
                 {
                     foreach (Collider collider in colliders)
                     {
-                        if (!collider.GetComponent<FloorButton>().btnIsActive)
+                        if (!collider.GetComponent<BatterySocket>().socketIsActive)
                         {
                             colliderPos = collider.transform;
                             break;
