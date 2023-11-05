@@ -16,7 +16,8 @@ namespace AKVA.Interaction
 
         private bool isControlling = false;
 
-
+        [SerializeField] private Mesh playerMesh;
+        [SerializeField] private Material playerMaterial;
         private void Update()
         {
             RaycastHit hit;
@@ -30,7 +31,7 @@ namespace AKVA.Interaction
                         controlUI.SetActive(true);
                         if(Input.GetKeyDown(PlayerInput.Instance.Controls.interact))
                         {
-                            Control(mindControlledObject.transform);
+                            Control(mindControlledObject);
                         }
                     }
                 }
@@ -44,20 +45,22 @@ namespace AKVA.Interaction
                 cancelControlUI.SetActive(true);
                 if(Input.GetKeyDown(PlayerInput.Instance.Controls.interact))
                 {
-                    ReturnToBody(mindControlledObject.transform);
+                    ReturnToBody(mindControlledObject);
                 }
             }
         }
         
-        public void Control(Transform objectTransform)
+        public void Control(MindControlledObject controlledObject)
         {
-            Swap(objectTransform);
+            Swap(controlledObject.transform);
+            controlledObject.TakePlayerAppearance(playerMesh, playerMaterial);
             isControlling = true;
         }
 
-        private void ReturnToBody(Transform objectTransform)
+        private void ReturnToBody(MindControlledObject controlledObject)
         {
-            Swap(objectTransform);
+            Swap(controlledObject.transform);
+            controlledObject.ResetAppearance();
             isControlling = false;
         }
 

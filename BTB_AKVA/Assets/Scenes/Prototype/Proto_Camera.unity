@@ -237,7 +237,7 @@ GameObject:
   - component: {fileID: 126670081}
   - component: {fileID: 126670080}
   m_Layer: 0
-  m_Name: Capsule
+  m_Name: ObjectVisual
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -308,7 +308,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 126670077}
-  m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &271648583
 GameObject:
   m_ObjectHideFlags: 0
@@ -465,6 +465,8 @@ MonoBehaviour:
   distanceToMindControl: 10
   controlUI: {fileID: 1696740777}
   cancelControlUI: {fileID: 413510236932143081}
+  playerMesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+  playerMaterial: {fileID: 2100000, guid: f2269990ab331af43a34e0290e09e4f3, type: 2}
 --- !u!1 &560745703
 GameObject:
   m_ObjectHideFlags: 0
