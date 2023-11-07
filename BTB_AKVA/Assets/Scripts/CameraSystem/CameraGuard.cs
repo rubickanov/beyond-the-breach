@@ -23,6 +23,7 @@ namespace AKVA.CameraSystem
             return true;
         }
 
+
         private void Update()
         {
             if (IsSpotted(cam, target))

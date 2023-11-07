@@ -1,0 +1,16 @@
+{
+    "name": "GameplayUI",
+    "rootNamespace": "",
+    "references": [
+        "GUID:2ee2e691905db754687d152db7b97bf0"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
