@@ -11,6 +11,8 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
         {
             PlayerInput.Instance.DisablePlayerMovement(false);
             movementTask = new bool[3];
+            state.tutorialScreen.turnOnTV = true;
+            state.tutorialScreen.SetKeyLettersAndInsruction("W", "To Move Forward");
         }
         public override void OnUpdateState(SceneStateManager state)
         {
@@ -28,20 +30,24 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
                 if (Input.GetKeyDown(PlayerInput.Instance.Controls.forward) && !movementTask[0]) // move forward
                 {
                     movementTask[0] = true;
+                    state.tutorialScreen.SetKeyLettersAndInsruction("S", "To Move Backwards");
                     state.StartCoroutine(EnableMovement(state));
                 }
                 else if (movementTask[0] && Input.GetKeyDown(PlayerInput.Instance.Controls.backwards)) // move back
                 {
                     movementTask[1] = true;
+                    state.tutorialScreen.SetKeyLettersAndInsruction("D", "To Move Right");
                     state.StartCoroutine(EnableMovement(state));
                 }
                 else if (movementTask[1] && Input.GetKeyDown(PlayerInput.Instance.Controls.right)) // move right
                 {
                     movementTask[2] = true;
+                    state.tutorialScreen.SetKeyLettersAndInsruction("A", "To Move Left");
                     state.StartCoroutine(EnableMovement(state));
                 }
                 else if (movementTask[2] && Input.GetKeyDown(PlayerInput.Instance.Controls.left)) // move left
                 {
+                    state.tutorialScreen.ProceedToNextRoomText();
                     state.StartCoroutine(EnableMovement(state));
                     state.roomDoor.EnableDoor = true;
                     state.SwitchState(state.room1State);

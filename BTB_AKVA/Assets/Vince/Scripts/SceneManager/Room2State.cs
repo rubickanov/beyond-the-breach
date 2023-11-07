@@ -1,6 +1,7 @@
 using AKVA.Assets.Vince.Scripts.AI;
 using AKVA.Assets.Vince.Scripts.Environment;
 using AKVA.Player;
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -47,37 +48,42 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
         {
             if (aiActive)
             {
-                if (GetNumberOfActiveButtons(state) == 1 && !taskDone[0] && !enableAI)
+                if (GetNumberOfActiveSockets(state) == 1 && !taskDone[0] && !enableAI)
                 {
                     state.StartCoroutine(StartAITask(state, 1));
                     enableAI = true;
                     taskDone[0] = true;
                 }
-                else if (GetNumberOfActiveButtons(state) == 2 && !taskDone[1] && !enableAI)
+                else if (GetNumberOfActiveSockets(state) == 2 && !taskDone[1] && !enableAI)
                 {
                     state.playerPicking.enabled = true;
                     PlayerInput.Instance.DisablePlayerMovement(false);
                     taskDone[1] = true;
                 }
-                else if (GetNumberOfActiveButtons(state) == 3 && !taskDone[2] && !enableAI)
+                else if (GetNumberOfActiveSockets(state) == 3 && !taskDone[2] && !enableAI && Vector3.Distance(state.playerTransform.position, state.room2PlayerPos.position) < 1.5f)
                 {
+                    PlayerInput.Instance.DisablePlayerMovement(true);
                     state.StartCoroutine(StartAITask(state, 2));
                     enableAI = true;
                     taskDone[2] = true;
                 }
-                //if (GetNumberOfActiveButtons(state) == 4 && Vector3.Distance(state.playerTransform.position, state.room2PlayerPos.position) < 1.5f && !taskDone[4])
-                //{
-                //    state.room1Door.EnableDoor = true;
-                //    for (int i = 0; i < state.listOfAI.Count; i++)
-                //    {
-                //        AIStateManager ai = state.listOfAI.items[i].GetComponent<AIStateManager>();
-                //        ai.moveOnly = true;
-                //        ai.currentTarget = ai.targets[3];
-                //        state.StartCoroutine(ProceedToNextRoom(state, ai));
-                //    }
-                //    taskDone[4] = true;
-                //}
+                if (GetNumberOfActiveSockets(state) == 4 && !taskDone[3] && Vector3.Distance(state.listOfAI.items[2].transform.position, state.aiInitPos.position) < 1.7f)
+                {
+                    PlayerInput.Instance.DisablePlayerMovement(false);
+                    state.room2Door.EnableDoor = true;
+                    for (int i = 0; i < state.listOfAI.Count; i++)
+                    {
+                        AIStateManager ai = state.listOfAI.items[i].GetComponent<AIStateManager>();
+                        ai.targetIndex++;
+                        ai.moveOnly = true;
+                        ai.currentTarget = ai.targets[ai.targetIndex];
+                        state.StartCoroutine(ProceedToNextRoom(state, ai));
+                    }
+                    taskDone[3] = true;
+                }
             }
+
+            Debug.Log(Vector3.Distance(state.listOfAI.items[2].transform.position, state.aiInitPos.position));
         }
 
         IEnumerator StartAITask(SceneStateManager state, int aiIndex) //Starting AI to do its task
@@ -88,30 +94,30 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
             enableAI = false;
         }
 
-        public int GetNumberOfActiveButtons(SceneStateManager state)
+        public int GetNumberOfActiveSockets(SceneStateManager state)
         {
-            int activeBtns = 0;
+            int activeSockets = 0;
 
             foreach (var btn in state.room2Buttons.Items)
             {
-                if (btn.GetComponent<FloorButton>().btnIsActive)
+                if (btn.GetComponent<BatterySocket>().socketIsActive)
                 {
-                    activeBtns++;
+                    activeSockets++;
                 }
             }
-            return activeBtns;
+            return activeSockets;
         }
 
         IEnumerator ProceedToNextRoom(SceneStateManager state, AIStateManager ai)
         {
             yield return new WaitForSeconds(2f);
             ai.SwitchState(ai.moveState);
-            state.SwitchState(state.room2State);
+            state.SwitchState(state.room3State);
         }
 
         void DisableAIMoveOnly(SceneStateManager state)
         {
-            foreach(GameObject ai in state.listOfAI.Items)
+            foreach (GameObject ai in state.listOfAI.Items)
             {
                 if (ai.GetComponent<AIStateManager>().moveOnly)
                 {

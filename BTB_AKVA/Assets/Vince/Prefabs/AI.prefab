@@ -154,7 +154,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb8acb2dea1131d458534c6833b8dd7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
   speed: 3
 --- !u!114 &1694137157552012215
 MonoBehaviour:
@@ -180,10 +179,8 @@ MonoBehaviour:
     m_Bits: 512
   pathFind: {fileID: 0}
   currentTarget: {fileID: 0}
-  firstTarget: {fileID: 0}
-  secondTarget: {fileID: 0}
-  thirdTarget: {fileID: 0}
-  fourthTarget: {fileID: 0}
+  targetIndex: 0
+  targets: []
   moveOnly: 0
 --- !u!1 &6476664404100232106
 GameObject:

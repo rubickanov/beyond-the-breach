@@ -1,5 +1,6 @@
 using UnityEngine;
 using AKVA.Player;
+using AKVA.Assets.Vince.Scripts.Environment;
 
 namespace AKVA.Interaction
 {
@@ -10,13 +11,14 @@ namespace AKVA.Interaction
         [SerializeField] private Transform PickupTarget;
         [Space]
         [SerializeField] private float PickupRange;
-        private Rigidbody CurrentObject;
+        public Rigidbody CurrentObject;
+        InteractableBattery battery;
 
         void Update()
         {
-            if(Input.GetKeyDown(PlayerInput.Instance.Controls.pick))
+            if (Input.GetKeyDown(PlayerInput.Instance.Controls.pick))
             {
-                if(CurrentObject)
+                if (CurrentObject)
                 {
                     CurrentObject.useGravity = true;
                     CurrentObject = null;
@@ -24,7 +26,7 @@ namespace AKVA.Interaction
                 }
 
                 Ray CameraRay = PlayerCam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
-                if(Physics.Raycast(CameraRay, out RaycastHit HitInfo, PickupRange, PickupMask))
+                if (Physics.Raycast(CameraRay, out RaycastHit HitInfo, PickupRange, PickupMask))
                 {
                     CurrentObject = HitInfo.rigidbody;
                     CurrentObject.useGravity = false;
@@ -34,13 +36,36 @@ namespace AKVA.Interaction
 
         void FixedUpdate()
         {
-            if(CurrentObject)
+            if (CurrentObject)
             {
                 Vector3 DirectionToPoint = PickupTarget.position - CurrentObject.position;
                 float DistanceToPoint = DirectionToPoint.magnitude;
 
                 CurrentObject.transform.forward = transform.forward;
                 CurrentObject.velocity = DirectionToPoint * 12f * DistanceToPoint;
+            }
+
+            BatteryInteraction();
+        }
+
+        void BatteryInteraction()
+        {
+            if (CurrentObject != null)
+            {
+                battery = CurrentObject.GetComponent<InteractableBattery>();
+
+                if (battery != null)
+                {
+                    battery.batteryOnHand = true;
+                }
+            }
+            else
+            {
+                if(battery != null)
+                {
+                    battery.batteryOnHand = false;
+                    battery = null;
+                }
             }
         }
     }

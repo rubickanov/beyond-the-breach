@@ -7,6 +7,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using AKVA.Assets.Vince.SO;
+using AKVA.Vince.SO;
 
 namespace AKVA.Assets.Vince.Scripts.SceneManager
 {
@@ -16,6 +17,7 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
         public MovementTutorialState movementTutorial = new MovementTutorialState();
         public Room1State room1State = new Room1State();
         public Room2State room2State = new Room2State();
+        public Room3State room3State = new Room3State();
 
         [HideInInspector] public Transform playerTransform;
         [HideInInspector] public Picking playerPicking;
@@ -26,6 +28,7 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
         public float timeDelayBeforePlayerMovement;
         public float timeDelayDuringTutorial;
         public DoubleDoor roomDoor;
+        [HideInInspector] public TutorialScreen tutorialScreen;
 
 
         [Header("Room 1 Scene")]
@@ -39,12 +42,22 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
         [Header("Room 2 Scene")]
         public Transform room2PlayerPos;
         public RuntimeList room2Buttons;
+        public DoubleDoor room2Door;
+        public Transform aiInitPos;
 
-        private void Start()
+        [Header("Room 3 Scene")]
+        public Transform room3PlayerPos;
+        public BoolReference[] imagesAppeared;
+        public BoolReference tvTurnedOn;
+        public Transform[] aiDestination;
+
+        private void Awake()
         {
             playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
             playerPicking = playerTransform.GetComponent<Picking>();
+            tutorialScreen = FindObjectOfType<TutorialScreen>();
             playerPicking.enabled = false;
+            PlayerInput.Instance.DisablePlayerMovement(true);
             MovementTutorial();
         }
 
@@ -71,7 +84,6 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
         IEnumerator StartMovementTutorial()
         {
             yield return new WaitForSeconds(timeDelayBeforePlayerMovement);
-            Debug.Log("Movement Tutorial Started");
             currentState = movementTutorial;
             currentState.OnEnterState(this);
         }
