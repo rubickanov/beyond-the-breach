@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using AKVA.Vince.SO;
+using Codice.Client.BaseCommands;
 
 namespace AKVA.Assets.Vince.Scripts.Environment
 {
@@ -31,9 +32,9 @@ namespace AKVA.Assets.Vince.Scripts.Environment
 
         private void ShowImages()
         {
-            if(tvTurnedOn.value)
+            if (tvTurnedOn.value)
             {
-                if (!imagesAppeared[0].value)
+                if (imagesAppeared[0].value)
                 {
                     StartCoroutine(ShowImage(0));
                 }
@@ -41,6 +42,11 @@ namespace AKVA.Assets.Vince.Scripts.Environment
                 if (imagesAppeared[1].value)
                 {
                     StartCoroutine(ShowImage(1));
+                }
+
+                if (imagesAppeared[2].value)
+                {
+                    StartCoroutine(ShowImage(2));
                 }
             }
         }
@@ -60,9 +66,16 @@ namespace AKVA.Assets.Vince.Scripts.Environment
         IEnumerator ShowImage(int imgNum)
         {
             yield return new WaitForSeconds(showImgDelay);
+
             spriteRenderer.enabled = true;
             spriteRenderer.sprite = images[imgNum];
-            imagesAppeared[imgNum].value = true;
+
+            if (imgNum == 2)
+            {
+                spriteRenderer.transform.localScale = Vector3.one * 0.6609973f;
+                bg.GetComponent<SpriteRenderer>().color = Color.red;
+            }
+            imagesAppeared[imgNum].value = false;
         }
     }
 }

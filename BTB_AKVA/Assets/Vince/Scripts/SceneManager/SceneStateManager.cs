@@ -28,6 +28,7 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
         public float timeDelayBeforePlayerMovement;
         public float timeDelayDuringTutorial;
         public DoubleDoor roomDoor;
+        [HideInInspector] public TutorialScreen tutorialScreen;
 
 
         [Header("Room 1 Scene")]
@@ -48,13 +49,15 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
         public Transform room3PlayerPos;
         public BoolReference[] imagesAppeared;
         public BoolReference tvTurnedOn;
-        public Transform[] aiDestination; 
+        public Transform[] aiDestination;
 
-        private void Start()
+        private void Awake()
         {
             playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
             playerPicking = playerTransform.GetComponent<Picking>();
+            tutorialScreen = FindObjectOfType<TutorialScreen>();
             playerPicking.enabled = false;
+            PlayerInput.Instance.DisablePlayerMovement(true);
             MovementTutorial();
         }
 
@@ -81,7 +84,6 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
         IEnumerator StartMovementTutorial()
         {
             yield return new WaitForSeconds(timeDelayBeforePlayerMovement);
-            Debug.Log("Movement Tutorial Started");
             currentState = movementTutorial;
             currentState.OnEnterState(this);
         }
