@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using AKVA.Player;
 
@@ -66,6 +67,11 @@ namespace AKVA.Interaction
 
         private void Swap(Transform objectTransform)
         {
+            StartCoroutine(SwapCoroutine(objectTransform));
+        }
+
+        private IEnumerator SwapCoroutine(Transform objectTransform)
+        {
             var position = objectTransform.position;
             Vector3 forward = objectTransform.forward;
             CharacterController controller = GetComponent<CharacterController>();
@@ -74,6 +80,7 @@ namespace AKVA.Interaction
             objectTransform.forward = transform.forward;
             transform.position = position;
             transform.forward = forward;
+            yield return new WaitForSeconds(0.1f);
             controller.enabled = true;
         }
 

@@ -1,4 +1,3 @@
-using AKVA.Controls;
 using UnityEngine;
 
 namespace AKVA.Player
@@ -59,8 +58,10 @@ namespace AKVA.Player
                 ref moveDampVelocity,
                 moveSmoothTime
             );
-
-            controller.Move(currentMoveVelocity * Time.deltaTime);
+            if (controller.enabled)
+            {
+                controller.Move(currentMoveVelocity * Time.deltaTime);
+            }
         }
 
         private void HandleJumpAndGravity()
@@ -78,7 +79,10 @@ namespace AKVA.Player
                 currentForceVelocity.y -= gravity * Time.deltaTime;
             }
 
-            controller.Move(currentForceVelocity * Time.deltaTime);
+            if (controller.enabled)
+            {
+                controller.Move(currentForceVelocity * Time.deltaTime);
+            }
         }
         
         private float GetAxis(KeyCode negative, KeyCode positive)
