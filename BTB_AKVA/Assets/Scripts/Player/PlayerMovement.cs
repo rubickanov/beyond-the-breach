@@ -12,7 +12,6 @@ namespace AKVA.Player
 
         [SerializeField] private Transform groundCheck;
         [SerializeField] private float groundCheckRadius;
-        [SerializeField] private LayerMask groundMask;
 
         private CharacterController controller;
         private Vector3 playerInput;
@@ -76,7 +75,7 @@ namespace AKVA.Player
             }
             else
             {
-                currentForceVelocity.y -= gravity * Time.deltaTime;
+                currentForceVelocity.y += gravity * Time.deltaTime;
             }
 
             if (controller.enabled)
@@ -107,7 +106,7 @@ namespace AKVA.Player
 
         private bool IsGrounded()
         {
-            return Physics.CheckSphere(groundCheck.position, groundCheckRadius, groundMask);
+            return Physics.CheckSphere(groundCheck.position, groundCheckRadius);
         }
 
         public bool IsMoving()

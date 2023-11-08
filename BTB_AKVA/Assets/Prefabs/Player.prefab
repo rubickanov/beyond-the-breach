@@ -130,6 +130,7 @@ GameObject:
   - component: {fileID: 7211653923379537257}
   - component: {fileID: 7062453349057015871}
   - component: {fileID: 762818149717611156}
+  - component: {fileID: 3591587196487252578}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -209,14 +210,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSmoothTime: 0.1
-  gravity: 10
-  jumpHeight: 8
+  gravity: -10
+  jumpHeight: 5
   walkSpeed: 5
   groundCheck: {fileID: 8357436912666925387}
-  groundCheckRadius: 0.1
-  groundMask:
-    serializedVersion: 2
-    m_Bits: 64
+  groundCheckRadius: 0.05
 --- !u!114 &165998808785362119
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -281,6 +279,24 @@ MonoBehaviour:
   distanceToMindControl: 10
   playerMesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
   playerMaterial: {fileID: 2100000, guid: f2269990ab331af43a34e0290e09e4f3, type: 2}
+  IsActive: 0
+--- !u!114 &3591587196487252578
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2557649736286915133}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6cce8da39e508ad4a8e91bb039f37c9b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cam: {fileID: 9176447138158732522}
+  distanceToInteract: 1.5
+  buttonLayer:
+    serializedVersion: 2
+    m_Bits: 4096
   IsActive: 0
 --- !u!1 &6289973324348462963
 GameObject:
@@ -450,7 +466,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8357436912666925387
 Transform:
   m_ObjectHideFlags: 0
