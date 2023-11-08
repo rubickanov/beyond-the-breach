@@ -1,12 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.Build;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace AKVA.Assets.Vince.Scripts.Environment
+namespace AKVA.Interaction
 {
-    public class Lever : MonoBehaviour
+    public class Lever : MonoBehaviour, IInteractable
     {
         [SerializeField] bool activate;
         [SerializeField] Transform armRoot;
@@ -14,19 +11,10 @@ namespace AKVA.Assets.Vince.Scripts.Environment
         [SerializeField] UnityEvent OnleverDown;
         [SerializeField] float targetRot;
         float currentXRot;
-        void Start()
-        {
-
-        }
 
         void Update()
         {
             RotateLever();
-
-            if (Input.GetKeyDown(KeyCode.E))
-            {
-                Activate();
-            }
         }
 
         public void Activate()
@@ -72,6 +60,11 @@ namespace AKVA.Assets.Vince.Scripts.Environment
             }
             Quaternion newRotation = Quaternion.Euler(currentXRot, armRoot.localRotation.eulerAngles.y, armRoot.localRotation.eulerAngles.z);
             armRoot.localRotation = newRotation;
+        }
+
+        public void Interact()
+        {
+            Activate();
         }
     }
 }

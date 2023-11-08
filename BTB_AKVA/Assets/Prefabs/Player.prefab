@@ -128,6 +128,8 @@ GameObject:
   - component: {fileID: 741005390888767928}
   - component: {fileID: 165998808785362119}
   - component: {fileID: 7211653923379537257}
+  - component: {fileID: 7062453349057015871}
+  - component: {fileID: 762818149717611156}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -211,7 +213,7 @@ MonoBehaviour:
   jumpHeight: 8
   walkSpeed: 5
   groundCheck: {fileID: 8357436912666925387}
-  groundCheckRadius: 0.25
+  groundCheckRadius: 0.1
   groundMask:
     serializedVersion: 2
     m_Bits: 64
@@ -227,10 +229,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9bd4cebe3d3cf244f82f17de864c6e38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  camera: {fileID: 9176447138158732522}
+  playerCamera: {fileID: 9176447138158732522}
   distanceToInteract: 1.5
-  interactionUI: {fileID: 8810586689853253204, guid: 1a74b924dccc24d4c8d25f62d842dc8d,
-    type: 3}
+  IsActive: 0
 --- !u!114 &7211653923379537257
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -243,12 +244,44 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22309d97b5876a747bc99be96a469348, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PickupMask:
+  pickupMask:
     serializedVersion: 2
     m_Bits: 2048
-  PlayerCam: {fileID: 2746141277739944398}
-  PickupTarget: {fileID: 3641686031981959347}
-  PickupRange: 3
+  playerCam: {fileID: 9176447138158732522}
+  pickupTarget: {fileID: 3641686031981959347}
+  pickupRange: 3
+  IsActive: 0
+--- !u!114 &7062453349057015871
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2557649736286915133}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35590129560c2a541b54b1b6c638696e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  secondsToDeactivate: 3
+  reticleUI: {fileID: 0}
+--- !u!114 &762818149717611156
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2557649736286915133}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2b85a262f1e4974dba7bbf15405d4ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerCamera: {fileID: 9176447138158732522}
+  distanceToMindControl: 10
+  playerMesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+  playerMaterial: {fileID: 2100000, guid: f2269990ab331af43a34e0290e09e4f3, type: 2}
+  IsActive: 0
 --- !u!1 &6289973324348462963
 GameObject:
   m_ObjectHideFlags: 0
@@ -321,7 +354,7 @@ Camera:
   field of view: 60
   orthographic: 0
   orthographic size: 5
-  m_Depth: -1
+  m_Depth: 1
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
