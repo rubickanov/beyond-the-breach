@@ -1,7 +1,7 @@
+using System.Collections;
 using UnityEngine;
 using AKVA.Player;
-using System.Collections;
-using System;
+using UnityEngine.Serialization;
 
 namespace AKVA.Interaction
 {
@@ -11,59 +11,68 @@ namespace AKVA.Interaction
         
         [SerializeField] private float distanceToMindControl;
 
-        [SerializeField] private GameObject controlUI;
-        [SerializeField] private GameObject cancelControlUI;
-
         private MindControlledObject mindControlledObject;
 
         private bool isControlling = false;
 
+        [SerializeField] private Mesh playerMesh;
+        [SerializeField] private Material playerMaterial;
 
+        public bool IsActive;
         private void Update()
         {
             RaycastHit hit;
             if(!isControlling)
             {
-                cancelControlUI.SetActive(false);
                 if(Physics.Raycast(playerCamera.position, playerCamera.forward, out hit, distanceToMindControl))
                 {
                     if(hit.transform.TryGetComponent(out mindControlledObject))
                     {
-                        controlUI.SetActive(true);
-                        if(Input.GetKeyDown(PlayerInput.Instance.Controls.interact))
+                        IsActive = true;
+                        if(Input.GetKeyDown(PlayerInput.Instance.Controls.mindControl))
                         {
-                            Control(mindControlledObject.transform);
+                            Control(mindControlledObject);
                         }
+                    }
+                    else
+                    {
+                        IsActive = false;
                     }
                 }
                 else
                 {
-                    controlUI.SetActive(false);
+                    IsActive = false;
                 }
             } else
             {
-                controlUI.SetActive(false);
-                cancelControlUI.SetActive(true);
-                if(Input.GetKeyDown(PlayerInput.Instance.Controls.interact))
+                IsActive = false;
+                if(Input.GetKeyDown(PlayerInput.Instance.Controls.mindControl))
                 {
-                    ReturnToBody(mindControlledObject.transform);
+                    ReturnToBody(mindControlledObject);
                 }
             }
         }
         
-        public void Control(Transform objectTransform)
+        public void Control(MindControlledObject controlledObject)
         {
-            Swap(objectTransform);
+            Swap(controlledObject.transform);
+            controlledObject.TakePlayerAppearance(playerMesh, playerMaterial);
             isControlling = true;
         }
 
-        private void ReturnToBody(Transform objectTransform)
+        private void ReturnToBody(MindControlledObject controlledObject)
         {
-            Swap(objectTransform);
+            Swap(controlledObject.transform);
+            controlledObject.ResetAppearance();
             isControlling = false;
         }
 
         private void Swap(Transform objectTransform)
+        {
+            StartCoroutine(SwapCoroutine(objectTransform));
+        }
+
+        private IEnumerator SwapCoroutine(Transform objectTransform)
         {
             var position = objectTransform.position;
             Vector3 forward = objectTransform.forward;
@@ -73,6 +82,7 @@ namespace AKVA.Interaction
             objectTransform.forward = transform.forward;
             transform.position = position;
             transform.forward = forward;
+            yield return new WaitForSeconds(0.1f);
             controller.enabled = true;
         }
 
