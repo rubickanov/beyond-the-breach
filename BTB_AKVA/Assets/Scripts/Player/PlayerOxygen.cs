@@ -23,10 +23,10 @@ namespace AKVA.Player
 
         private void Update()
         {
-            if (playerMovement.IsMoving())
-            {
-                oxygen -= Time.deltaTime;
-            }
+            // if (playerMovement.IsMoving())
+            // {
+            //     oxygen -= Time.deltaTime;
+            // }
         }
 
         public float GetOxygen()

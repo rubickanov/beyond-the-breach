@@ -1,5 +1,7 @@
+using System;
 using UnityEngine;
 using AKVA.GameplayUI;
+using UnityEditor;
 
 namespace AKVA.Interaction
 {
@@ -10,6 +12,7 @@ namespace AKVA.Interaction
         private MindControl mindControl;
         private Interaction interaction;
         private Picking picking;
+        private PassDeviceChecker passDeviceChecker;
 
         private float timer = 0;
 
@@ -18,12 +21,18 @@ namespace AKVA.Interaction
             mindControl = GetComponent<MindControl>();
             interaction = GetComponent<Interaction>();
             picking = GetComponent<Picking>();
+            passDeviceChecker = GetComponent<PassDeviceChecker>();
+        }
+
+        private void Start()
+        {
+            reticleUI.DisableReticleImmediately();
         }
 
         private void Update()
         {
             
-            if (!mindControl.IsActive && !picking.IsActive && !interaction.IsActive)
+            if (!mindControl.IsActive && !picking.IsActive && !interaction.IsActive && !passDeviceChecker.IsActive)
             {
                 reticleUI.SetDefaultUI();
                 timer += Time.deltaTime;
@@ -49,7 +58,11 @@ namespace AKVA.Interaction
                 } else if (picking.IsActive || interaction.IsActive)
                 {
                     reticleUI.SetInteractionUI();
+                } else if (passDeviceChecker.IsActive)
+                {
+                    reticleUI.SetDefaultUI();
                 }
+                
             }
         }
     }

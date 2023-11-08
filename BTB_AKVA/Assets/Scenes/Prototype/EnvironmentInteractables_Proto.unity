@@ -635,6 +635,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c23fb55d9a11aeb4fa9c7a3853968867, type: 3}
+--- !u!4 &636558573 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 9176447138158732522, guid: a646dd8a3217ce545940851a6315fd06,
+    type: 3}
+  m_PrefabInstance: {fileID: 936731422}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &936731422
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -643,6 +649,31 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 741005390888767928, guid: a646dd8a3217ce545940851a6315fd06,
+        type: 3}
+      propertyPath: gravity
+      value: -10
+      objectReference: {fileID: 0}
+    - target: {fileID: 741005390888767928, guid: a646dd8a3217ce545940851a6315fd06,
+        type: 3}
+      propertyPath: jumpHeight
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 741005390888767928, guid: a646dd8a3217ce545940851a6315fd06,
+        type: 3}
+      propertyPath: maxJumpTime
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 741005390888767928, guid: a646dd8a3217ce545940851a6315fd06,
+        type: 3}
+      propertyPath: gravityScale
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 741005390888767928, guid: a646dd8a3217ce545940851a6315fd06,
+        type: 3}
+      propertyPath: groundCheckRadius
+      value: 0.05
+      objectReference: {fileID: 0}
     - target: {fileID: 2557649736286915133, guid: a646dd8a3217ce545940851a6315fd06,
         type: 3}
       propertyPath: m_Name
@@ -698,6 +729,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6406361588998757695, guid: a646dd8a3217ce545940851a6315fd06,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7062453349057015871, guid: a646dd8a3217ce545940851a6315fd06,
         type: 3}
       propertyPath: reticleUI
@@ -706,7 +742,11 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2557649736286915133, guid: a646dd8a3217ce545940851a6315fd06,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1969515097}
   m_SourcePrefab: {fileID: 100100000, guid: a646dd8a3217ce545940851a6315fd06, type: 3}
 --- !u!4 &1124379503 stripped
 Transform:
@@ -1067,6 +1107,30 @@ Transform:
   - {fileID: 4841593652824904}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1969515088 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2557649736286915133, guid: a646dd8a3217ce545940851a6315fd06,
+    type: 3}
+  m_PrefabInstance: {fileID: 936731422}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1969515097
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1969515088}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6cce8da39e508ad4a8e91bb039f37c9b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cam: {fileID: 636558573}
+  distanceToInteract: 1.5
+  buttonLayer:
+    serializedVersion: 2
+    m_Bits: 4096
+  IsActive: 0
 --- !u!1 &2094996697
 GameObject:
   m_ObjectHideFlags: 0
@@ -10379,6 +10443,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5306512bdd7153428e9da9dbb68f03e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  distanceToInteract: 1.5
   password: 5678
   OnPasswordMatch:
     m_PersistentCalls:

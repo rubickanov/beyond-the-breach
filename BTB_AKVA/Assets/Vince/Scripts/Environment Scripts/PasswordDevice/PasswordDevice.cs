@@ -7,6 +7,8 @@ namespace AKVA.Assets.Vince.Scripts.Environment
 {
     public class PasswordDevice : MonoBehaviour
     {
+        [SerializeField] private float distanceToInteract;
+        
         [SerializeField] string password;
         [SerializeField] UnityEvent OnPasswordMatch;
         [SerializeField] GameObject[] screen;
@@ -24,7 +26,7 @@ namespace AKVA.Assets.Vince.Scripts.Environment
         private void MouseInteraction()
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray, out hit, 100, passwordKeylayer))
+            if (Physics.Raycast(ray, out hit, distanceToInteract, passwordKeylayer))
             {
                 if (Input.GetMouseButtonDown(0))
                 {

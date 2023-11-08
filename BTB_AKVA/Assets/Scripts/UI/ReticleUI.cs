@@ -50,6 +50,14 @@ namespace AKVA.GameplayUI
             StartCoroutine(DisableReticleCoroutine());
         }
 
+        public void DisableReticleImmediately()
+        {
+            float f = 0;
+            Color tempColor = imageHolder.color;
+            tempColor.a = f;
+            imageHolder.color = tempColor;
+        }
+
         private IEnumerator EnableReticleCoroutine()
         {
             float f = 1f;
