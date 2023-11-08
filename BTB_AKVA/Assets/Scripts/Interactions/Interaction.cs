@@ -1,5 +1,6 @@
 using UnityEngine;
 using AKVA.Player;
+using UnityEngine.Serialization;
 
 namespace AKVA.Interaction
 {
@@ -9,9 +10,9 @@ namespace AKVA.Interaction
         
         [SerializeField] private float distanceToInteract;
         
-        [SerializeField] private GameObject interactionUI;
-
         private IInteractable currentInteraction;
+
+        public bool IsActive;
 
         private void Update()
         {
@@ -20,16 +21,20 @@ namespace AKVA.Interaction
             {
                 if (hit.transform.TryGetComponent(out currentInteraction))
                 {
-                    interactionUI.SetActive(true);
+                    IsActive = true;
                     if (Input.GetKeyDown(PlayerInput.Instance.Controls.interact))
                     {
                         currentInteraction.Interact();
                     }
                 }
+                else
+                {
+                    IsActive = false;
+                }
             }
             else
             {
-                interactionUI.SetActive(false);
+                IsActive = false;
             }
         }
 

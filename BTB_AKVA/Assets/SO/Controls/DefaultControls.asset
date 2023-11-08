@@ -19,3 +19,4 @@ MonoBehaviour:
   jump: 32
   interact: 101
   pick: 101
+  mindControl: 113

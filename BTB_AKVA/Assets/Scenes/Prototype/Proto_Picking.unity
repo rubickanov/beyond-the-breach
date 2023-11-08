@@ -479,6 +479,12 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &726323842 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8810586689853253204, guid: 1a74b924dccc24d4c8d25f62d842dc8d,
+    type: 3}
+  m_PrefabInstance: {fileID: 2002128110}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &835916311
 GameObject:
   m_ObjectHideFlags: 0
@@ -585,6 +591,12 @@ RectTransform:
 --- !u!4 &1113507302 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9176447138158732522, guid: a646dd8a3217ce545940851a6315fd06,
+    type: 3}
+  m_PrefabInstance: {fileID: 1863595867}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1395890228 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3641686031981959347, guid: a646dd8a3217ce545940851a6315fd06,
     type: 3}
   m_PrefabInstance: {fileID: 1863595867}
   m_PrefabAsset: {fileID: 0}
@@ -853,6 +865,31 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7211653923379537257, guid: a646dd8a3217ce545940851a6315fd06,
+        type: 3}
+      propertyPath: popUpUI
+      value: 
+      objectReference: {fileID: 726323842}
+    - target: {fileID: 7211653923379537257, guid: a646dd8a3217ce545940851a6315fd06,
+        type: 3}
+      propertyPath: playerCam
+      value: 
+      objectReference: {fileID: 1113507302}
+    - target: {fileID: 7211653923379537257, guid: a646dd8a3217ce545940851a6315fd06,
+        type: 3}
+      propertyPath: pickupRange
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7211653923379537257, guid: a646dd8a3217ce545940851a6315fd06,
+        type: 3}
+      propertyPath: pickupTarget
+      value: 
+      objectReference: {fileID: 1395890228}
+    - target: {fileID: 7211653923379537257, guid: a646dd8a3217ce545940851a6315fd06,
+        type: 3}
+      propertyPath: pickupMask.m_Bits
+      value: 2048
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

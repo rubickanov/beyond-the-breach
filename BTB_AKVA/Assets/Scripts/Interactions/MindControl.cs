@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using AKVA.Player;
+using UnityEngine.Serialization;
 
 namespace AKVA.Interaction
 {
@@ -10,41 +11,42 @@ namespace AKVA.Interaction
         
         [SerializeField] private float distanceToMindControl;
 
-        [SerializeField] private GameObject controlUI;
-        [SerializeField] private GameObject cancelControlUI;
-
         private MindControlledObject mindControlledObject;
 
         private bool isControlling = false;
 
         [SerializeField] private Mesh playerMesh;
         [SerializeField] private Material playerMaterial;
+
+        public bool IsActive;
         private void Update()
         {
             RaycastHit hit;
             if(!isControlling)
             {
-                cancelControlUI.SetActive(false);
                 if(Physics.Raycast(playerCamera.position, playerCamera.forward, out hit, distanceToMindControl))
                 {
                     if(hit.transform.TryGetComponent(out mindControlledObject))
                     {
-                        controlUI.SetActive(true);
-                        if(Input.GetKeyDown(PlayerInput.Instance.Controls.interact))
+                        IsActive = true;
+                        if(Input.GetKeyDown(PlayerInput.Instance.Controls.mindControl))
                         {
                             Control(mindControlledObject);
                         }
                     }
+                    else
+                    {
+                        IsActive = false;
+                    }
                 }
                 else
                 {
-                    controlUI.SetActive(false);
+                    IsActive = false;
                 }
             } else
             {
-                controlUI.SetActive(false);
-                cancelControlUI.SetActive(true);
-                if(Input.GetKeyDown(PlayerInput.Instance.Controls.interact))
+                IsActive = false;
+                if(Input.GetKeyDown(PlayerInput.Instance.Controls.mindControl))
                 {
                     ReturnToBody(mindControlledObject);
                 }

@@ -1,48 +1,61 @@
 using UnityEngine;
 using AKVA.Player;
 using AKVA.Assets.Vince.Scripts.Environment;
+using UnityEngine.Serialization;
 
 namespace AKVA.Interaction
 {
     public class Picking : MonoBehaviour
     {
-        [SerializeField] private LayerMask PickupMask;
-        [SerializeField] private Camera PlayerCam;
-        [SerializeField] private Transform PickupTarget;
-        [Space]
-        [SerializeField] private float PickupRange;
-        public Rigidbody CurrentObject;
+        [SerializeField] private LayerMask pickupMask;
+        [SerializeField] private Transform playerCam;
+        [SerializeField] private Transform pickupTarget;
+        [SerializeField] private float pickupRange;
+
+        private Rigidbody currentObject;
         InteractableBattery battery;
 
-        void Update()
-        {
-            if (Input.GetKeyDown(PlayerInput.Instance.Controls.pick))
-            {
-                if (CurrentObject)
-                {
-                    CurrentObject.useGravity = true;
-                    CurrentObject = null;
-                    return;
-                }
+        public bool IsActive;
 
-                Ray CameraRay = PlayerCam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
-                if (Physics.Raycast(CameraRay, out RaycastHit HitInfo, PickupRange, PickupMask))
+        private void Update()
+        {
+            if (currentObject == null)
+            {
+                if (Physics.Raycast(playerCam.position, playerCam.forward, out RaycastHit hit, pickupRange, pickupMask))
                 {
-                    CurrentObject = HitInfo.rigidbody;
-                    CurrentObject.useGravity = false;
+                    IsActive = true;
+                    if (Input.GetKeyDown(PlayerInput.Instance.Controls.pick))
+                    {
+                        currentObject = hit.rigidbody;
+                        currentObject.useGravity = false;
+                    }
+                }
+                else
+                {
+                    IsActive = false;
+                }    
+            }
+            else
+            {
+                IsActive = false;
+                if (Input.GetKeyDown(PlayerInput.Instance.Controls.pick))
+                {
+                    currentObject.useGravity = true;
+                    currentObject = null;
                 }
             }
+            
         }
 
         void FixedUpdate()
         {
-            if (CurrentObject)
+            if (currentObject)
             {
-                Vector3 DirectionToPoint = PickupTarget.position - CurrentObject.position;
+                Vector3 DirectionToPoint = pickupTarget.position - currentObject.position;
                 float DistanceToPoint = DirectionToPoint.magnitude;
 
-                CurrentObject.transform.forward = transform.forward;
-                CurrentObject.velocity = DirectionToPoint * 12f * DistanceToPoint;
+                currentObject.transform.forward = transform.forward;
+                currentObject.velocity = DirectionToPoint * 12f * DistanceToPoint;
             }
 
             BatteryInteraction();
@@ -50,9 +63,9 @@ namespace AKVA.Interaction
 
         void BatteryInteraction()
         {
-            if (CurrentObject != null)
+            if (currentObject != null)
             {
-                battery = CurrentObject.GetComponent<InteractableBattery>();
+                battery = currentObject.GetComponent<InteractableBattery>();
 
                 if (battery != null)
                 {
