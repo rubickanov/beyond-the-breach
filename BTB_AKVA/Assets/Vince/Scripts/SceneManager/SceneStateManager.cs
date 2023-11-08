@@ -30,7 +30,6 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
         public DoubleDoor roomDoor;
         [HideInInspector] public TutorialScreen tutorialScreen;
 
-
         [Header("Room 1 Scene")]
         public DoubleDoor room1Door;
         public Transform room1PlayerPos;
@@ -38,12 +37,11 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
         public RuntimeList room1Boxes;
         public RuntimeList room1PositionPoints;
 
-
         [Header("Room 2 Scene")]
         public Transform room2PlayerPos;
         public RuntimeList room2Buttons;
         public DoubleDoor room2Door;
-        public Transform aiInitPos;
+        [HideInInspector] public Transform aiPos;
 
         [Header("Room 3 Scene")]
         public Transform room3PlayerPos;

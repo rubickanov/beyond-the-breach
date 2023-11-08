@@ -20,7 +20,8 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
         {
             Debug.Log("Room 2 State!");
             state.playerPicking.enabled = false;
-            taskDone = new bool[5];
+            taskDone = new bool[5]; 
+            state.aiPos = state.listOfAI.items[2].GetComponent<AIStateManager>().targets[6].transform;
         }
 
         public override void OnExitState(SceneStateManager state)
@@ -76,7 +77,7 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
                     enableAI = true;
                     taskDone[2] = true;
                 }
-                if (GetNumberOfActiveSockets(state) == 4 && !taskDone[3] && Vector3.Distance(state.listOfAI.items[2].transform.position, state.aiInitPos.position) < 3.5f)
+                if (GetNumberOfActiveSockets(state) == 4 && !taskDone[3] && Vector3.Distance(state.listOfAI.items[2].transform.position, state.aiPos.position) < 3f)
                 {
                     PlayerInput.Instance.DisablePlayerMovement(false);
                     state.room2Door.EnableDoor = true;
@@ -92,7 +93,7 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
                 }
             }
 
-            Debug.Log(Vector3.Distance(state.listOfAI.items[2].transform.position, state.aiInitPos.position));
+            Debug.Log(Vector3.Distance(state.listOfAI.items[2].transform.position, state.aiPos.position));
         }
 
         IEnumerator StartAITask(SceneStateManager state, int aiIndex) //Starting AI to do its task

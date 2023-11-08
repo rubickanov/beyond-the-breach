@@ -22,7 +22,7 @@ namespace AKVA.Assets.Vince.Scripts.AI
 
         private void CheckTargetDistance(AIStateManager state)
         {
-            if (Vector3.Distance(state.gameObject.transform.position, state.currentTarget.position) <= 2.5f)
+            if (Vector3.Distance(state.gameObject.transform.position, state.currentTarget.position) <= 2f)
             {
                 if (!state.moveOnly)
                 {

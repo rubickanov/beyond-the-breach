@@ -31,14 +31,13 @@ namespace AKVA.Assets.Vince.Scripts.AI
         public bool moveOnly;
         public bool x;
 
-
-
         //states
         public AIState currentState;
         public MoveState moveState = new MoveState();
         public PickUpState pickUpState = new PickUpState();
         public DropState dropState = new DropState();
         public DeathState deathState = new DeathState();
+
         void Start()
         {
             pathFind = GetComponent<MoveAI>();
@@ -89,16 +88,6 @@ namespace AKVA.Assets.Vince.Scripts.AI
         {
             currentState = state;
             state.OnEnterState(this);
-
-
-
-
-
-
-
-
-
-
         }
 
         private void OnTriggerEnter(Collider other)
