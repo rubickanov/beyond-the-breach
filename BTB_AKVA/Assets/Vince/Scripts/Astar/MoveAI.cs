@@ -9,6 +9,16 @@ namespace AKVA.Assets.Vince.Scripts.Astar
         public float speed = 1;
         Vector3[] path;
         int targetIndex;
+        Rigidbody rb;
+
+        void Start ()
+        {
+            rb = GetComponent<Rigidbody>();
+        }
+
+        private void Update()
+        {
+        }
 
         public void FindPath(Transform target)
         {

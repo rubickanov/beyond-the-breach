@@ -229,8 +229,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42081bfe7ae3c674390bbec5b8ad9994, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  floorButton:
-  - {fileID: 0}
+  floorButton: []
   numberOfBtnsActivated: 0
   leftDoor: {fileID: 2843125512161345325}
   rightDoor: {fileID: 123019199223181615}

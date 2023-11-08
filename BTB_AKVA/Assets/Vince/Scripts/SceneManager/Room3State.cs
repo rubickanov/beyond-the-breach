@@ -6,6 +6,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Resources;
+using System.Threading;
 using UnityEngine;
 
 
@@ -17,6 +18,7 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
         bool aiActive; //Initiates the AI task
         bool[] task; //Initiate Each AI to be activated
         bool aiEnabled;
+        int index;
 
 
         public override void OnEnterState(SceneStateManager state)
@@ -53,7 +55,7 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
         {
             if (aiActive)
             {
-                if (Vector3.Distance(state.listOfAI.items[0].transform.position, state.aiDestination[0].position) < 2.5f && !task[0] && !aiEnabled)
+                if (Vector3.Distance(state.listOfAI.items[0].transform.position, state.aiDestination[0].position) < 4f && !task[0] && !aiEnabled)
                 {
                     state.imagesAppeared[1].value = true;
                     state.StartCoroutine(StartAITask(state, 0, 4.5f, true));
@@ -62,9 +64,12 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
 
                 if (task[0] && !task[1])
                 {
-                    state.imagesAppeared[2].value = true;
                     task[1] = true;
+                    state.StartCoroutine(Electricute(state, 5f));
+                    state.imagesAppeared[2].value = true;
+                    state.listOfAI.items[0].transform.position = new Vector3(state.listOfAI.items[0].transform.position.x, -1.16f, state.listOfAI.items[0].transform.position.z);
                 }
+
             }
         }
 
@@ -78,6 +83,21 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
             {
                 task[0] = true;
             }
+        }
+
+        IEnumerator Electricute(SceneStateManager state, float delayTime)
+        {
+            while(index < state.listOfAI.Count)
+            {
+                yield return new WaitForSeconds(delayTime);
+                GameObject ai = state.listOfAI.items[index];
+                ai.GetComponent<Animator>().applyRootMotion = true;
+                ai.GetComponent<CapsuleCollider>().enabled = false;
+                ai.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+                ai.GetComponent<AIStateManager>().SwitchState(ai.GetComponent<AIStateManager>().deathState);
+                index++;
+            }
+
         }
     }
 }

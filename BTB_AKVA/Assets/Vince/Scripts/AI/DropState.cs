@@ -9,6 +9,7 @@ namespace AKVA.Assets.Vince.Scripts.AI
 {
     public class DropState : AIState
     {
+        Transform colliderPos;
         public override void OnCollisionEnter(AIStateManager state, Collider collider)
         {
         }
@@ -16,9 +17,11 @@ namespace AKVA.Assets.Vince.Scripts.AI
         public override void OnEnterState(AIStateManager state)
         {
             Debug.Log("DropState");
+        }
+        public override void OnUpdateState(AIStateManager state)
+        {
             LookForAPlaceToDrop(state);
         }
-
         private void LookForAPlaceToDrop(AIStateManager state)
         {
             Collider[] colliders = Physics.OverlapSphere(state.transform.position, state.sphereRadius, state.placesToDrop);
@@ -38,26 +41,28 @@ namespace AKVA.Assets.Vince.Scripts.AI
                         }
                     }
                 }
-               
-                state.objOnHand.transform.position = colliderPos.position;
-                state.objOnHand.GetComponent<Collider>().isTrigger = false;
-                state.objOnHand = null;
-                state.moveOnly = true;
-                state.targetIndex++;
-                state.currentTarget = state.targets[state.targetIndex];
-                state.StartCoroutine(SwitchStateDelay(state, 1f));
+
+                state.robotAnim.ChangeAnimState(state.robotAnim.Robot_DropItem);
+
+                if (state.dropItem)
+                {
+                    state.objOnHand.transform.position = colliderPos.position;
+                    state.objOnHand.GetComponent<Collider>().isTrigger = false;
+                    state.objOnHand = null;
+                    state.moveOnly = true;
+                    state.targetIndex++;
+                    state.currentTarget = state.targets[state.targetIndex];
+                    state.StartCoroutine(SwitchStateDelay(state, 1f));
+                }
             }
         }
 
         IEnumerator SwitchStateDelay(AIStateManager state, float delayTime)
         {
             yield return new WaitForSeconds(delayTime);
+            state.dropItem = false;
+            state.robotAnim.ChangeAnimState(state.robotAnim.Robot_Walk);
             state.SwitchState(state.moveState);
-        }
-
-        public override void OnUpdateState(AIStateManager state)
-        {
-
         }
     }
 }
