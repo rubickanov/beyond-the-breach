@@ -22,7 +22,7 @@ namespace AKVA.Assets.Vince.Scripts.Environment
         [SerializeField] LayerMask allowedToOpen;
         [SerializeField] float rayLength = 1f;
         RaycastHit hit;
-        float leftDoorInitPos, rightDoorInitPos;
+        public float leftDoorInitPos, rightDoorInitPos;
 
         #region Properties
         public bool EnableDoor { set => activated = value; }
@@ -52,10 +52,10 @@ namespace AKVA.Assets.Vince.Scripts.Environment
             }
         }
 
-        void Start()
+        void Awake()
         {
-            leftDoorInitPos = leftDoor.position.x;
-            rightDoorInitPos = rightDoor.position.x;
+            leftDoorInitPos = leftDoor.localPosition.x;
+            rightDoorInitPos = rightDoor.localPosition.x;
         }
 
         void Update()
@@ -116,19 +116,19 @@ namespace AKVA.Assets.Vince.Scripts.Environment
 
         private void OpenDoor()
         {
-            float leftDoorTargetPos = -3.8f;
-            float rightDoorTargetPos = 5f;
+            float leftDoorTargetPos = -3.272f;
+            float rightDoorTargetPos = 3.28f;
 
-            if (leftDoor.position.x > leftDoorTargetPos)
+            if (leftDoor.localPosition.x > leftDoorTargetPos)
             {
-                float newX = Mathf.Lerp(leftDoor.position.x, leftDoorTargetPos, doorSpeed * Time.deltaTime);
-                leftDoor.position = new Vector3(newX, leftDoor.position.y, leftDoor.position.z);
+                float newX = Mathf.Lerp(leftDoor.localPosition.x, leftDoorTargetPos, doorSpeed * Time.deltaTime);
+                leftDoor.localPosition = new Vector3(newX, leftDoor.localPosition.y, leftDoor.localPosition.z);
             }
 
-            if (rightDoor.position.x < rightDoorTargetPos)
+            if (rightDoor.localPosition.x < rightDoorTargetPos)
             {
-                float newX = Mathf.Lerp(rightDoor.position.x, rightDoorTargetPos, doorSpeed * Time.deltaTime);
-                rightDoor.position = new Vector3(newX, rightDoor.position.y, rightDoor.position.z);
+                float newX = Mathf.Lerp(rightDoor.localPosition.x, rightDoorTargetPos, doorSpeed * Time.deltaTime);
+                rightDoor.localPosition = new Vector3(newX, rightDoor.localPosition.y, rightDoor.localPosition.z);
             }
         }
 
@@ -137,16 +137,16 @@ namespace AKVA.Assets.Vince.Scripts.Environment
             float leftDoorTargetPos = leftDoorInitPos;
             float rightDoorTargetPos = rightDoorInitPos;
 
-            if (leftDoor.position.x < leftDoorTargetPos)
+            if (leftDoor.localPosition.x < leftDoorTargetPos)
             {
-                float newX = Mathf.Lerp(leftDoor.position.x, leftDoorTargetPos, doorSpeed * Time.deltaTime);
-                leftDoor.position = new Vector3(newX, leftDoor.position.y, leftDoor.position.z);
+                float newX = Mathf.Lerp(leftDoor.localPosition.x, leftDoorTargetPos, doorSpeed * Time.deltaTime);
+                leftDoor.localPosition = new Vector3(newX, leftDoor.localPosition.y, leftDoor.localPosition.z);
             }
 
-            if (rightDoor.position.x > rightDoorTargetPos)
+            if (rightDoor.localPosition.x > rightDoorTargetPos)
             {
-                float newX = Mathf.Lerp(rightDoor.position.x, rightDoorTargetPos, doorSpeed * Time.deltaTime);
-                rightDoor.position = new Vector3(newX, rightDoor.position.y, rightDoor.position.z);
+                float newX = Mathf.Lerp(rightDoor.localPosition.x, rightDoorTargetPos, doorSpeed * Time.deltaTime);
+                rightDoor.localPosition = new Vector3(newX, rightDoor.localPosition.y, rightDoor.localPosition.z);
             }
         }
 

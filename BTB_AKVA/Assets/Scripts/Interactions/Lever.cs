@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -9,8 +10,10 @@ namespace AKVA.Interaction
         [SerializeField] Transform armRoot;
         [SerializeField] UnityEvent OnleverUp;
         [SerializeField] UnityEvent OnleverDown;
-        [SerializeField] float targetRot;
+        [SerializeReference] float interactionCooldownDuration = 1.0f;
         float currentXRot;
+        float targetRot = 90;
+        bool interactionCooldown = false;
 
         void Update()
         {
@@ -19,7 +22,7 @@ namespace AKVA.Interaction
 
         public void Activate()
         {
-            if(!activate)
+            if (!activate && !interactionCooldown)
             {
                 activate = true;
             }
@@ -33,7 +36,7 @@ namespace AKVA.Interaction
                 {
                     if (currentXRot < targetRot)
                     {
-                        currentXRot = Mathf.Lerp(currentXRot, targetRot, 7f * Time.deltaTime);
+                        currentXRot = Mathf.Lerp(currentXRot, targetRot, 5f * Time.deltaTime);
                         OnleverUp.Invoke();
                     }
                     if (currentXRot > 88)
@@ -41,6 +44,7 @@ namespace AKVA.Interaction
                         currentXRot = 90;
                         targetRot = -90;
                         activate = false;
+                        StartInteractionCooldown();
                     }
                 }
                 else if (targetRot == -90)
@@ -55,6 +59,7 @@ namespace AKVA.Interaction
                         currentXRot = -90;
                         targetRot = 90;
                         activate = false;
+                        StartInteractionCooldown();
                     }
                 }
             }
@@ -65,6 +70,18 @@ namespace AKVA.Interaction
         public void Interact()
         {
             Activate();
+        }
+
+        void StartInteractionCooldown()
+        {
+            interactionCooldown = true;
+            StartCoroutine(EndInteractionCooldown());
+        }
+
+        IEnumerator EndInteractionCooldown()
+        {
+            yield return new WaitForSeconds(interactionCooldownDuration);
+            interactionCooldown = false;
         }
     }
 }
