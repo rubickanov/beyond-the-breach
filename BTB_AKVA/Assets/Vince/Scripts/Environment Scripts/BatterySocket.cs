@@ -8,6 +8,9 @@ namespace AKVA.Assets.Vince.Scripts.Environment
 {
     public class BatterySocket : MonoBehaviour
     {
+        [SerializeField] UnityEvent OnSocketEnabled;
+        [SerializeField] UnityEvent OnSocketDisabled;
+
         [SerializeField] Transform batteryPlaceHolder;
 
         [Header("Colored Button")]
@@ -40,6 +43,7 @@ namespace AKVA.Assets.Vince.Scripts.Environment
                 if (interactableBattery != null && !interactableBattery.batteryOnHand)
                 {
                     socketMaterial.EnableKeyword("_EMISSION");
+                    OnSocketEnabled.Invoke();
                     battery.position = batteryPlaceHolder.position;
                     battery.rotation = batteryPlaceHolder.rotation;
                 }
@@ -70,6 +74,7 @@ namespace AKVA.Assets.Vince.Scripts.Environment
             if (collision.gameObject.tag == "Battery")
             {
                 onBatteryRemoved?.Invoke();
+                OnSocketDisabled.Invoke();
                 socketMaterial.DisableKeyword("_EMISSION");
                 collision.gameObject.GetComponent<InteractableBattery>().inSocket = false;
                 socketIsActive = false;
