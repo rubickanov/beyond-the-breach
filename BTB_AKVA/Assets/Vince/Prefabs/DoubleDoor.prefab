@@ -242,6 +242,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1033
   rayLength: 2
+  leftDoorInitPos: 0
+  rightDoorInitPos: 0
 --- !u!1 &7128869010773619696
 GameObject:
   m_ObjectHideFlags: 0

@@ -11,9 +11,16 @@ namespace AKVA.Interaction
         [SerializeField] UnityEvent OnleverUp;
         [SerializeField] UnityEvent OnleverDown;
         [SerializeReference] float interactionCooldownDuration = 1.0f;
+        [SerializeField] Renderer[] deviceMat;
         float currentXRot;
         float targetRot = 90;
         bool interactionCooldown = false;
+        public bool powerOn;
+
+        void Awake()
+        {
+            EnableMatEmission(powerOn);
+        }
 
         void Update()
         {
@@ -22,7 +29,7 @@ namespace AKVA.Interaction
 
         public void Activate()
         {
-            if (!activate && !interactionCooldown)
+            if (!activate && !interactionCooldown && powerOn)
             {
                 activate = true;
             }
@@ -30,7 +37,7 @@ namespace AKVA.Interaction
 
         private void RotateLever()
         {
-            if (activate)
+            if (activate && powerOn)
             {
                 if (targetRot == 90)
                 {
@@ -70,6 +77,31 @@ namespace AKVA.Interaction
         public void Interact()
         {
             Activate();
+        }
+        public void EnableLever(bool enable)
+        {
+            powerOn = enable;
+            EnableMatEmission(enable);
+        }
+
+        void EnableMatEmission(bool enable)
+        {
+            if (enable)
+            {
+                foreach (Renderer mat in deviceMat)
+                {
+                    Material[] mats = mat.materials;
+                    mats[mats.Length - 1].EnableKeyword("_EMISSION");
+                }
+            }
+            else
+            {
+                foreach (Renderer mat in deviceMat)
+                {
+                    Material[] mats = mat.materials;
+                    mats[mats.Length - 1].DisableKeyword("_EMISSION");
+                }
+            }
         }
 
         void StartInteractionCooldown()

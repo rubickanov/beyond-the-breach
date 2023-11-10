@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Box
   - Battery
+  - MovingPlatform
   layers:
   - Default
   - TransparentFX

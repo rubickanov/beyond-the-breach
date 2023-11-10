@@ -7,7 +7,10 @@ namespace AKVA.Assets.Vince.Scripts.Environment
         public float platformSpeed = 3f;
         public Transform target;
         Vector3 initPos;
-        bool pos1, pos2;
+        public 
+            
+            
+            bool pos1, pos2;
 
         private void Awake()
         {
