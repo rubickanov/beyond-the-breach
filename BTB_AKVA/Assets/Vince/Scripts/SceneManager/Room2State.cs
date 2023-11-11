@@ -21,7 +21,7 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
             Debug.Log("Room 2 State!");
             state.playerPicking.enabled = false;
             taskDone = new bool[5]; 
-            state.aiPos = state.listOfAI.items[2].GetComponent<AIStateManager>().targets[6].transform;
+            state.aiPos = state.listOfAI.items[2].GetComponent<RobotStateManager>().targets[6].transform;
         }
 
         public override void OnExitState(SceneStateManager state)
@@ -83,7 +83,7 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
                     state.room2Door.EnableDoor = true;
                     for (int i = 0; i < state.listOfAI.Count; i++)
                     {
-                        AIStateManager ai = state.listOfAI.items[i].GetComponent<AIStateManager>();
+                        RobotStateManager ai = state.listOfAI.items[i].GetComponent<RobotStateManager>();
                         ai.targetIndex++;
                         ai.moveOnly = true;
                         ai.currentTarget = ai.targets[ai.targetIndex];
@@ -99,8 +99,8 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
         IEnumerator StartAITask(SceneStateManager state, int aiIndex) //Starting AI to do its task
         {
             yield return new WaitForSeconds(3f);
-            state.listOfAI.items[aiIndex].GetComponent<AIStateManager>().moveOnly = false;
-            state.listOfAI.items[aiIndex].GetComponent<AIStateManager>().activateAI = true;
+            state.listOfAI.items[aiIndex].GetComponent<RobotStateManager>().moveOnly = false;
+            state.listOfAI.items[aiIndex].GetComponent<RobotStateManager>().activateAI = true;
             aiActive = true;
             enableAI = false;
         }
@@ -119,7 +119,7 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
             return activeSockets;
         }
 
-        IEnumerator ProceedToNextRoom(SceneStateManager state, AIStateManager ai)
+        IEnumerator ProceedToNextRoom(SceneStateManager state, RobotStateManager ai)
         {
             yield return new WaitForSeconds(2f);
             ai.SwitchState(ai.moveState);
@@ -130,9 +130,9 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
         {
             foreach (GameObject ai in state.listOfAI.Items)
             {
-                if (ai.GetComponent<AIStateManager>().moveOnly)
+                if (ai.GetComponent<RobotStateManager>().moveOnly)
                 {
-                    ai.GetComponent<AIStateManager>().moveOnly = false;
+                    ai.GetComponent<RobotStateManager>().moveOnly = false;
                 }
             }
         }

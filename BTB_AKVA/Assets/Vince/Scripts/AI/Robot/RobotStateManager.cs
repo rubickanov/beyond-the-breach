@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace AKVA.Assets.Vince.Scripts.AI
 {
-    public class AIStateManager : MonoBehaviour
+    public class RobotStateManager : MonoBehaviour
     {
         public bool activateAI;
         [HideInInspector] public RobotAIAnim robotAnim;
@@ -29,10 +29,9 @@ namespace AKVA.Assets.Vince.Scripts.AI
         public int targetIndex;
         public Transform[] targets;
         public bool moveOnly;
-        public bool x;
 
         //states
-        public AIState currentState;
+        public RobotState currentState;
         public MoveState moveState = new MoveState();
         public PickUpState pickUpState = new PickUpState();
         public DropState dropState = new DropState();
@@ -53,12 +52,6 @@ namespace AKVA.Assets.Vince.Scripts.AI
                 currentState.OnUpdateState(this);
             }
             HoldObject();
-
-            if (x)
-            {
-                x = true;
-                SwitchState(deathState);
-            }
         }
 
         private void HoldObject()
@@ -84,7 +77,7 @@ namespace AKVA.Assets.Vince.Scripts.AI
             }
         }
 
-        public void SwitchState(AIState state)
+        public void SwitchState(RobotState state)
         {
             currentState = state;
             state.OnEnterState(this);
