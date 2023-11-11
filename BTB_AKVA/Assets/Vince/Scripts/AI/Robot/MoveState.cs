@@ -6,21 +6,21 @@ using UnityEngine;
 
 namespace AKVA.Assets.Vince.Scripts.AI
 {
-    public class MoveState : AIState
+    public class MoveState : RobotState
     {
         bool pickUpState;
-        public override void OnEnterState(AIStateManager state)
+        public override void OnEnterState(RobotStateManager state)
         {
             state.pathFind.FindPath(state.currentTarget);
             WalkAnimation(state);
         }
 
-        public override void OnUpdateState(AIStateManager state)
+        public override void OnUpdateState(RobotStateManager state)
         {
             CheckTargetDistance(state);
         }
 
-        private void CheckTargetDistance(AIStateManager state)
+        private void CheckTargetDistance(RobotStateManager state)
         {
             if (Vector3.Distance(state.gameObject.transform.position, state.currentTarget.position) <= 2f)
             {
@@ -57,7 +57,7 @@ namespace AKVA.Assets.Vince.Scripts.AI
         }
 
 
-        void WalkAnimation(AIStateManager state)
+        void WalkAnimation(RobotStateManager state)
         {
             if (state.objOnHand != null)
             {
@@ -69,11 +69,11 @@ namespace AKVA.Assets.Vince.Scripts.AI
             }
         }
 
-        public override void OnCollisionEnter(AIStateManager state, Collider collider)
+        public override void OnCollisionEnter(RobotStateManager state, Collider collider)
         {
         }
 
-        IEnumerator SwitchStateDelay(AIStateManager state, AIState aiState, float delayTime)
+        IEnumerator SwitchStateDelay(RobotStateManager state, RobotState aiState, float delayTime)
         {
             yield return new WaitForSeconds(delayTime);
             state.SwitchState(aiState);

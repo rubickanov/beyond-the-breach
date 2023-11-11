@@ -76,7 +76,7 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
         IEnumerator StartAITask(SceneStateManager state, int aiIndex, float delayTime, bool enable) //Starting AI to do its task
         {
             yield return new WaitForSeconds(delayTime);
-            state.listOfAI.items[aiIndex].GetComponent<AIStateManager>().activateAI = true;
+            state.listOfAI.items[aiIndex].GetComponent<RobotStateManager>().activateAI = true;
             aiActive = true;
 
             if (enable)// to enable image after showing the pass key
@@ -94,7 +94,7 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
                 ai.GetComponent<Animator>().applyRootMotion = true;
                 ai.GetComponent<CapsuleCollider>().enabled = false;
                 ai.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
-                ai.GetComponent<AIStateManager>().SwitchState(ai.GetComponent<AIStateManager>().deathState);
+                ai.GetComponent<RobotStateManager>().SwitchState(ai.GetComponent<RobotStateManager>().deathState);
                 index++;
             }
 

@@ -16,6 +16,7 @@ namespace AKVA.Assets.Vince.Scripts.Environment
         [SerializeField] bool activated;
         [SerializeField] float doorSpeed = 3f;
         [SerializeField] Material doorActivated, doorDeactivated;
+        public bool ai;
 
         [Header("RayCast")]
         [SerializeField] Transform rayOrigin;
@@ -69,7 +70,8 @@ namespace AKVA.Assets.Vince.Scripts.Environment
             {
                 ChangeDoorColor(doorActivated);
                 Ray ray = new Ray(rayOrigin.position, -rayOrigin.forward);
-                if (Physics.Raycast(ray, out hit, rayLength, allowedToOpen))
+
+                if (Physics.Raycast(ray, out hit, rayLength, allowedToOpen) || ai)
                 {
                     OpenDoor();
                 }
@@ -80,6 +82,7 @@ namespace AKVA.Assets.Vince.Scripts.Environment
             }
             else
             {
+                CloseDoor();
                 ChangeDoorColor(doorDeactivated);
             }
 
@@ -88,6 +91,7 @@ namespace AKVA.Assets.Vince.Scripts.Environment
                 numberOfBtnsActivated = 0;
             }
         }
+
 
         void ChangeDoorColor(Material material)
         {
@@ -114,7 +118,7 @@ namespace AKVA.Assets.Vince.Scripts.Environment
             activated = false;
         }
 
-        private void OpenDoor()
+        public void OpenDoor()
         {
             float leftDoorTargetPos = -3.272f;
             float rightDoorTargetPos = 3.28f;
@@ -132,7 +136,7 @@ namespace AKVA.Assets.Vince.Scripts.Environment
             }
         }
 
-        void CloseDoor()
+        public void CloseDoor()
         {
             float leftDoorTargetPos = leftDoorInitPos;
             float rightDoorTargetPos = rightDoorInitPos;
