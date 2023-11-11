@@ -2,7 +2,6 @@ using UnityEngine;
 
 namespace AKVA.Player
 {
-    [RequireComponent(typeof(CharacterController))]
     public class PlayerMovement : MonoBehaviour
     {
         [SerializeField] private float moveSmoothTime;
@@ -13,7 +12,7 @@ namespace AKVA.Player
         [SerializeField] private Transform groundCheck;
         [SerializeField] private float groundCheckRadius;
 
-        private CharacterController controller;
+        private Rigidbody rb;
         private Vector3 playerInput;
         private Vector3 currentMoveVelocity;
         private Vector3 moveDampVelocity;
@@ -22,13 +21,13 @@ namespace AKVA.Player
 
         private void Start()
         {
-            controller = GetComponent<CharacterController>();
+            rb = GetComponent<Rigidbody>();
         }
 
-        private void Update()
+        private void FixedUpdate()
         {
             HandleMovement();
-            HandleJumpAndGravity();
+            //HandleJumpAndGravity();
         }
 
  
@@ -57,32 +56,30 @@ namespace AKVA.Player
                 ref moveDampVelocity,
                 moveSmoothTime
             );
-            if (controller.enabled)
-            {
-                controller.Move(currentMoveVelocity * Time.deltaTime);
-            }
+
+            rb.velocity = currentMoveVelocity * Time.fixedDeltaTime;
         }
 
-        private void HandleJumpAndGravity()
-        {
-            if (IsGrounded())
-            {
-                currentForceVelocity.y = -2f;
-                if (Input.GetKey(PlayerInput.Instance.Controls.jump))
-                {
-                    currentForceVelocity.y = jumpHeight;
-                }
-            }
-            else
-            {
-                currentForceVelocity.y += gravity * Time.deltaTime;
-            }
-
-            if (controller.enabled)
-            {
-                controller.Move(currentForceVelocity * Time.deltaTime);
-            }
-        }
+        // private void HandleJumpAndGravity()
+        // {
+        //     if (IsGrounded())
+        //     {
+        //         currentForceVelocity.y = -2f;
+        //         if (Input.GetKey(PlayerInput.Instance.Controls.jump))
+        //         {
+        //             currentForceVelocity.y = jumpHeight;
+        //         }
+        //     }
+        //     else
+        //     {
+        //         currentForceVelocity.y += gravity * Time.deltaTime;
+        //     }
+        //
+        //     if (controller.enabled)
+        //     {
+        //         controller.Move(currentForceVelocity * Time.deltaTime);
+        //     }
+        // }
         
         private float GetAxis(KeyCode negative, KeyCode positive)
         {
