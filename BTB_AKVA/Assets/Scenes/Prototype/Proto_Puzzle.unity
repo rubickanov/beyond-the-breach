@@ -10728,47 +10728,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2722214427386205735, guid: 92f53dc9b61a1b748943780a47e7c833,
-        type: 3}
-      propertyPath: m_Material
-      value: 
-      objectReference: {fileID: 13400000, guid: 4cbffe2cb06e3144492e90e7e40b5fc4,
-        type: 2}
-    - target: {fileID: 3233671090909757008, guid: 92f53dc9b61a1b748943780a47e7c833,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 3233671090909757008, guid: 92f53dc9b61a1b748943780a47e7c833,
         type: 3}
       propertyPath: reticleUI
       value: 
       objectReference: {fileID: 1028213321}
-    - target: {fileID: 6000555726520038022, guid: 92f53dc9b61a1b748943780a47e7c833,
-        type: 3}
-      propertyPath: m_Drag
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6000555726520038022, guid: 92f53dc9b61a1b748943780a47e7c833,
-        type: 3}
-      propertyPath: m_Mass
-      value: 30
-      objectReference: {fileID: 0}
-    - target: {fileID: 6000555726520038022, guid: 92f53dc9b61a1b748943780a47e7c833,
-        type: 3}
-      propertyPath: m_AngularDrag
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6000555726520038022, guid: 92f53dc9b61a1b748943780a47e7c833,
-        type: 3}
-      propertyPath: m_Interpolate
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6000555726520038022, guid: 92f53dc9b61a1b748943780a47e7c833,
-        type: 3}
-      propertyPath: m_IsKinematic
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

@@ -56,30 +56,28 @@ namespace AKVA.Player
                 ref moveDampVelocity,
                 moveSmoothTime
             );
-
-            rb.velocity = currentMoveVelocity * Time.fixedDeltaTime;
+            
+            rb.velocity = new Vector3(currentMoveVelocity.x, currentForceVelocity.y, currentMoveVelocity.z);
         }
 
-        // private void HandleJumpAndGravity()
-        // {
-        //     if (IsGrounded())
-        //     {
-        //         currentForceVelocity.y = -2f;
-        //         if (Input.GetKey(PlayerInput.Instance.Controls.jump))
-        //         {
-        //             currentForceVelocity.y = jumpHeight;
-        //         }
-        //     }
-        //     else
-        //     {
-        //         currentForceVelocity.y += gravity * Time.deltaTime;
-        //     }
-        //
-        //     if (controller.enabled)
-        //     {
-        //         controller.Move(currentForceVelocity * Time.deltaTime);
-        //     }
-        // }
+        private void HandleJumpAndGravity()
+        {
+            if (IsGrounded())
+            {
+                currentForceVelocity.y = -2f;
+                if (Input.GetKeyDown(PlayerInput.Instance.Controls.jump))
+                {
+                    currentForceVelocity.y = jumpHeight;
+                }
+            }
+            else
+            {
+                currentForceVelocity.y += gravity * Time.deltaTime;
+            }
+
+            //rb.velocity = new Vector3(rb.velocity.x, currentForceVelocity.y, rb.velocity.z);
+
+        }
         
         private float GetAxis(KeyCode negative, KeyCode positive)
         {
@@ -104,11 +102,6 @@ namespace AKVA.Player
         private bool IsGrounded()
         {
             return Physics.CheckSphere(groundCheck.position, groundCheckRadius);
-        }
-
-        public bool IsMoving()
-        {
-            return  playerInput.magnitude != 0 || currentForceVelocity.y >= 1f;
         }
 
         private void OnDrawGizmosSelected()
