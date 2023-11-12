@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using AKVA.Player;
@@ -13,12 +14,24 @@ namespace AKVA.Interaction
 
         private MindControlledObject mindControlledObject;
 
-        private bool isControlling = false;
+        private bool isControlling;
+        private Picking picking;
 
         [SerializeField] private Mesh playerMesh;
         [SerializeField] private Material playerMaterial;
 
         public bool IsActive;
+
+        private void Awake()
+        {
+            picking = GetComponent<Picking>();
+        }
+
+        private void Start()
+        {
+            isControlling = false;
+        }
+
         private void Update()
         {
             RaycastHit hit;
@@ -31,6 +44,7 @@ namespace AKVA.Interaction
                         IsActive = true;
                         if(Input.GetKeyDown(PlayerInput.Instance.Controls.mindControl))
                         {
+                            picking.DropObject();
                             Control(mindControlledObject);
                         }
                     }
@@ -48,6 +62,7 @@ namespace AKVA.Interaction
                 IsActive = false;
                 if(Input.GetKeyDown(PlayerInput.Instance.Controls.mindControl))
                 {
+                    picking.DropObject();
                     ReturnToBody(mindControlledObject);
                 }
             }
