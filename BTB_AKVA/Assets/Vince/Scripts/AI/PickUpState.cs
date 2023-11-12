@@ -6,23 +6,23 @@ using UnityEngine;
 
 namespace AKVA.Assets.Vince.Scripts.AI
 {
-    public class PickUpState : RobotState
+    public class PickUpState : AIState
     {
-        public override void OnCollisionEnter(RobotStateManager state, Collider collider)
+        public override void OnCollisionEnter(AIStateManager state, Collider collider)
         {
         }
 
-        public override void OnEnterState(RobotStateManager state)
+        public override void OnEnterState(AIStateManager state)
         {
             state.robotAnim.ChangeAnimState(state.robotAnim.Robot_PickItem);
         }
 
-        public override void OnUpdateState(RobotStateManager state)
+        public override void OnUpdateState(AIStateManager state)
         {
             LookForObjectsToPick(state);
         }
 
-        private void LookForObjectsToPick(RobotStateManager state)
+        private void LookForObjectsToPick(AIStateManager state)
         {
             Collider[] colliders = Physics.OverlapSphere(state.transform.position, state.sphereRadius, state.objectsToPick);
 
@@ -43,7 +43,7 @@ namespace AKVA.Assets.Vince.Scripts.AI
         }
 
 
-        IEnumerator SwitchDelay(RobotStateManager state, float delayTime)
+        IEnumerator SwitchDelay(AIStateManager state, float delayTime)
         {
             yield return new WaitForSeconds(delayTime);
             state.SwitchState(state.moveState);

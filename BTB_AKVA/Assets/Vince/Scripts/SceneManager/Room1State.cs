@@ -71,7 +71,7 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
                     state.room1Door.EnableDoor = true;
                     for (int i = 0; i < state.listOfAI.Count; i++)
                     {
-                        RobotStateManager ai = state.listOfAI.items[i].GetComponent<RobotStateManager>();
+                        AIStateManager ai = state.listOfAI.items[i].GetComponent<AIStateManager>();
                         ai.targetIndex++;
                         ai.moveOnly = true;
                         ai.currentTarget = ai.targets[ai.targetIndex];
@@ -87,7 +87,7 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
         IEnumerator StartAITask(SceneStateManager state, int aiIndex) //Starting AI to do its task
         {
             yield return new WaitForSeconds(3f);
-            state.listOfAI.items[aiIndex].GetComponent<RobotStateManager>().activateAI = true;
+            state.listOfAI.items[aiIndex].GetComponent<AIStateManager>().activateAI = true;
             aiActive = true;
             enableAI = false;
         }
@@ -107,7 +107,7 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
         }
 
 
-        IEnumerator ProceedToNextRoom(SceneStateManager state, RobotStateManager ai)
+        IEnumerator ProceedToNextRoom(SceneStateManager state, AIStateManager ai)
         {
             yield return new WaitForSeconds(2f);
             ai.SwitchState(ai.moveState);

@@ -7,22 +7,22 @@ using UnityEngine.Experimental.Rendering;
 
 namespace AKVA.Assets.Vince.Scripts.AI
 {
-    public class DropState : RobotState
+    public class DropState : AIState
     {
         Transform colliderPos;
-        public override void OnCollisionEnter(RobotStateManager state, Collider collider)
+        public override void OnCollisionEnter(AIStateManager state, Collider collider)
         {
         }
 
-        public override void OnEnterState(RobotStateManager state)
+        public override void OnEnterState(AIStateManager state)
         {
             Debug.Log("DropState");
         }
-        public override void OnUpdateState(RobotStateManager state)
+        public override void OnUpdateState(AIStateManager state)
         {
             LookForAPlaceToDrop(state);
         }
-        private void LookForAPlaceToDrop(RobotStateManager state)
+        private void LookForAPlaceToDrop(AIStateManager state)
         {
             Collider[] colliders = Physics.OverlapSphere(state.transform.position, state.sphereRadius, state.placesToDrop);
 
@@ -57,7 +57,7 @@ namespace AKVA.Assets.Vince.Scripts.AI
             }
         }
 
-        IEnumerator SwitchStateDelay(RobotStateManager state, float delayTime)
+        IEnumerator SwitchStateDelay(AIStateManager state, float delayTime)
         {
             yield return new WaitForSeconds(delayTime);
             state.dropItem = false;
