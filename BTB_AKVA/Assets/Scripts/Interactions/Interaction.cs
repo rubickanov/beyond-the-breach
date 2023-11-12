@@ -1,6 +1,5 @@
 using UnityEngine;
 using AKVA.Player;
-using UnityEngine.Serialization;
 
 namespace AKVA.Interaction
 {

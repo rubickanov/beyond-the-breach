@@ -684,6 +684,11 @@ PrefabInstance:
       propertyPath: distanceToInteract
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 741005390888767928, guid: a646dd8a3217ce545940851a6315fd06,
+        type: 3}
+      propertyPath: walkSpeed
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 2557649736286915133, guid: a646dd8a3217ce545940851a6315fd06,
         type: 3}
       propertyPath: m_Name

@@ -1,3 +1,4 @@
+using System.Timers;
 using UnityEngine;
 
 namespace AKVA.Player
@@ -12,7 +13,7 @@ namespace AKVA.Player
         [SerializeField] private Transform groundCheck;
         [SerializeField] private float groundCheckRadius;
 
-        private Rigidbody rb;
+        private CharacterController controller;
         private Vector3 playerInput;
         private Vector3 currentMoveVelocity;
         private Vector3 moveDampVelocity;
@@ -21,13 +22,13 @@ namespace AKVA.Player
 
         private void Start()
         {
-            rb = GetComponent<Rigidbody>();
+            controller = GetComponent<CharacterController>();
         }
 
-        private void FixedUpdate()
+        private void Update()
         {
             HandleMovement();
-            //HandleJumpAndGravity();
+            HandleJumpAndGravity();
         }
 
  
@@ -56,8 +57,8 @@ namespace AKVA.Player
                 ref moveDampVelocity,
                 moveSmoothTime
             );
-            
-            rb.velocity = new Vector3(currentMoveVelocity.x, currentForceVelocity.y, currentMoveVelocity.z);
+
+            controller.Move(currentMoveVelocity * Time.deltaTime);
         }
 
         private void HandleJumpAndGravity()
@@ -75,8 +76,7 @@ namespace AKVA.Player
                 currentForceVelocity.y += gravity * Time.deltaTime;
             }
 
-            //rb.velocity = new Vector3(rb.velocity.x, currentForceVelocity.y, rb.velocity.z);
-
+            controller.Move(currentForceVelocity * Time.deltaTime);
         }
         
         private float GetAxis(KeyCode negative, KeyCode positive)

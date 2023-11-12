@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 namespace AKVA.Assets.Vince.Scripts.Environment
@@ -60,16 +59,6 @@ namespace AKVA.Assets.Vince.Scripts.Environment
             if (target == null) { return; }
             Gizmos.color = Color.green;
             Gizmos.DrawWireSphere(target.position, .1f);
-        }
-
-        private void OnTriggerEnter(Collider other)
-        {
-            other.transform.SetParent(transform);
-        }
-
-        private void OnTriggerExit(Collider other)
-        {
-            other.transform.SetParent(null);
         }
     }
 }

@@ -1,7 +1,6 @@
 using UnityEngine;
 using AKVA.Player;
 using AKVA.Assets.Vince.Scripts.Environment;
-using UnityEngine.Serialization;
 
 namespace AKVA.Interaction
 {
