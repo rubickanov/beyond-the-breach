@@ -26,8 +26,7 @@ namespace AKVA.Interaction
                     IsActive = true;
                     if (Input.GetKeyDown(PlayerInput.Instance.Controls.pick))
                     {
-                        currentObject = hit.rigidbody;
-                        currentObject.useGravity = false;
+                        PickObject(hit.rigidbody);
                     }
                 }
                 else
@@ -40,8 +39,7 @@ namespace AKVA.Interaction
                 IsActive = false;
                 if (Input.GetKeyDown(PlayerInput.Instance.Controls.pick))
                 {
-                    currentObject.useGravity = true;
-                    currentObject = null;
+                    DropObject();
                 }
             }
             
@@ -59,6 +57,20 @@ namespace AKVA.Interaction
             }
 
             BatteryInteraction();
+        }
+
+        private void PickObject(Rigidbody pickedObject)
+        {
+            currentObject = pickedObject;
+            currentObject.useGravity = false;
+        }
+
+        public void DropObject()
+        {
+            if (currentObject == null) return;
+            
+            currentObject.useGravity = true;
+            currentObject = null;
         }
 
         void BatteryInteraction()
