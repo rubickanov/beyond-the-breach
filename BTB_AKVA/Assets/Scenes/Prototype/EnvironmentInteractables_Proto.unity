@@ -970,16 +970,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 165998808785362119, guid: a646dd8a3217ce545940851a6315fd06,
-        type: 3}
-      propertyPath: distanceToInteract
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 741005390888767928, guid: a646dd8a3217ce545940851a6315fd06,
-        type: 3}
-      propertyPath: walkSpeed
-      value: 3
-      objectReference: {fileID: 0}
     - target: {fileID: 2557649736286915133, guid: a646dd8a3217ce545940851a6315fd06,
         type: 3}
       propertyPath: m_Name
@@ -1685,6 +1675,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: MovingPlatform
       objectReference: {fileID: 0}
+    - target: {fileID: 1318996514124871584, guid: 682d8ebe86ac1154894c7c7d7849cb9a,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 4.206897
+      objectReference: {fileID: 0}
     - target: {fileID: 3886114309898178027, guid: 682d8ebe86ac1154894c7c7d7849cb9a,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1735,7 +1730,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 20408739351086653, guid: 682d8ebe86ac1154894c7c7d7849cb9a, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

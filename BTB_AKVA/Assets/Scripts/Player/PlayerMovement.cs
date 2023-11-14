@@ -12,13 +12,15 @@ namespace AKVA.Player
 
         [SerializeField] private Transform groundCheck;
         [SerializeField] private float groundCheckRadius;
-
+        
         private CharacterController controller;
         private Vector3 playerInput;
         private Vector3 currentMoveVelocity;
         private Vector3 moveDampVelocity;
 
         private Vector3 currentForceVelocity;
+
+        private const string PLATFORM_TAG = "MovingPlatform";
 
         private void Start()
         {
@@ -28,7 +30,8 @@ namespace AKVA.Player
         private void Update()
         {
             HandleMovement();
-            HandleJumpAndGravity();
+
+            CheckMovingPlatform();
         }
 
  
@@ -58,7 +61,7 @@ namespace AKVA.Player
                 moveSmoothTime
             );
 
-            controller.Move(currentMoveVelocity * Time.deltaTime);
+            controller.SimpleMove(currentMoveVelocity);
         }
 
         private void HandleJumpAndGravity()
@@ -98,6 +101,26 @@ namespace AKVA.Player
 
             return 0;
         }
+
+        private void CheckMovingPlatform()
+        {
+            if (Physics.Raycast(groundCheck.position, -groundCheck.up, out RaycastHit hit,groundCheckRadius))
+            {
+                if (hit.transform.CompareTag(PLATFORM_TAG))
+                {
+                    transform.parent = hit.transform;
+                }
+                else
+                {
+                    transform.parent = null;
+                }
+            }
+            else
+            {
+                transform.parent = null;
+            }
+        }
+       
 
         private bool IsGrounded()
         {
