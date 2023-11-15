@@ -29,9 +29,9 @@ namespace AKVA.Player
 
         private void Update()
         {
-            HandleMovement();
-
             CheckMovingPlatform();
+
+            HandleMovement();
         }
 
  
@@ -60,8 +60,9 @@ namespace AKVA.Player
                 ref moveDampVelocity,
                 moveSmoothTime
             );
-
+            controller.enabled = true;
             controller.SimpleMove(currentMoveVelocity);
+            controller.enabled = false;
         }
 
         private void HandleJumpAndGravity()
