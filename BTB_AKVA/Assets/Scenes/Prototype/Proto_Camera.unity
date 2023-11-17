@@ -154,7 +154,7 @@ PrefabInstance:
     - target: {fileID: 6183057410656520530, guid: a646dd8a3217ce545940851a6315fd06,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 1.821
       objectReference: {fileID: 0}
     - target: {fileID: 6183057410656520530, guid: a646dd8a3217ce545940851a6315fd06,
         type: 3}
@@ -2038,7 +2038,7 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
-  m_IsKinematic: 1
+  m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
