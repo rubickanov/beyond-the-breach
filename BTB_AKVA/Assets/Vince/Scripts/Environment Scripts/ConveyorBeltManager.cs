@@ -6,52 +6,40 @@ namespace AKVA.Assets.Vince.Scripts.Environment
 {
     public class ConveyorBeltManager : MonoBehaviour
     {
-        [SerializeField] Transform spawnPoint;
-        [SerializeField] GameObject[] conveyors;
-        [SerializeField] Material disabledMat;
-        [SerializeField] bool disable;
-        [SerializeField] Material initMat;
-        void Start()
+        [SerializeField] Material conveyorMat;
+        [SerializeField] bool enableConveyor;
+        [SerializeField] float conveyorSpeed = 0.5f;
+        bool conveyorEnabled;
+        private void Start()
         {
-            initMat = conveyors[0].GetComponent<Renderer>().material;
+            conveyorMat.SetFloat("_AnimSpeed", conveyorSpeed);
         }
-
-        public void ConveyorBeltEnabled(bool enable)
+        public void EnableConveyorBelt(bool enable)
         {
+            conveyorEnabled = enable;
             if (enable)
             {
-                foreach (GameObject conveyor in conveyors)
-                {
-                    conveyor.GetComponent<Renderer>().material = initMat;
-                    MovingPlatform movingPlatform = conveyor.GetComponent<MovingPlatform>();
-                    movingPlatform.pos2 = true;
-                }
+                conveyorMat.SetFloat("_AnimSpeed", conveyorSpeed);
             }
             else
             {
-                foreach (GameObject conveyor in conveyors)
-                {
-                    conveyor.GetComponent<Renderer>().material = disabledMat;
-                    MovingPlatform movingPlatform = conveyor.GetComponent<MovingPlatform>();
-                    movingPlatform.pos2 = false;
-                }
-            }
-
-        }
-
-        private void OnTriggerEnter(Collider other)
-        {
-            if (other.tag == "MovingPlatform")
-            {
-                other.transform.position = spawnPoint.position;
+                conveyorMat.SetFloat("_AnimSpeed", 0f);
             }
         }
 
-        private void OnDrawGizmos()
-        {
-            if (spawnPoint == null) { return; }
-            Gizmos.color = Color.green;
-            Gizmos.DrawWireSphere(spawnPoint.position, 1f);
-        }
+        //private void OnCollisionStay(Collision collision)
+        //{
+        //    if(collision.gameObject.tag == "Player")
+        //    {
+        //        if (conveyorEnabled = true)
+        //        {
+        //            collision.gameObject.transform.position += -Vector3.right * 1 * Time.deltaTime;
+        //        }
+        //        else
+        //        {
+        //            return;
+        //        }
+        //    }
+        //}
     }
 }
