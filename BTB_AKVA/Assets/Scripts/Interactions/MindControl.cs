@@ -89,16 +89,20 @@ namespace AKVA.Interaction
 
         private IEnumerator SwapCoroutine(Transform objectTransform)
         {
+            Collider objectColl = objectTransform.GetComponent<Collider>();
+            objectColl.enabled = false;
+            
             var position = objectTransform.position;
             Vector3 forward = objectTransform.forward;
-            CharacterController controller = GetComponent<CharacterController>();
-            controller.enabled = false;
+            
             objectTransform.position = transform.position;
-            objectTransform.forward = transform.forward;
+            objectTransform.forward = transform.forward; 
+            
             transform.position = position;
             transform.forward = forward;
+            
             yield return new WaitForSeconds(0.1f);
-            controller.enabled = true;
+            objectColl.enabled = true;
         }
 
         private void OnDrawGizmosSelected()
