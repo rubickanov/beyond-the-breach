@@ -11,7 +11,7 @@ namespace AKVA.Interaction
         [SerializeField] private float distanceToInteract;
         [SerializeField] private LayerMask buttonLayer;
         
-        public bool IsActive;
+        [HideInInspector] public bool IsActive;
 
         private void Update()
         {

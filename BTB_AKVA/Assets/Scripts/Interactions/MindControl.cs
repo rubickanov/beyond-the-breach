@@ -1,8 +1,6 @@
-using System;
 using System.Collections;
 using UnityEngine;
 using AKVA.Player;
-using UnityEngine.Serialization;
 
 namespace AKVA.Interaction
 {
@@ -20,7 +18,7 @@ namespace AKVA.Interaction
         [SerializeField] private Mesh playerMesh;
         [SerializeField] private Material playerMaterial;
 
-        public bool IsActive;
+        [HideInInspector] public bool IsActive;
 
         private void Awake()
         {
@@ -101,8 +99,8 @@ namespace AKVA.Interaction
             transform.position = position;
             transform.forward = forward;
             
-            yield return new WaitForSeconds(0.1f);
             objectColl.enabled = true;
+            yield return null;
         }
 
         private void OnDrawGizmosSelected()

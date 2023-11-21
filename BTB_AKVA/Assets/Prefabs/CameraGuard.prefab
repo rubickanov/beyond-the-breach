@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8011147862000265682}
   m_Layer: 0
-  m_Name: Camera
+  m_Name: CameraGuard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

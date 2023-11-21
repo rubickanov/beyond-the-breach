@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -14,6 +13,7 @@ namespace AKVA.Assets.Vince.Scripts.Environment
         [SerializeField] GameObject[] screen;
         [SerializeField] LayerMask passwordKeylayer;
         [SerializeField] Slot[] slots;
+        [SerializeField] private Transform playerCamera;
         string currentPass = "";
         RaycastHit hit;
         int slotIndex;
@@ -25,8 +25,7 @@ namespace AKVA.Assets.Vince.Scripts.Environment
 
         private void MouseInteraction()
         {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray, out hit, distanceToInteract, passwordKeylayer))
+            if (Physics.Raycast(playerCamera.position, playerCamera.forward,out hit, distanceToInteract, passwordKeylayer))
             {
                 if (Input.GetMouseButtonDown(0))
                 {

@@ -11,7 +11,7 @@ namespace AKVA.Interaction
         
         private IInteractable currentInteraction;
 
-        public bool IsActive;
+        [HideInInspector] public bool IsActive;
 
         private void Update()
         {
