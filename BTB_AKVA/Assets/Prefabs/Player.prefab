@@ -125,7 +125,6 @@ GameObject:
   - component: {fileID: 6183057410656520530}
   - component: {fileID: 3526250696873051052}
   - component: {fileID: 8892759576968516042}
-  - component: {fileID: 741005390888767928}
   - component: {fileID: 165998808785362119}
   - component: {fileID: 7211653923379537257}
   - component: {fileID: 7062453349057015871}
@@ -168,8 +167,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3889ef9ee3ea8604ea43381b60f1a315, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerMovement: {fileID: 741005390888767928}
-  mouseLook: {fileID: 754679132799595029}
+  playerMovement: {fileID: 0}
+  mouseLook: {fileID: 0}
   Controls: {fileID: 11400000, guid: e759b1b6768ef094e8f0b751829d8c57, type: 2}
 --- !u!143 &8892759576968516042
 CharacterController:
@@ -197,24 +196,6 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0.99, z: 0}
---- !u!114 &741005390888767928
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2557649736286915133}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 485b2950af1776744af73e02f9d7fe43, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveSmoothTime: 0.1
-  gravity: -10
-  jumpHeight: 5
-  walkSpeed: 3
-  groundCheck: {fileID: 8357436912666925387}
-  groundCheckRadius: 0.05
 --- !u!114 &165998808785362119
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -310,7 +291,6 @@ GameObject:
   - component: {fileID: 2746141277739944398}
   - component: {fileID: 8576589504135413256}
   - component: {fileID: 6812396456535455773}
-  - component: {fileID: 754679132799595029}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -437,20 +417,6 @@ MonoBehaviour:
     mipBias: 0
     varianceClampScale: 0.9
     contrastAdaptiveSharpening: 0
---- !u!114 &754679132799595029
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6289973324348462963}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8c1c8065e2968ef41831e3e410b9def2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mouseSensitivity: 1500
-  playerBody: {fileID: 6183057410656520530}
 --- !u!1 &6406361588998757695
 GameObject:
   m_ObjectHideFlags: 0

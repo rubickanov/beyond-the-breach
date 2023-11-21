@@ -14,7 +14,7 @@ namespace AKVA.Interaction
         private Rigidbody currentObject;
         InteractableBattery battery;
 
-        public bool IsActive;
+        [HideInInspector] public bool IsActive;
 
         private void Update()
         {
@@ -60,6 +60,8 @@ namespace AKVA.Interaction
 
         private void PickObject(Rigidbody pickedObject)
         {
+            pickedObject.interpolation = RigidbodyInterpolation.Interpolate;
+            pickedObject.collisionDetectionMode = CollisionDetectionMode.Continuous;
             currentObject = pickedObject;
             currentObject.useGravity = false;
         }

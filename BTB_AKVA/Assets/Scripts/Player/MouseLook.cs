@@ -4,29 +4,51 @@ namespace AKVA.Player
 {
     public class MouseLook : MonoBehaviour
     {
-        [SerializeField] private  float mouseSensitivity = 100f;
-        [SerializeField] private Transform playerBody;
+        [SerializeField] private float mouseSensitivity = 1500f;
+        [SerializeField] private Transform orientation;
 
-        private float upRotation;
+        [Header("SMOOTHNESS")] [Range(0, 1)] [SerializeField]
+        private float cameraSmoothness;
+
+        [SerializeField] private SmoothnessMethod smoothnessMethod;
+
+        private float xRotation;
+        private float yRotation;
+
 
         private void Start()
         {
             Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
         }
 
         private void Update()
         {
-            float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
-            float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
+            float mouseX = Input.GetAxisRaw("Mouse X") * mouseSensitivity * Time.deltaTime;
+            float mouseY = Input.GetAxisRaw("Mouse Y") * mouseSensitivity * Time.deltaTime;
 
-            upRotation -= mouseY;
-            upRotation = Mathf.Clamp(upRotation, -90f, 90f);
-        
-        
-            transform.localRotation = Quaternion.Euler(upRotation, 0f, 0f);
-        
-            playerBody.Rotate(Vector3.up * mouseX);
-           
+            xRotation -= mouseY;
+            xRotation = Mathf.Clamp(xRotation, -90f, 90f);
+
+            yRotation += mouseX;
+            if (smoothnessMethod == SmoothnessMethod.Lerp)
+            {
+                transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(xRotation, yRotation, 0f),
+                    cameraSmoothness);
+            }
+            else
+            {
+                transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(xRotation, yRotation, 0f),
+                    cameraSmoothness);
+            }
+
+            orientation.rotation = Quaternion.Euler(0f, yRotation, 0f);
         }
+    }
+
+    public enum SmoothnessMethod
+    {
+        Lerp,
+        Slerp
     }
 }
