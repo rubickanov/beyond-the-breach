@@ -61,6 +61,11 @@ PrefabInstance:
       propertyPath: pickupTarget
       value: 
       objectReference: {fileID: 6601033007983594688}
+    - target: {fileID: 301453559386011797, guid: 08504d4dbf2d37b44af44861236d5410,
+        type: 3}
+      propertyPath: pickupMask.m_Bits
+      value: 8192
+      objectReference: {fileID: 0}
     - target: {fileID: 1218711646151315271, guid: 08504d4dbf2d37b44af44861236d5410,
         type: 3}
       propertyPath: playerCamera
@@ -129,7 +134,11 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 253884155593731012, guid: 08504d4dbf2d37b44af44861236d5410,
+        type: 3}
+      insertIndex: 9
+      addedObject: {fileID: 1357101358005192986}
   m_SourcePrefab: {fileID: 100100000, guid: 08504d4dbf2d37b44af44861236d5410, type: 3}
 --- !u!4 &1303813408923539028 stripped
 Transform:
@@ -137,6 +146,25 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2468450776163241533}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2433149603717899769 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 253884155593731012, guid: 08504d4dbf2d37b44af44861236d5410,
+    type: 3}
+  m_PrefabInstance: {fileID: 2468450776163241533}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1357101358005192986
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2433149603717899769}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2bb68f55f6cc43846956a8281fc50694, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cam: {fileID: 8044948768051539281}
 --- !u!4 &8309516606609843638 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5841423481049131915, guid: 08504d4dbf2d37b44af44861236d5410,
@@ -162,11 +190,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerCameraHolder
       objectReference: {fileID: 0}
+    - target: {fileID: 888917417205738072, guid: 6651122f4567e67458be5a64ccd9d570,
+        type: 3}
+      propertyPath: m_CullingMask.m_Bits
+      value: 16375
+      objectReference: {fileID: 0}
     - target: {fileID: 2693776042481501822, guid: 6651122f4567e67458be5a64ccd9d570,
         type: 3}
       propertyPath: orientation
       value: 
       objectReference: {fileID: 8309516606609843638}
+    - target: {fileID: 4064748689646980041, guid: 6651122f4567e67458be5a64ccd9d570,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.2
+      objectReference: {fileID: 0}
     - target: {fileID: 4288197104974607312, guid: 6651122f4567e67458be5a64ccd9d570,
         type: 3}
       propertyPath: cameraPos
@@ -254,6 +292,12 @@ MonoBehaviour:
 --- !u!4 &6601033007983594688 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4064748689646980041, guid: 6651122f4567e67458be5a64ccd9d570,
+    type: 3}
+  m_PrefabInstance: {fileID: 7202232074740762377}
+  m_PrefabAsset: {fileID: 0}
+--- !u!20 &8044948768051539281 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 888917417205738072, guid: 6651122f4567e67458be5a64ccd9d570,
     type: 3}
   m_PrefabInstance: {fileID: 7202232074740762377}
   m_PrefabAsset: {fileID: 0}
