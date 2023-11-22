@@ -27,19 +27,19 @@ namespace AKVA.Assets.Vince.Scripts.Environment
             }
         }
 
-        //private void OnCollisionStay(Collision collision)
-        //{
-        //    if(collision.gameObject.tag == "Player")
-        //    {
-        //        if (conveyorEnabled = true)
-        //        {
-        //            collision.gameObject.transform.position += -Vector3.right * 1 * Time.deltaTime;
-        //        }
-        //        else
-        //        {
-        //            return;
-        //        }
-        //    }
-        //}
+        private void OnCollisionStay(Collision collision)
+        {
+            if (collision.gameObject.tag == "Player")
+            {
+                if (conveyorEnabled = true)
+                {
+                    collision.gameObject.transform.position += -Vector3.right * 1 * Time.deltaTime;
+                }
+                else
+                {
+                    return;
+                }
+            }
+        }
     }
 }
