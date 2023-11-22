@@ -43,7 +43,7 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
             if (Vector3.Distance(state.playerTransform.position, state.room3PlayerPos.position) < 1.5f && !playerInPosition) // if player has positioned to its place holder
             {
                 Debug.Log("Player is In position");
-                PlayerInput.Instance.DisablePlayerMovement(true);
+                PlayerInput.Instance.DisablePlayerMovement();
                 state.tvTurnedOn.value = true;
                 state.imagesAppeared[0].value = true;
                 state.StartCoroutine(StartAITask(state, 0, 4.5f, false));

@@ -9,7 +9,7 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
         bool[] movementTask;
         public override void OnEnterState(SceneStateManager state)
         {
-            PlayerInput.Instance.DisablePlayerMovement(false);
+            PlayerInput.Instance.EnablePlayerMovement();
             movementTask = new bool[3];
             state.tutorialScreen.turnOnTV = true;
             state.tutorialScreen.SetKeyLettersAndInsruction("W", "To Move Forward");
@@ -59,12 +59,12 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
         {
             // after pressing the key it will disable movement after a sec
             yield return new WaitForSeconds(1f);
-            PlayerInput.Instance.DisablePlayerMovement(true);
+            PlayerInput.Instance.DisablePlayerMovement();
 
             //Enables Movement again after disabling it
             yield return new WaitForSeconds(state.timeDelayDuringTutorial);
             Debug.Log("Movement Enabled");
-            PlayerInput.Instance.DisablePlayerMovement(false);
+            PlayerInput.Instance.EnablePlayerMovement();
         }
     }
 }

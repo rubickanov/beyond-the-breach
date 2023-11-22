@@ -36,9 +36,14 @@ namespace AKVA.Player
             mouseLook.enabled = false;
         }
 
-        public void DisablePlayerMovement(bool enable)
+        public void DisablePlayerMovement()
         {
-            playerMovement.enabled = !enable;
+            playerMovement.enabled = false;
+        }
+
+        public void EnablePlayerMovement()
+        {
+            playerMovement.enabled = true;
         }
 
         public bool GetPlayerMovement => playerMovement.enabled;

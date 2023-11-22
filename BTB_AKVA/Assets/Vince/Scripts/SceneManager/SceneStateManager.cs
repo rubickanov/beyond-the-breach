@@ -55,7 +55,7 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
             playerPicking = playerTransform.GetComponent<Picking>();
             tutorialScreen = FindObjectOfType<TutorialScreen>();
             playerPicking.enabled = false;
-            PlayerInput.Instance.DisablePlayerMovement(true);
+            PlayerInput.Instance.DisablePlayerMovement();
             MovementTutorial();
         }
 
@@ -75,7 +75,7 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
 
         private void MovementTutorial()
         {
-            PlayerInput.Instance.DisablePlayerMovement(false);
+            PlayerInput.Instance.EnablePlayerMovement();
             StartCoroutine(StartMovementTutorial());
         }
 

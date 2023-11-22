@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using AKVA.Player;
+using System.Linq.Expressions;
 
 namespace AKVA.Interaction
 {
@@ -14,15 +15,17 @@ namespace AKVA.Interaction
 
         private bool isControlling;
         private Picking picking;
-
-        [SerializeField] private Mesh playerMesh;
-        [SerializeField] private Material playerMaterial;
+        [SerializeField] private GameObject playerVisual;
+        private Mesh playerMesh;
+        private Material playerMaterial;
 
         [HideInInspector] public bool IsActive;
 
         private void Awake()
         {
             picking = GetComponent<Picking>();
+            playerMesh = playerVisual.GetComponent<MeshFilter>().mesh;
+            playerMaterial = playerVisual.GetComponent<MeshRenderer>().material;
         }
 
         private void Start()
@@ -44,6 +47,7 @@ namespace AKVA.Interaction
                         {
                             picking.DropObject();
                             Control(mindControlledObject);
+                            mindControlledObject = hit.transform.GetComponent<MindControlledObject>();
                         }
                     }
                     else
@@ -85,22 +89,25 @@ namespace AKVA.Interaction
             StartCoroutine(SwapCoroutine(objectTransform));
         }
 
-        private IEnumerator SwapCoroutine(Transform objectTransform)
+        private IEnumerator SwapCoroutine(Transform objectTransform) //FIX ROTATIONS!
         {
+            PlayerInput.Instance.DisablePlayerMovement();
+            yield return new WaitForFixedUpdate();
             Collider objectColl = objectTransform.GetComponent<Collider>();
             objectColl.enabled = false;
             
-            var position = objectTransform.position;
+            Vector3 position = objectTransform.position;
             Vector3 forward = objectTransform.forward;
-            
+
             objectTransform.position = transform.position;
-            objectTransform.forward = transform.forward; 
-            
+            objectTransform.forward = transform.forward;
+
             transform.position = position;
             transform.forward = forward;
             
+            yield return new WaitForFixedUpdate();
             objectColl.enabled = true;
-            yield return null;
+            PlayerInput.Instance.EnablePlayerMovement();
         }
 
         private void OnDrawGizmosSelected()

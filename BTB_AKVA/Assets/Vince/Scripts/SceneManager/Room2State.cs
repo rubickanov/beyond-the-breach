@@ -48,7 +48,7 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
                     }
                 }
                 Debug.Log("Player is In position");
-                PlayerInput.Instance.DisablePlayerMovement(true);
+                PlayerInput.Instance.DisablePlayerMovement();
                 state.StartCoroutine(StartAITask(state, 0));
                 playerInPosition = true;
             }
@@ -67,19 +67,19 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
                 else if (GetNumberOfActiveSockets(state) == 2 && !taskDone[1] && !enableAI)
                 {
                     state.playerPicking.enabled = true;
-                    PlayerInput.Instance.DisablePlayerMovement(false);
+                    PlayerInput.Instance.EnablePlayerMovement();
                     taskDone[1] = true;
                 }
                 else if (GetNumberOfActiveSockets(state) == 3 && !taskDone[2] && !enableAI && Vector3.Distance(state.playerTransform.position, state.room2PlayerPos.position) < 1.5f)
                 {
-                    PlayerInput.Instance.DisablePlayerMovement(true);
+                    PlayerInput.Instance.DisablePlayerMovement();
                     state.StartCoroutine(StartAITask(state, 2));
                     enableAI = true;
                     taskDone[2] = true;
                 }
                 if (GetNumberOfActiveSockets(state) == 4 && !taskDone[3] && Vector3.Distance(state.listOfAI.items[2].transform.position, state.aiPos.position) < 3f)
                 {
-                    PlayerInput.Instance.DisablePlayerMovement(false);
+                    PlayerInput.Instance.EnablePlayerMovement();
                     state.room2Door.EnableDoor = true;
                     for (int i = 0; i < state.listOfAI.Count; i++)
                     {

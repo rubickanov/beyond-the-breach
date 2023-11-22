@@ -38,7 +38,7 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
             if (Vector3.Distance(state.playerTransform.position, state.room1PlayerPos.position) < 1.5f && !playerInPosition) // if player has positioned to its place holder
             {
                 Debug.Log("Player is In position");
-                PlayerInput.Instance.DisablePlayerMovement(true);
+                PlayerInput.Instance.DisablePlayerMovement();
                 state.StartCoroutine(StartAITask(state, 0));
                 playerInPosition = true;
             }
@@ -63,7 +63,7 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
                 else if (GetNumberOfActiveSockets(state) == 3 && !taskDone[2] && !enableAI)
                 {
                     state.playerPicking.enabled = true;
-                    PlayerInput.Instance.DisablePlayerMovement(false);
+                    PlayerInput.Instance.EnablePlayerMovement();
                     taskDone[2] = true;
                 }
                 if (GetNumberOfActiveSockets(state) == 4 && Vector3.Distance(state.playerTransform.position, state.room1PlayerPos.position) < 1.5f && !taskDone[4])
