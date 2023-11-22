@@ -13,7 +13,7 @@ namespace AKVA.Player
 
         private Renderer cameraRenderer;
         private UniversalAdditionalCameraData data;
-        [SerializeField] bool isEagleVision = false;
+        private bool isEagleVision;
         
             
         private void Awake()
