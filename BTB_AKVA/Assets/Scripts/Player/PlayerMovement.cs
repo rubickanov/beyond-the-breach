@@ -42,7 +42,7 @@ namespace AKVA.Player
 
         private void Awake()
         {
-            stepRayUpper.position = new Vector3(stepRayUpper.position.x, stepOffset, stepRayUpper.position.z);
+            stepRayUpper.localPosition = new Vector3(stepRayUpper.localPosition.x, stepOffset, stepRayUpper.localPosition.z);
         }
 
         private void Start()
