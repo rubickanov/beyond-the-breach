@@ -8,6 +8,7 @@ namespace AKVA.Interaction
     public class MindControl : MonoBehaviour
     {
         [SerializeField] private Transform playerCamera;
+        [SerializeField] private Transform orientation;
         
         [SerializeField] private float distanceToMindControl;
 
@@ -91,23 +92,23 @@ namespace AKVA.Interaction
 
         private IEnumerator SwapCoroutine(Transform objectTransform) //FIX ROTATIONS!
         {
-            PlayerInput.Instance.DisablePlayerMovement();
+            PlayerInput.Instance.DisablePlayerInput();
             yield return new WaitForFixedUpdate();
             Collider objectColl = objectTransform.GetComponent<Collider>();
             objectColl.enabled = false;
             
             Vector3 position = objectTransform.position;
-            Vector3 forward = objectTransform.forward;
-
+            float yRot = objectTransform.eulerAngles.y;
+            
             objectTransform.position = transform.position;
             objectTransform.forward = transform.forward;
 
             transform.position = position;
-            transform.forward = forward;
+            playerCamera.GetComponent<MouseLook>().SetYRotation(yRot);
             
             yield return new WaitForFixedUpdate();
             objectColl.enabled = true;
-            PlayerInput.Instance.EnablePlayerMovement();
+            PlayerInput.Instance.EnablePlayerInput();
         }
 
         private void OnDrawGizmosSelected()

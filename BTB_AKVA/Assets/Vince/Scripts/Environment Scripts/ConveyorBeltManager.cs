@@ -31,7 +31,7 @@ namespace AKVA.Assets.Vince.Scripts.Environment
         {
             if (collision.gameObject.tag == "Player")
             {
-                if (conveyorEnabled = true)
+                if (conveyorEnabled)
                 {
                     collision.gameObject.transform.position += -Vector3.right * 1 * Time.deltaTime;
                 }
