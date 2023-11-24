@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
@@ -17,6 +18,11 @@ namespace AKVA.Assets.Vince.Scripts.Environment
         string currentPass = "";
         RaycastHit hit;
         int slotIndex;
+
+        private void Awake()
+        {
+            playerCamera = Camera.main.transform;
+        }
 
         void Update()
         {
