@@ -58674,8 +58674,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   conveyorMat: {fileID: 2100000, guid: 2005ff03542450745b1a57b7db9976a7, type: 2}
-  enableConveyor: 1
+  conveyorEnabled: 1
   conveyorSpeed: 0.5
+  objectOnConveyorSpeed: 90
 --- !u!1 &8695381592789817294
 GameObject:
   m_ObjectHideFlags: 0

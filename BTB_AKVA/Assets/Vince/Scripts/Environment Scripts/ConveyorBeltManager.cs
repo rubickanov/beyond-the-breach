@@ -10,6 +10,7 @@ namespace AKVA.Assets.Vince.Scripts.Environment
         [SerializeField] Material conveyorMat;
         [SerializeField] bool conveyorEnabled = true;
         [SerializeField] float conveyorSpeed = 0.5f;
+        [SerializeField] private float objectOnConveyorSpeed = 90.0f; // IF YOU CHANGE CONVEYOR SPEED - YOU ALSO NEED TO CHANGE THIS VARIABLE TO MATCH SPEED OF CONVEYOR AND FORCE ON OBJECT 
         Transform objDetected;
         private void Start()
         {
@@ -28,7 +29,7 @@ namespace AKVA.Assets.Vince.Scripts.Environment
             }
         }
 
-        private void Update()
+        private void FixedUpdate()
         {
             MoveObjectsOnTheConveyorBelt();
         }
@@ -39,14 +40,15 @@ namespace AKVA.Assets.Vince.Scripts.Environment
             {
                 if (conveyorEnabled)
                 {
-                    objDetected.position += -transform.right * conveyorSpeed * Time.deltaTime;
+                    Rigidbody objectDetectedRigibody = objDetected.GetComponent<Rigidbody>();
+                    objectDetectedRigibody.AddForce(-transform.right * objectOnConveyorSpeed, ForceMode.Force);
                 }
             }
         }
 
         private void OnCollisionEnter(Collision collision)
         {
-            if (collision.gameObject.tag == "Player" || collision.gameObject.tag == "Scientist")
+            if (collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("Scientist"))
             {
                 Debug.Log("Detected");
                 objDetected = collision.gameObject.transform;
@@ -55,7 +57,7 @@ namespace AKVA.Assets.Vince.Scripts.Environment
 
         private void OnCollisionExit(Collision collision)
         {
-            if (collision.gameObject.tag == "Player" || collision.gameObject.tag == "Scientist")
+            if (collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("Scientist"))
             {
                 objDetected = null;
             }
