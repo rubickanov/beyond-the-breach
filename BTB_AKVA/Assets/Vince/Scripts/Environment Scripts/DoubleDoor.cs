@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace AKVA.Assets.Vince.Scripts.Environment
@@ -11,6 +12,7 @@ namespace AKVA.Assets.Vince.Scripts.Environment
         [Header("Door Settings")]
         [SerializeField] Transform leftDoor, rightDoor;
         [SerializeField] bool activated;
+        [SerializeField] bool keepItActive;
         [SerializeField] float doorSpeed = 3f;
         [SerializeField] Material doorActivated, doorDeactivated;
 
@@ -22,7 +24,7 @@ namespace AKVA.Assets.Vince.Scripts.Environment
         public float leftDoorInitPos, rightDoorInitPos;
 
         #region Properties
-        public bool EnableDoor { set => activated = value; }
+        public bool EnableDoor { set => activated = value; get => activated; }
         #endregion
 
         private void OnEnable()
@@ -83,6 +85,16 @@ namespace AKVA.Assets.Vince.Scripts.Environment
             if (numberOfBtnsActivated < 0)
             {
                 numberOfBtnsActivated = 0;
+            }
+
+            KeepDoorActive();
+        }
+
+        private void KeepDoorActive()
+        {
+            if(keepItActive)
+            {
+                activated = true;
             }
         }
 

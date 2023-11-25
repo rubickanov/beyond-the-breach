@@ -1,3 +1,4 @@
+using AKVA.Assets.Vince.Scripts.AI;
 using UnityEngine;
 
 namespace AKVA.Interaction
