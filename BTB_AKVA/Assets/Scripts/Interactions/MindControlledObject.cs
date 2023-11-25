@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace AKVA.Interaction
@@ -10,6 +11,7 @@ namespace AKVA.Interaction
         private Mesh defaultMesh;
         private Material defaultMaterial;
 
+        private Rigidbody rb;
         private void Awake()
         {
             meshFilter = GetComponentInChildren<MeshFilter>();
@@ -17,6 +19,12 @@ namespace AKVA.Interaction
 
             defaultMesh = meshFilter.mesh;
             defaultMaterial = meshRenderer.material;
+            rb = GetComponent<Rigidbody>();
+        }
+
+        private void FixedUpdate()
+        {
+            rb.velocity = new Vector3(0, 0, 0);
         }
 
         public void TakePlayerAppearance(Mesh mesh, Material material)
