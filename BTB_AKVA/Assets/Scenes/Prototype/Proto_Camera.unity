@@ -1042,6 +1042,11 @@ PrefabInstance:
       propertyPath: orientation
       value: 
       objectReference: {fileID: 1638230570}
+    - target: {fileID: 1659291191693473851, guid: dfd6f98ece751964cb2eb7823d013144,
+        type: 3}
+      propertyPath: mindControlTimeLimit
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 1759813286332928172, guid: dfd6f98ece751964cb2eb7823d013144,
         type: 3}
       propertyPath: m_LocalRotation.w

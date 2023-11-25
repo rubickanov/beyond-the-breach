@@ -22,6 +22,9 @@ namespace AKVA.Interaction
 
         [HideInInspector] public bool IsActive;
 
+        [SerializeField] private float mindControlTimeLimit;
+        private float mindControlTimer;
+
         private void Awake()
         {
             picking = GetComponent<Picking>();
@@ -69,6 +72,16 @@ namespace AKVA.Interaction
                     ReturnToBody(mindControlledObject);
                 }
             }
+
+            if (isControlling)
+            {
+                mindControlTimer -= Time.deltaTime;
+                if (mindControlTimer <= 0)
+                {
+                    picking.DropObject();
+                    ReturnToBody(mindControlledObject);
+                }
+            }
         }
         
         public void Control(MindControlledObject controlledObject)
@@ -76,6 +89,7 @@ namespace AKVA.Interaction
             Swap(controlledObject.transform);
             controlledObject.TakePlayerAppearance(playerMesh, playerMaterial);
             isControlling = true;
+            mindControlTimer = mindControlTimeLimit;
         }
 
         private void ReturnToBody(MindControlledObject controlledObject)
@@ -83,6 +97,7 @@ namespace AKVA.Interaction
             Swap(controlledObject.transform);
             controlledObject.ResetAppearance();
             isControlling = false;
+            mindControlTimer = mindControlTimeLimit;
         }
 
         private void Swap(Transform objectTransform)
