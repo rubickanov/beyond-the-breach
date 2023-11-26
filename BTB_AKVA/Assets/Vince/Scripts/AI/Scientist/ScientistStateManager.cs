@@ -28,7 +28,6 @@ namespace AKVA.Assets.Vince.Scripts.AI
             moveAi = GetComponent<MoveAI>();
         }
 
-        // Update is called once per frame
         void Update()
         {
             if (activate)

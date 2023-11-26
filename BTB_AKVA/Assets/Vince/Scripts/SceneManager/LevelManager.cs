@@ -16,6 +16,9 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
         public Transform aIStartPos;
         public Transform aIEndPos;
 
+        [Header("Level 5 handler")]
+        public ScientistStateManager scientist;
+
         LevelState currentLevel;
         public Level1State level1 = new Level1State();
         public Level2State level2 = new Level2State();
