@@ -32,11 +32,6 @@ namespace AKVA.Assets.Vince.Scripts.Environment
         private void FixedUpdate()
         {
             MoveObjectsOnTheConveyorBelt();
-
-            if (objDetected)
-            {
-                Debug.Log(objDetected.GetComponent<Rigidbody>().velocity);
-            }
         }
 
         private void MoveObjectsOnTheConveyorBelt()
@@ -45,8 +40,9 @@ namespace AKVA.Assets.Vince.Scripts.Environment
             {
                 if (conveyorEnabled)
                 {
-                    Rigidbody objectDetectedRigibody = objDetected.GetComponent<Rigidbody>();
-                    objectDetectedRigibody.AddForce(-transform.right * objectOnConveyorSpeed, ForceMode.VelocityChange);
+                    //Rigidbody objectDetectedRigibody = objDetected.GetComponent<Rigidbody>();
+                    //objectDetectedRigibody.AddForce(-transform.right * objectOnConveyorSpeed, ForceMode.Force);
+                    objDetected.position += -transform.right * conveyorSpeed * Time.deltaTime;
                 }
             }
         }
@@ -55,7 +51,7 @@ namespace AKVA.Assets.Vince.Scripts.Environment
         {
             if (collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("Scientist"))
             {
-                //Debug.Log("Detected");
+                Debug.Log("Detected");
                 objDetected = collision.gameObject.transform;
             }
         }

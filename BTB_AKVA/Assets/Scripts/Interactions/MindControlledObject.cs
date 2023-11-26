@@ -1,4 +1,4 @@
-using System;
+using AKVA.Assets.Vince.Scripts.AI;
 using UnityEngine;
 
 namespace AKVA.Interaction
@@ -7,36 +7,38 @@ namespace AKVA.Interaction
     {
         private MeshFilter meshFilter;
         private MeshRenderer meshRenderer;
+        private SkinnedMeshRenderer skinnedMeshRenderer;
 
-        private Mesh defaultMesh;
-        private Material defaultMaterial;
+        public Mesh defaultMesh;
+        public Material defaultMaterial;
 
-        private Rigidbody rb;
         private void Awake()
         {
-            meshFilter = GetComponentInChildren<MeshFilter>();
-            meshRenderer = GetComponentInChildren<MeshRenderer>();
+            skinnedMeshRenderer = GetComponentInChildren<SkinnedMeshRenderer>();
+            //meshFilter = GetComponentInChildren<MeshFilter>();
+            //meshRenderer = GetComponentInChildren<MeshRenderer>();
 
-            defaultMesh = meshFilter.mesh;
-            defaultMaterial = meshRenderer.material;
-            rb = GetComponent<Rigidbody>();
-        }
-
-        private void FixedUpdate()
-        {
-            rb.velocity = new Vector3(0, 0, 0);
+            //defaultMesh = meshFilter.mesh;
+            //defaultMaterial = meshRenderer.material;
+            defaultMesh = skinnedMeshRenderer.sharedMesh;
+            defaultMaterial = skinnedMeshRenderer.material;
         }
 
         public void TakePlayerAppearance(Mesh mesh, Material material)
         {
-            meshFilter.mesh = mesh;
-            meshRenderer.material = material;
+            gameObject.GetComponent<ScientistStateManager>()?.MindControl();
+            //meshFilter.mesh = mesh;
+            //meshRenderer.material = material;
+            skinnedMeshRenderer.sharedMesh = mesh;
+            skinnedMeshRenderer.material = material;
         }
 
         public void ResetAppearance()
         {
-            meshFilter.mesh = defaultMesh;
-            meshRenderer.material = defaultMaterial;
+            //meshFilter.mesh = defaultMesh;
+            //meshRenderer.material = defaultMaterial;
+            skinnedMeshRenderer.sharedMesh = defaultMesh;
+            skinnedMeshRenderer.material = defaultMaterial;
         }
     }
 }

@@ -7,7 +7,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: ScientistAnim1
+  m_Name: Texting
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
@@ -122,8 +122,8 @@ AnimatorStateMachine:
     m_State: {fileID: -5152115917772290946}
     m_Position: {x: 560, y: 70, z: 0}
   - serializedVersion: 1
-    m_State: {fileID: 6927264546205477236}
-    m_Position: {x: 290, y: 80, z: 0}
+    m_State: {fileID: 3490547448544799252}
+    m_Position: {x: 290, y: 90, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []
@@ -141,7 +141,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: ScientistAnim2
+  m_Name: InteractionWithMachine2
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
@@ -160,7 +160,7 @@ AnimatorState:
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
---- !u!1102 &6927264546205477236
+--- !u!1102 &3490547448544799252
 AnimatorState:
   serializedVersion: 6
   m_ObjectHideFlags: 1
@@ -180,7 +180,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: b1951e8b17a834a46b2ddc9785879328, type: 3}
+  m_Motion: {fileID: 7400000, guid: f45619e40e76a4444ba2030a9a94c02c, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 

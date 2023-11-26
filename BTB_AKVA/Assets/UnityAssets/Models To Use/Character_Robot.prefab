@@ -2269,7 +2269,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4471329820423766617}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6bbc2d65bb6790a4586dcd8b9065f431, type: 3}
   m_Name: 
@@ -2280,6 +2280,7 @@ MonoBehaviour:
   Robot_DropItem: PutDown
   Robot_PickItem: Pickup
   Robot_CarryWalk: CarryWalk
+  Robot_Death: Electricute
 --- !u!1 &4531849088265404277
 GameObject:
   m_ObjectHideFlags: 0
