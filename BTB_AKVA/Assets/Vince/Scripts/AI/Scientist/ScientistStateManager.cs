@@ -31,7 +31,6 @@ namespace AKVA.Assets.Vince.Scripts.AI
         // Update is called once per frame
         void Update()
         {
-            print(targetIndex);
             if (activate)
             {
                 activate = false;
@@ -71,8 +70,12 @@ namespace AKVA.Assets.Vince.Scripts.AI
         public void MindControl()
         {
             sciAnim.ChangeAnimState(sciAnim.Robot_Idle);
-            moveAi.enabled = false;
-            this.enabled = false;
+            if(currentState == moveState || currentState == interactState)
+            {
+                moveAi.FindPath(transform);
+                moveAi.enabled = false;
+                this.enabled = false;
+            }
         }
     }
 }

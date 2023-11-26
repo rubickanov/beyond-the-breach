@@ -7,6 +7,7 @@ namespace AKVA.Animations
     public class ScientistAIAnim : MonoBehaviour
     {
         Animator anim;
+        public string startingAnim;
         public string currentAnim;
         public string Robot_Walk = "WalkForward";
         public string Robot_Idle = "Idle";
@@ -17,6 +18,7 @@ namespace AKVA.Animations
         private void Start()
         {
             anim = GetComponent<Animator>();
+            ChangeAnimState(startingAnim);
         }
 
         public void ChangeAnimState(string newState)

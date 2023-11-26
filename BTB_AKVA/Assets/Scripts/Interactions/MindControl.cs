@@ -19,6 +19,7 @@ namespace AKVA.Interaction
         [SerializeField] private GameObject playerVisual;
         private Mesh playerMesh;
         private Material playerMaterial;
+        private SkinnedMeshRenderer skinnedMeshRenderer;
 
         [HideInInspector] public bool IsActive;
 
@@ -28,8 +29,11 @@ namespace AKVA.Interaction
         private void Awake()
         {
             picking = GetComponent<Picking>();
-            playerMesh = playerVisual.GetComponent<MeshFilter>().mesh;
-            playerMaterial = playerVisual.GetComponent<MeshRenderer>().material;
+            skinnedMeshRenderer = playerVisual.GetComponent<SkinnedMeshRenderer>();
+            playerMesh = skinnedMeshRenderer.sharedMesh;
+            playerMaterial = skinnedMeshRenderer.material;
+            //playerMesh = playerVisual.GetComponent<MeshFilter>().mesh;
+            //playerMaterial = playerVisual.GetComponent<MeshRenderer>().material;
         }
 
         private void Start()
