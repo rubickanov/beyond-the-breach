@@ -177,25 +177,6 @@ namespace AKVA.Player
         }
 
 
-        private void OnValidate()
-        {
-            for (int x = -1; x <= 1; x++)
-            {
-                for (int z = -1; z <= 1; z++)
-                {
-                    if (Physics.Raycast(stepRayLower.position, (transform.TransformDirection(x, 0, z)).normalized,
-                            lowerRayLength))
-                    {
-                        if (!Physics.Raycast(stepRayUpper.position, (transform.TransformDirection(x, 0, z)).normalized,
-                                upperRayLength))
-                        {
-                            rb.position -= new Vector3(0, -stepSmooth, 0f);
-                        }
-                    }
-                }
-            }
-        }
-
         private void OnDrawGizmos()
         {
             Gizmos.DrawWireSphere(groundCheck.position, groundCheckRadius);
