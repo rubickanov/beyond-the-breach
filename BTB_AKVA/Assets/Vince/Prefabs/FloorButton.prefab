@@ -106,8 +106,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.012758567, y: 0.015796108, z: 0.00086875755}
-  m_Center: {x: -0.0000000023841857, y: 0.0014902655, z: 0.0015170958}
+  m_Size: {x: 0.012758567, y: 0.012663971, z: 0.00086875755}
+  m_Center: {x: -0.0000000023841857, y: -0.00007580608, z: 0.0015170958}
 --- !u!114 &6472146578581107312
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -120,14 +120,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55369ce3844fd8540ad6b8dfcd814fbe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  btnMat: {fileID: 117353138580844872}
-  allowedObjects:
-    serializedVersion: 2
-    m_Bits: 264
-  btn: {fileID: 7592017795519852007}
+  OnSocketEnabled:
+    m_PersistentCalls:
+      m_Calls: []
+  OnSocketDisabled:
+    m_PersistentCalls:
+      m_Calls: []
+  batteryPlaceHolder: {fileID: 0}
   isColored: 0
-  buttonColor: {r: 0, g: 0, b: 0, a: 0}
-  btnIsActive: 0
+  socketIsActive: 0
 --- !u!114 &5994580984906583427
 MonoBehaviour:
   m_ObjectHideFlags: 0

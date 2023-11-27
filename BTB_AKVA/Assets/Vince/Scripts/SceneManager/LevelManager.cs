@@ -1,5 +1,6 @@
 using AKVA.Assets.Vince.Scripts.AI;
 using AKVA.Assets.Vince.Scripts.Environment;
+using Assets.Vince.Scripts.SceneManager;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,11 +18,12 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
         public Transform aIEndPos;
 
         [Header("Level 5 handler")]
-        public ScientistStateManager scientist;
+        public ScientistStateManager [] scientists;
 
         LevelState currentLevel;
         public Level1State level1 = new Level1State();
         public Level2State level2 = new Level2State();
+        public Level5State level5 = new Level5State();
         private void Awake()
         {
             player = GameObject.FindGameObjectWithTag("Player");
@@ -35,6 +37,10 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
         void Update()
         {
             currentLevel.OnUpdateState(this);
+            if (Input.GetKeyDown(KeyCode.H)){
+                currentLevel = level5;
+                currentLevel.OnEnterState(this);
+            }
         }
 
         public void SwitchState(LevelState state)

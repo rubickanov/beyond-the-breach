@@ -40,9 +40,9 @@ namespace AKVA.Assets.Vince.Scripts.Environment
             {
                 if (conveyorEnabled)
                 {
-                    //Rigidbody objectDetectedRigibody = objDetected.GetComponent<Rigidbody>();
-                    //objectDetectedRigibody.AddForce(-transform.right * objectOnConveyorSpeed, ForceMode.Force);
-                     objDetected.position += -transform.right * conveyorSpeed * Time.deltaTime;
+                    Rigidbody objectDetectedRigibody = objDetected.GetComponent<Rigidbody>();
+                    objectDetectedRigibody.AddForce(-transform.right * objectOnConveyorSpeed, ForceMode.VelocityChange);
+                    //objDetected.position += -transform.right * conveyorSpeed * Time.deltaTime;
                 }
             }
         }
