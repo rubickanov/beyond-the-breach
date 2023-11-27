@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Rendering.Universal;
+using UnityEngine.Serialization;
 
 
 namespace AKVA.Player
@@ -14,6 +15,8 @@ namespace AKVA.Player
         private Renderer cameraRenderer;
         private UniversalAdditionalCameraData data;
         private bool isEagleVision;
+
+        [SerializeField] private GameObject eagleVisionPostProcessing;
         
             
         private void Awake()
@@ -44,15 +47,15 @@ namespace AKVA.Player
 
         private void DisableEagleVision()
         {
+            eagleVisionPostProcessing.SetActive(false);
             data.SetRenderer(defaultRendererIndex);
             data.antialiasing = AntialiasingMode.None;
-            data.renderPostProcessing = false;
         }
 
         private void EnableEagleVision()
         {
+            eagleVisionPostProcessing.SetActive(true);
             data.SetRenderer(eagleRendererIndex);
-            data.renderPostProcessing = true;
             data.antialiasing = AntialiasingMode.FastApproximateAntialiasing;
         }
     }
