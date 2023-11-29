@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Prototype/Proto_Camera.unity
     guid: 668a5e962f5665a4f970c927e3aba2aa
+  - enabled: 1
+    path: Assets/Scenes/Prototype/Proto_Puzzle.unity
+    guid: 14f04e8b09d4faa489ec6d2cf886ab13
   m_configObjects: {}

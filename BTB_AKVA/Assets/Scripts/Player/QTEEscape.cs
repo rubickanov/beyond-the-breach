@@ -11,6 +11,12 @@ namespace AKVA.Player
         [SerializeField] private float maxSliderValue;
         [SerializeField] private float plusValuePerClick;
         [SerializeField] private float minusValuePerTick;
+        private Rigidbody rb;
+
+        private void Awake()
+        {
+            rb = GetComponent<Rigidbody>();
+        }
 
         private void Start()
         {
@@ -36,7 +42,8 @@ namespace AKVA.Player
             {
                 PlayerInput.Instance.EnablePlayerInput();
             }
-            
+
+            rb.velocity = Vector3.zero;
             
         }
 

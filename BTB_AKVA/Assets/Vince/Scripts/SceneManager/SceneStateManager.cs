@@ -19,7 +19,7 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
         public Room2State room2State = new Room2State();
         public Room3State room3State = new Room3State();
 
-        [HideInInspector] public Transform playerTransform;
+        public Transform playerTransform;
         [HideInInspector] public Picking playerPicking;
         public RuntimeList listOfAI;
 
@@ -51,7 +51,7 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
 
         private void Awake()
         {
-            playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
+           //playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
             playerPicking = playerTransform.GetComponent<Picking>();
             tutorialScreen = FindObjectOfType<TutorialScreen>();
             playerPicking.enabled = false;

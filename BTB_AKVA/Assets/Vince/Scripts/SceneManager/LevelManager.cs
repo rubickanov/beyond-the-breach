@@ -9,7 +9,7 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
 {
     public class LevelManager : MonoBehaviour
     {
-        [HideInInspector] public GameObject player;
+        public GameObject player;
         public Transform[] checkPoints;
 
         [Header("Level 2 Handler")]
@@ -18,7 +18,7 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
         public Transform aIEndPos;
 
         [Header("Level 5 handler")]
-        public ScientistStateManager [] scientists;
+        public ScientistStateManager scientist;
 
         LevelState currentLevel;
         public Level1State level1 = new Level1State();
@@ -26,7 +26,7 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
         public Level5State level5 = new Level5State();
         private void Awake()
         {
-            player = GameObject.FindGameObjectWithTag("Player");
+            //player = GameObject.FindGameObjectWithTag("Player");
         }
         void Start()
         {

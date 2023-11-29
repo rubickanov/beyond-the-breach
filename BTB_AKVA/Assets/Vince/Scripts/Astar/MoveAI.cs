@@ -57,6 +57,11 @@ namespace AKVA.Assets.Vince.Scripts.Astar
             }
         }
 
+        public void StopMoving()
+        {
+            StopAllCoroutines();
+        }
+
         public void OnDrawGizmos()
         {
             if (path != null)

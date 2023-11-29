@@ -12,6 +12,7 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
         Transform aiTransform;
         public override void OnEnterState(LevelManager state)
         {
+            Debug.Log("State 2");
             scientistStateManager = state.level2AI.GetComponent<ScientistStateManager>();
             aiTransform = state.level2AI.transform;
             scientistStateManager.activate = true;

@@ -35,6 +35,7 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
 
         private void CheckIfPlayerIsInThePlaceHolder(SceneStateManager state)
         {
+            Debug.Log(Vector3.Distance(state.playerTransform.position, state.room1PlayerPos.position));
             if (Vector3.Distance(state.playerTransform.position, state.room1PlayerPos.position) < 1.5f && !playerInPosition) // if player has positioned to its place holder
             {
                 Debug.Log("Player is In position");
