@@ -7,6 +7,7 @@ namespace AKVA.Interaction
 {
     public class ReticleHandler : MonoBehaviour
     {
+        [SerializeField] private bool isPermanentReticle;
         [SerializeField] private int secondsToDeactivate;
         [SerializeField] private ReticleUI reticleUI;
         private MindControl mindControl;
@@ -26,7 +27,10 @@ namespace AKVA.Interaction
 
         private void Start()
         {
-            reticleUI.DisableReticleImmediately();
+            if (!isPermanentReticle)
+            {
+                reticleUI.DisableReticleImmediately();
+            }
         }
 
         private void Update()
@@ -35,12 +39,15 @@ namespace AKVA.Interaction
             if (!mindControl.IsActive && !picking.IsActive && !interaction.IsActive && !passDeviceChecker.IsActive)
             {
                 reticleUI.SetDefaultUI();
-                timer += Time.deltaTime;
-                if (timer >= secondsToDeactivate)
+                if(!isPermanentReticle)
                 {
-                    if (reticleUI.IsEnabled)
+                    timer += Time.deltaTime;
+                    if (timer >= secondsToDeactivate)
                     {
-                        reticleUI.DisableReticle();
+                        if (reticleUI.IsEnabled)
+                        {
+                            reticleUI.DisableReticle();
+                        }
                     }
                 }
             }

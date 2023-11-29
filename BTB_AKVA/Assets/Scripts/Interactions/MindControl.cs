@@ -23,6 +23,7 @@ namespace AKVA.Interaction
 
         [HideInInspector] public bool IsActive;
 
+        [SerializeField] private bool hasMindControlLimit;
         [SerializeField] private float mindControlTimeLimit;
         private float mindControlTimer;
 
@@ -76,14 +77,17 @@ namespace AKVA.Interaction
                     ReturnToBody(mindControlledObject);
                 }
             }
-
-            if (isControlling)
+            
+            if(hasMindControlLimit)
             {
-                mindControlTimer -= Time.deltaTime;
-                if (mindControlTimer <= 0)
+                if (isControlling)
                 {
-                    picking.DropObject();
-                    ReturnToBody(mindControlledObject);
+                    mindControlTimer -= Time.deltaTime;
+                    if (mindControlTimer <= 0)
+                    {
+                        picking.DropObject();
+                        ReturnToBody(mindControlledObject);
+                    }
                 }
             }
         }

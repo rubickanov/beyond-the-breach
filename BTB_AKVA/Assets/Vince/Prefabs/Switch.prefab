@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6352344750590797297}
   - component: {fileID: 102398755283227450}
   - component: {fileID: 204395579110683316}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: LS_Plate_001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 8733136825800886741}
   - component: {fileID: 5393907461520317588}
   - component: {fileID: 8704319444291889799}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: LS_Arm_005
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -178,7 +178,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3521319667082122435}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: ArmRoot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -212,7 +212,7 @@ GameObject:
   - component: {fileID: 3301091681517820281}
   - component: {fileID: 2885712433069104706}
   - component: {fileID: 4799316147005518389}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Switch
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -320,7 +320,7 @@ GameObject:
   - component: {fileID: 184856729628800003}
   - component: {fileID: 3619916127882277789}
   - component: {fileID: 56035820842652991}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: LS_Slot_003
   m_TagString: Untagged
   m_Icon: {fileID: 0}
