@@ -20,6 +20,8 @@ namespace AKVA.Player
         {
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
+            
+            yRotation = orientation.eulerAngles.y;
         }
 
         private void Update()
@@ -29,6 +31,8 @@ namespace AKVA.Player
 
             xRotation -= mouseY;
             xRotation = Mathf.Clamp(xRotation, -90f, 90f);
+
+            Debug.Log(yRotation);
 
             yRotation += mouseX;
             if (smoothnessMethod == SmoothnessMethod.Lerp)
