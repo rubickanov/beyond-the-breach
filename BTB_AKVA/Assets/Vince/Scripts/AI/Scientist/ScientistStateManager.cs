@@ -2,6 +2,7 @@ using AKVA.Animations;
 using AKVA.Assets.Vince.Scripts.AI;
 using AKVA.Assets.Vince.Scripts.Astar;
 using AKVA.Assets.Vince.Scripts.Environment;
+using Assets.Vince.Scripts.AI;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -22,6 +23,7 @@ namespace AKVA.Assets.Vince.Scripts.AI
         ScientistState currentState;
         public SciMoveState moveState = new SciMoveState();
         public SciInteractState interactState = new SciInteractState();
+        public IdleState IdleState = new IdleState();
         void Start()
         {
             sciAnim = GetComponent<ScientistAIAnim>();
@@ -71,7 +73,8 @@ namespace AKVA.Assets.Vince.Scripts.AI
             sciAnim.ChangeAnimState(sciAnim.Robot_Idle);
             if(currentState == moveState || currentState == interactState)
             {
-                moveAi.FindPath(transform);
+                moveAi.StopAllCoroutines();
+                SwitchState(IdleState);
                 moveAi.enabled = false;
                 this.enabled = false;
             }

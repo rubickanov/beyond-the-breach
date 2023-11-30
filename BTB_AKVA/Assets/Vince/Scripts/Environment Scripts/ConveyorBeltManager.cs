@@ -42,8 +42,7 @@ namespace AKVA.Assets.Vince.Scripts.Environment
                 {
                     //Rigidbody objectDetectedRigibody = objDetected.GetComponent<Rigidbody>();
                     //objectDetectedRigibody.AddForce(-transform.right * objectOnConveyorSpeed, ForceMode.VelocityChange);
-
-                    objDetected.transform.position += transform.right * objectOnConveyorSpeed * Time.deltaTime;
+                    objDetected.position += -transform.right * conveyorSpeed * Time.deltaTime;
                 }
             }
         }

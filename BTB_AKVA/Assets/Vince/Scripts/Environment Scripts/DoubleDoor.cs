@@ -19,7 +19,8 @@ namespace AKVA.Assets.Vince.Scripts.Environment
         [Header("RayCast")]
         [SerializeField] Transform rayOrigin;
         [SerializeField] LayerMask allowedToOpen;
-        [SerializeField] float rayLength = 1f;
+        //[SerializeField] float rayLength = 1f;
+        [SerializeField] Vector3 physicsBoxSize;
         RaycastHit hit;
         public float leftDoorInitPos, rightDoorInitPos;
 
@@ -68,7 +69,7 @@ namespace AKVA.Assets.Vince.Scripts.Environment
             {
                 ChangeDoorColor(doorActivated);
                 Ray ray = new Ray(rayOrigin.position, -rayOrigin.forward);
-                if (Physics.Raycast(ray, out hit, rayLength, allowedToOpen))
+                if (Physics.CheckBox(rayOrigin.position, physicsBoxSize, Quaternion.identity,allowedToOpen))
                 {
                     OpenDoor();
                 }
@@ -162,7 +163,8 @@ namespace AKVA.Assets.Vince.Scripts.Environment
         private void OnDrawGizmos()
         {
             Gizmos.color = Color.red;
-            Gizmos.DrawLine(rayOrigin.position, rayOrigin.position + -rayOrigin.forward * rayLength);
+            //Gizmos.DrawLine(rayOrigin.position, rayOrigin.position + -rayOrigin.forward * rayLength);
+            Gizmos.DrawWireCube(rayOrigin.position, physicsBoxSize);
         }
     }
 }

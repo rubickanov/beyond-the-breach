@@ -234,14 +234,15 @@ MonoBehaviour:
   leftDoor: {fileID: 2843125512161345325}
   rightDoor: {fileID: 123019199223181615}
   activated: 0
+  keepItActive: 0
   doorSpeed: 3
   doorActivated: {fileID: 2100000, guid: 4a2fd566f76ec424f913b3a2f26c4574, type: 2}
   doorDeactivated: {fileID: 2100000, guid: 1c9f93ad4f2d506419154ed414311926, type: 2}
   rayOrigin: {fileID: 2088038425840539456}
   allowedToOpen:
     serializedVersion: 2
-    m_Bits: 1033
-  rayLength: 2
+    m_Bits: 1032
+  physicsBoxSize: {x: 4.23, y: 2.47, z: 1}
   leftDoorInitPos: 0
   rightDoorInitPos: 0
 --- !u!1 &7128869010773619696
@@ -269,7 +270,7 @@ Transform:
   m_GameObject: {fileID: 7128869010773619696}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.021, y: 0.998, z: 0}
+  m_LocalPosition: {x: -0.021, y: 0.998, z: -0.572}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
