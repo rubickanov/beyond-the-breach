@@ -1,0 +1,17 @@
+{
+    "name": "Player",
+    "rootNamespace": "AKVA",
+    "references": [
+        "GUID:c579267770062bf448e75eb160330b7f",
+        "GUID:8c98f640b2e9f894cb6998e097e308c3"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
