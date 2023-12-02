@@ -1,4 +1,5 @@
 using log4net.Util;
+using PlasticPipe.PlasticProtocol.Messages;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -8,7 +9,6 @@ namespace AKVA.Assets.Vince.Scripts.AI
 {
     public class MoveState : AIState
     {
-        bool pickUpState;
         public override void OnEnterState(AIStateManager state)
         {
             state.pathFind.FindPath(state.currentTarget);
@@ -22,7 +22,7 @@ namespace AKVA.Assets.Vince.Scripts.AI
 
         private void CheckTargetDistance(AIStateManager state)
         {
-            if (Vector3.Distance(state.gameObject.transform.position, state.currentTarget.position) <= 2f)
+            if (Vector3.Distance(state.gameObject.transform.localPosition, state.currentTarget.localPosition) <= 2f)
             {
                 if (!state.moveOnly)
                 {
@@ -37,22 +37,10 @@ namespace AKVA.Assets.Vince.Scripts.AI
                 }
                 else
                 {
-                    state.transform.rotation = Quaternion.identity;
+                    state.StartCoroutine(PlaceAIToPosition(state, state.currentTarget.localPosition));
                 }
-                //if (!state.rb.IsSleeping())
-                //{
-                //    if (state.objOnHand != null)
-                //    {
-                //        state.robotAnim.ChangeAnimState(state.robotAnim.Robot_CarryWalk);
-                //    }
-                //    else
-                //    {
-                //        state.robotAnim.ChangeAnimState(state.robotAnim.Robot_Walk);
-                //    }
-                //}
-                //else
-                //{
                 state.robotAnim.ChangeAnimState(state.robotAnim.Robot_Idle);
+                state.transform.rotation = Quaternion.identity;
             }
         }
 
@@ -71,6 +59,29 @@ namespace AKVA.Assets.Vince.Scripts.AI
 
         public override void OnCollisionEnter(AIStateManager state, Collider collider)
         {
+        }
+
+        IEnumerator PlaceAIToPosition(AIStateManager state, Vector3 targetPos, float duration = .1f)
+        {
+            yield return new WaitForSeconds(0.5f);
+
+            float elapsedTime = 0f;
+            Vector3 startingPos = state.transform.localPosition;
+            if(Vector3.Distance(state.transform.localPosition, targetPos) > 2)
+            {
+                state.robotAnim.ChangeAnimState(state.robotAnim.Robot_Walk);
+            }
+            while (elapsedTime < duration)
+            {
+                yield return null;
+
+                elapsedTime += Time.deltaTime;
+
+                float t = Mathf.Clamp01(elapsedTime / duration);
+
+                state.transform.localPosition = Vector3.Lerp(startingPos, targetPos, t);
+            }
+            state.transform.localPosition = targetPos;
         }
 
         IEnumerator SwitchStateDelay(AIStateManager state, AIState aiState, float delayTime)

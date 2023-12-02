@@ -32,13 +32,13 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
 
         [Header("Room 1 Scene")]
         public DoubleDoor room1Door;
-        public Transform room1PlayerPos;
+        public Transform room1PlayerPos, room1PlayerPos2;
         public RuntimeList room1Buttons;
         public RuntimeList room1Boxes;
         public RuntimeList room1PositionPoints;
 
         [Header("Room 2 Scene")]
-        public Transform room2PlayerPos;
+        public Transform room2PlayerPos, room2PlayerPos2;
         public RuntimeList room2Buttons;
         public DoubleDoor room2Door;
         [HideInInspector] public Transform aiPos;

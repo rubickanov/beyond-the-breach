@@ -27,7 +27,8 @@ namespace AKVA.Assets.Vince.Scripts.AI
         [HideInInspector] public bool dropItem;
         [HideInInspector] public Transform currentTarget;
         public int targetIndex;
-        public Transform[] targets;
+        //public Transform[] targets;
+        public List<Transform> pathPoints;
         public bool moveOnly;
         public bool x;
 
@@ -78,7 +79,7 @@ namespace AKVA.Assets.Vince.Scripts.AI
                 {
                     targetIndex++;
                 }
-                currentTarget = targets[targetIndex];
+                currentTarget = pathPoints[targetIndex];
                 SwitchState(moveState);
                 activateAI = false;
             }
@@ -103,6 +104,20 @@ namespace AKVA.Assets.Vince.Scripts.AI
                 Gizmos.DrawWireSphere(itemPlaceHolder.position, sphereRadius);
             }
         }
+
+        public Transform ConvertToTransform(Vector3 position)
+        {
+            GameObject emptyObject = new GameObject("ConvertedTransform");
+            Transform newTransform = emptyObject.transform;
+            newTransform.position = position;
+
+            return newTransform;
+        }
+
+        //public void MoveSpawnPoint(int i, Vector3 pos)
+        //{
+        //    pathPoints[i] = pos;
+        //}
 
         #region AnimProperties
         public void EnablePickUp()

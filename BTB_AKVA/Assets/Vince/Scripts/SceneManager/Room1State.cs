@@ -20,7 +20,7 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
         public override void OnEnterState(SceneStateManager state)
         {
             Debug.Log("Room 1 State");
-            taskDone = new bool[5];
+            taskDone = new bool[6];
         }
 
         public override void OnUpdateState(SceneStateManager state)
@@ -35,7 +35,6 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
 
         private void CheckIfPlayerIsInThePlaceHolder(SceneStateManager state)
         {
-            Debug.Log(Vector3.Distance(state.playerTransform.position, state.room1PlayerPos.position));
             if (Vector3.Distance(state.playerTransform.position, state.room1PlayerPos.position) < 1.5f && !playerInPosition) // if player has positioned to its place holder
             {
                 Debug.Log("Player is In position");
@@ -64,10 +63,16 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
                 else if (GetNumberOfActiveSockets(state) == 3 && !taskDone[2] && !enableAI)
                 {
                     state.playerPicking.enabled = true;
-                    PlayerInput.Instance.EnablePlayerMovement();
                     taskDone[2] = true;
+                    PlayerInput.Instance.EnablePlayerMovement();
                 }
-                if (GetNumberOfActiveSockets(state) == 4 && Vector3.Distance(state.playerTransform.position, state.room1PlayerPos.position) < 1.5f && !taskDone[4])
+                else if (GetNumberOfActiveSockets(state) == 4 && Vector3.Distance(state.playerTransform.position, state.room1PlayerPos.position) < 1.5f && !taskDone[4])
+                {
+                    PlayerInput.Instance.DisablePlayerMovement();
+                    state.StartCoroutine(LineUP(state));
+                    taskDone[4] = true;
+                }
+                else if (taskDone[4] && !taskDone[5] && Vector3.Distance(state.playerTransform.position, state.room1PlayerPos2.position) < 1.5f)
                 {
                     state.room1Door.EnableDoor = true;
                     for (int i = 0; i < state.listOfAI.Count; i++)
@@ -75,13 +80,26 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
                         AIStateManager ai = state.listOfAI.items[i].GetComponent<AIStateManager>();
                         ai.targetIndex++;
                         ai.moveOnly = true;
-                        ai.currentTarget = ai.targets[ai.targetIndex];
+                        ai.currentTarget = ai.pathPoints[ai.targetIndex];
                         state.StartCoroutine(ProceedToNextRoom(state, ai));
                     }
-                    taskDone[4] = true;
+                    taskDone[5] = true;
                 }
-                
             }
+        }
+
+        IEnumerator LineUP(SceneStateManager state, float lineUpDelay = 3f)
+        {
+            for (int i = 0; i < state.listOfAI.Count; i++)
+            {
+                AIStateManager ai = state.listOfAI.items[i].GetComponent<AIStateManager>();
+                ai.targetIndex++;
+                ai.moveOnly = true;
+                ai.currentTarget = ai.pathPoints[ai.targetIndex];
+                ai.SwitchState(ai.moveState);
+                yield return new WaitForSeconds(lineUpDelay);
+            }
+            PlayerInput.Instance.EnablePlayerMovement();
         }
 
 

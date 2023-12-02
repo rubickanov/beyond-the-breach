@@ -14,14 +14,13 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
         bool enableAI; //Initiate Each AI to be activated
         bool[] taskDone;
         bool rotated;
-        bool disableMoveOnly;
 
         public override void OnEnterState(SceneStateManager state)
         {
             Debug.Log("Room 2 State!");
             state.playerPicking.enabled = false;
-            taskDone = new bool[5]; 
-            state.aiPos = state.listOfAI.items[2].GetComponent<AIStateManager>().targets[6].transform;
+            taskDone = new bool[6];
+            state.aiPos = state.listOfAI.items[2].GetComponent<AIStateManager>().pathPoints[6].transform;
         }
 
         public override void OnExitState(SceneStateManager state)
@@ -77,23 +76,40 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
                     enableAI = true;
                     taskDone[2] = true;
                 }
-                if (GetNumberOfActiveSockets(state) == 4 && !taskDone[3] && Vector3.Distance(state.listOfAI.items[2].transform.position, state.aiPos.position) < 3f)
+                else if (GetNumberOfActiveSockets(state) == 4 && !taskDone[3] && Vector3.Distance(state.listOfAI.items[2].transform.localPosition, state.aiPos.localPosition) <= 2f)
                 {
-                    PlayerInput.Instance.EnablePlayerMovement();
+                    state.StartCoroutine(LineUP(state));
+                    taskDone[3] = true;
+                }
+                else if (taskDone[3] && !taskDone[4] && Vector3.Distance(state.playerTransform.position, state.room2PlayerPos2.position) < 1.5f)
+                {
+                    taskDone[4] = true;
                     state.room2Door.EnableDoor = true;
                     for (int i = 0; i < state.listOfAI.Count; i++)
                     {
                         AIStateManager ai = state.listOfAI.items[i].GetComponent<AIStateManager>();
                         ai.targetIndex++;
                         ai.moveOnly = true;
-                        ai.currentTarget = ai.targets[ai.targetIndex];
+                        ai.currentTarget = ai.pathPoints[ai.targetIndex];
                         state.StartCoroutine(ProceedToNextRoom(state, ai));
                     }
-                    taskDone[3] = true;
                 }
-            }
 
-            Debug.Log(Vector3.Distance(state.listOfAI.items[2].transform.position, state.aiPos.position));
+            }
+        }
+
+        IEnumerator LineUP(SceneStateManager state, float lineUpDelay = 3f)
+        {
+            for (int i = 0; i < state.listOfAI.Count; i++)
+            {
+                AIStateManager ai = state.listOfAI.items[i].GetComponent<AIStateManager>();
+                ai.targetIndex++;
+                ai.moveOnly = true;
+                ai.currentTarget = ai.pathPoints[ai.targetIndex];
+                ai.SwitchState(ai.moveState);
+                yield return new WaitForSeconds(lineUpDelay);
+            }
+            PlayerInput.Instance.EnablePlayerMovement();
         }
 
         IEnumerator StartAITask(SceneStateManager state, int aiIndex) //Starting AI to do its task

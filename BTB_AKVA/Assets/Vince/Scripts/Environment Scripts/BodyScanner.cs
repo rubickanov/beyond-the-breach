@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using UnityEngine;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 namespace AKVA.Assets.Vince.Scripts.Environment
 {
@@ -8,43 +10,36 @@ namespace AKVA.Assets.Vince.Scripts.Environment
     {
         [SerializeField] float scanInterval = 3f;
         [SerializeField] GameObject scanLight;
-        [SerializeField] Material outerLightsMat;
+        [SerializeField] Material outerLightsMat, scanLightMat, scannerObjMat;
         [SerializeField] Color scanFailed, scanSuccess;
         [SerializeField] GameObject scientist;
-        [SerializeField] bool[] successfulScan;
+        bool[] successfulScan;
         public bool scientistEntered = true;
         public int rotateCount;
-        [SerializeField] Transform player;
+        Transform player;
 
-        bool startTime;
-        bool delay;
-
-        public float currentTime;
-        float maxTime = 5;
-
+        bool startPlayerScanTime;
+        public float currentPlayerScanningTime;
+        public float maxScanTime = 5;
+        bool beginLightAnimation;
+        bool playerEscaped;
 
         private void Start()
         {
-            SetScannerLightsColor(scanFailed);
+            successfulScan = new bool[4];
+            SetScannerOuterLightsColor(scanFailed);
+            SetScannerRayLightColor(scanSuccess);
+            outerLightsMat.SetColor("_EmissionColor", Color.red);
+            scannerObjMat.SetColor("_EmissionColor", Color.white);
         }
 
         private void Update()
         {
             PlayerScanProcedure();
-
-            if (startTime)
+            PlayerScanTimer();
+            if (playerEscaped)
             {
-                if (currentTime < maxTime)
-                {
-                    delay = true;
-                    currentTime += Time.deltaTime;
-                }
-                else
-                {
-                    delay = false;
-                    currentTime = 0;
-                    startTime = false;
-                }
+                ErrorLightAnimation();
             }
         }
 
@@ -59,7 +54,6 @@ namespace AKVA.Assets.Vince.Scripts.Environment
 
             if (other.tag == "Player")
             {
-                print("Player");
                 player = other.transform;
             }
         }
@@ -71,7 +65,17 @@ namespace AKVA.Assets.Vince.Scripts.Environment
                 rotateCount = 0;
                 scientist = null;
                 scientistEntered = false;
-                SetScannerLightsColor(scanFailed);
+                SetScannerOuterLightsColor(scanFailed);
+            }
+
+            if (other.tag == "Player")
+            {
+                if (player != null && !successfulScan[3])
+                {
+                    //player dead
+                    SetScannerRayLightColor(scanFailed);
+                    playerEscaped = true;
+                }
             }
         }
 
@@ -95,72 +99,124 @@ namespace AKVA.Assets.Vince.Scripts.Environment
                 }
                 rotateCount++;
             }
-            SetScannerLightsColor(scanSuccess);
+            SetScannerOuterLightsColor(scanSuccess);
         }
 
         void PlayerScanProcedure()
         {
             if (player != null)
             {
+                float playerRotationY = player.transform.rotation.eulerAngles.y;
                 if (!successfulScan[0])
                 {
-                    StartCoroutine(BeginPlayerScan(3, 3));
-                    successfulScan[0] = true;
-                }
-                if (scanLight.activeSelf && successfulScan[0] && !successfulScan[1] && player.transform.rotation.eulerAngles.y < 200 && player.transform.rotation.eulerAngles.y > 150)
-                {
-                    successfulScan[1] = true;
-                    StartCoroutine(BeginPlayerScan(6, 3));
+                    StartCoroutine(BeginPlayerScan(3, 0));
                 }
 
-                if (scanLight.activeSelf && successfulScan[1] && !successfulScan[2] && player.transform.rotation.eulerAngles.y > 260 && player.transform.rotation.eulerAngles.y < 300)
+                if (scanLight.activeSelf && successfulScan[0] && !successfulScan[1] && currentPlayerScanningTime >= maxScanTime)
                 {
-                    StartCoroutine(BeginPlayerScan(8, 3));
-                    successfulScan[2] = true;
+                    if (playerRotationY < 200 && playerRotationY > 150)
+                    {
+                        StartCoroutine(BeginPlayerScan(3, 1));
+                        scanLight.SetActive(false);
+                    }
+                    else
+                    {
+                        SetScannerRayLightColor(scanFailed);
+                        ErrorLightAnimation();
+                    }
                 }
-            
-                if (scanLight.activeSelf && successfulScan[2] && !successfulScan[3])
+                else if (scanLight.activeSelf && successfulScan[1] && !successfulScan[2] && currentPlayerScanningTime >= maxScanTime)
                 {
-                    float playerRotationY = player.transform.rotation.eulerAngles.y;
+                    if (playerRotationY > 260 && playerRotationY < 300)
+                    {
+                        StartCoroutine(BeginPlayerScan(3, 2));
+                        scanLight.SetActive(false);
+                    }
+                    else
+                    {
+                        SetScannerRayLightColor(scanFailed);
+                        ErrorLightAnimation();
+                    }
+                }
 
-                    // Check if the rotation is greater than 340 or less than 40
+                else if (scanLight.activeSelf && successfulScan[2] && !successfulScan[3] && currentPlayerScanningTime >= maxScanTime)
+                {
                     if ((playerRotationY > 340 && playerRotationY < 360) || (playerRotationY >= 0 && playerRotationY < 40))
                     {
-                        StartCoroutine(BeginPlayerScan(8,3));
                         successfulScan[3] = true;
+                        scanLight.SetActive(false);
+                        ErrorLightAnimation();
                     }
-               
+                    else
+                    {
+                        SetScannerRayLightColor(scanFailed);
+                    }
                 }
-                if (successfulScan[3])
+                else if (successfulScan[3])
                 {
-                    SetScannerLightsColor(scanSuccess);
-
-                   
+                    SetScannerOuterLightsColor(scanSuccess);
                 }
-                //else
-                //{
-                //    //Player dead
-                //    print("Failed scan");
-                //}
-
-                //add fail sequence
             }
         }
 
-        IEnumerator BeginPlayerScan(float activeDelay, float DisableDelay)
+        private void PlayerScanTimer()
         {
-            yield return new WaitForSeconds(activeDelay);
-            scanLight.SetActive(true);
-            yield return new WaitForSeconds(DisableDelay);
-            scanLight.SetActive(false);
+            if (startPlayerScanTime)
+            {
+                if (currentPlayerScanningTime < maxScanTime)
+                {
+                    currentPlayerScanningTime += Time.deltaTime;
+                }
+                else
+                {
+                    currentPlayerScanningTime = 0;
+                    startPlayerScanTime = false;
+                }
+            }
         }
 
+        IEnumerator BeginPlayerScan(float activeDelay, int scanIndex)
+        {
+            yield return new WaitForSeconds(activeDelay);
+            successfulScan[scanIndex] = true;
+            startPlayerScanTime = true;
+            scanLight.SetActive(true);
+        }
 
+        public void SetScannerRayLightColor(Color lightColor)
+        {
+            scanLightMat.SetColor("_TintColor", new Color(lightColor.r, lightColor.g, lightColor.b, 0.5f));
+        }
 
-        public void SetScannerLightsColor(Color lightColor)
+        public void SetScannerOuterLightsColor(Color lightColor)
         {
             outerLightsMat.color = lightColor;
             outerLightsMat.SetColor("_EmissionColor", lightColor);
+        }
+
+        void ErrorLightAnimation()
+        {
+            if (!beginLightAnimation)
+            {
+                beginLightAnimation = true;
+                StartCoroutine(AnimateScannerLight());
+                scanLight.SetActive(false);
+            }
+        }
+
+        IEnumerator AnimateScannerLight()
+        {
+            while (true)
+            {
+                scanLight.SetActive(false);
+                outerLightsMat.SetColor("_EmissionColor", Color.black);
+                scannerObjMat.SetColor("_EmissionColor", Color.black);
+                yield return new WaitForSeconds(0.3f);
+                scanLight.SetActive(true);
+                outerLightsMat.SetColor("_EmissionColor", Color.red);
+                scannerObjMat.SetColor("_EmissionColor", Color.white);
+                yield return new WaitForSeconds(0.3f);
+            }
         }
     }
 }

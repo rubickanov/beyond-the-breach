@@ -6198,14 +6198,15 @@ MonoBehaviour:
   scanInterval: 3
   scanLight: {fileID: 1864524904}
   outerLightsMat: {fileID: 2100000, guid: 92cd2595c36344a7eae48be2bdb8eb63, type: 2}
+  scanLightMat: {fileID: 2100000, guid: 91f21d47c2b9b7d4e946b81b5b39f0af, type: 2}
+  scannerObjMat: {fileID: 2100000, guid: 06d40dc2e1401784eb420a0d2d5d7235, type: 2}
   scanFailed: {r: 0.83137256, g: 0.003921569, b: 0.003921569, a: 1}
   scanSuccess: {r: 0.16470589, g: 0.8666667, b: 0, a: 1}
   scientist: {fileID: 0}
-  successfulScan: 0000000000
   scientistEntered: 1
   rotateCount: 0
-  player: {fileID: 0}
-  currentTime: 0
+  currentPlayerScanningTime: 0
+  maxScanTime: 3
 --- !u!65 &660868285
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -8041,6 +8042,26 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 41939b510c1d29048b094506a78df423, type: 3}
+--- !u!1 &881107344 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7755711652883777634, guid: 7ea641099ed0ec54e8cf14c58673c406,
+    type: 3}
+  m_PrefabInstance: {fileID: 311105289407314070}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &881107349
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 881107344}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ec127e8cb540d447913f8241619f958, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  layerMaskIndex: 0b0000000d000000
+  distanceToNotRender: 20
 --- !u!1001 &895375587
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13713,12 +13734,12 @@ PrefabInstance:
     - target: {fileID: 1483195416260367091, guid: 93bb202217b456d4a983347085db078c,
         type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1483195416260367091, guid: 93bb202217b456d4a983347085db078c,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1633244908260465256, guid: 93bb202217b456d4a983347085db078c,
         type: 3}
@@ -13728,7 +13749,7 @@ PrefabInstance:
     - target: {fileID: 1633244908260465256, guid: 93bb202217b456d4a983347085db078c,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -18857,7 +18878,7 @@ PrefabInstance:
     - target: {fileID: 1410726131186694045, guid: 7ea641099ed0ec54e8cf14c58673c406,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 13.422901
+      value: 63.5
       objectReference: {fileID: 0}
     - target: {fileID: 1410726131186694045, guid: 7ea641099ed0ec54e8cf14c58673c406,
         type: 3}
@@ -18867,7 +18888,7 @@ PrefabInstance:
     - target: {fileID: 1410726131186694045, guid: 7ea641099ed0ec54e8cf14c58673c406,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 6.4677896
+      value: 57.58
       objectReference: {fileID: 0}
     - target: {fileID: 1410726131186694045, guid: 7ea641099ed0ec54e8cf14c58673c406,
         type: 3}
@@ -18909,6 +18930,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerSetup (SkinnedMesh)
       objectReference: {fileID: 0}
+    - target: {fileID: 3014742351452828693, guid: 7ea641099ed0ec54e8cf14c58673c406,
+        type: 3}
+      propertyPath: cameraSmoothness
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3014742351452828693, guid: 7ea641099ed0ec54e8cf14c58673c406,
+        type: 3}
+      propertyPath: mouseSensitivity
+      value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 3014742351452828693, guid: 7ea641099ed0ec54e8cf14c58673c406,
+        type: 3}
+      propertyPath: smoothnessMethod
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3451814421452379816, guid: 7ea641099ed0ec54e8cf14c58673c406,
         type: 3}
       propertyPath: m_UseGravity
@@ -18937,12 +18973,17 @@ PrefabInstance:
     - target: {fileID: 7707694562265835710, guid: 7ea641099ed0ec54e8cf14c58673c406,
         type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8119757861221226350, guid: 7ea641099ed0ec54e8cf14c58673c406,
         type: 3}
       propertyPath: m_Depth
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8521088481249877488, guid: 7ea641099ed0ec54e8cf14c58673c406,
+        type: 3}
+      propertyPath: pickupMask.m_Bits
+      value: 8192
       objectReference: {fileID: 0}
     - target: {fileID: 8782867932267550292, guid: 7ea641099ed0ec54e8cf14c58673c406,
         type: 3}
@@ -18952,7 +18993,11 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7755711652883777634, guid: 7ea641099ed0ec54e8cf14c58673c406,
+        type: 3}
+      insertIndex: 3
+      addedObject: {fileID: 881107349}
   m_SourcePrefab: {fileID: 100100000, guid: 7ea641099ed0ec54e8cf14c58673c406, type: 3}
 --- !u!1 &407122844774619224
 GameObject:

@@ -32,7 +32,7 @@ namespace AKVA.Assets.Vince.Scripts.AI
                 {
                     state.objOnHand = colliders[0].gameObject;
                     state.targetIndex++;
-                    state.currentTarget = state.targets[state.targetIndex];
+                    state.currentTarget = state.pathPoints[state.targetIndex];
                     state.StartCoroutine(SwitchDelay(state, 2f));
                     state.pickUp = false;
                 }
