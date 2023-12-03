@@ -21,7 +21,7 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
 
         public Transform playerTransform;
         [HideInInspector] public Picking playerPicking;
-        public RuntimeList listOfAI;
+        public GameObject [] listOfAI;
 
 
         [Header("Movement Tutorial")]

@@ -145,10 +145,10 @@ namespace AKVA.Assets.Vince.Scripts.Environment
                     {
                         successfulScan[3] = true;
                         scanLight.SetActive(false);
-                        ErrorLightAnimation();
                     }
                     else
                     {
+                        ErrorLightAnimation();
                         SetScannerRayLightColor(scanFailed);
                     }
                 }

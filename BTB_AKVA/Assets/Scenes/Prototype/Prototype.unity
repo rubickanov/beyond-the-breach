@@ -813,7 +813,8 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5029988449864943088, guid: 267a3854dd1ad0849b502b69904c3b13, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -1573,6 +1574,12 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1889876479}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &253241906 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5619516423726872788, guid: 267a3854dd1ad0849b502b69904c3b13,
+    type: 3}
+  m_PrefabInstance: {fileID: 136480678}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &257183562
 GameObject:
   m_ObjectHideFlags: 0
@@ -1604,6 +1611,12 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1916443325}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &272532984 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5619516423726872788, guid: 267a3854dd1ad0849b502b69904c3b13,
+    type: 3}
+  m_PrefabInstance: {fileID: 1548942432}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &291688984
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1757,7 +1770,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerTransform: {fileID: 684702163}
   playerPicking: {fileID: 0}
-  listOfAI: {fileID: 11400000, guid: 14be574e1ff3218429b9c35b9b827178, type: 2}
+  listOfAI:
+  - {fileID: 272532984}
+  - {fileID: 1077980180}
+  - {fileID: 253241906}
   timeDelayBeforePlayerMovement: 3
   timeDelayDuringTutorial: 1
   roomDoor: {fileID: 1257482459}
@@ -5078,6 +5094,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1061815989}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1077980180 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5619516423726872788, guid: 267a3854dd1ad0849b502b69904c3b13,
+    type: 3}
+  m_PrefabInstance: {fileID: 3962743913889654282}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1084826267
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6813,7 +6835,8 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5029988449864943088, guid: 267a3854dd1ad0849b502b69904c3b13, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -12515,7 +12538,8 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5029988449864943088, guid: 267a3854dd1ad0849b502b69904c3b13, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

@@ -21,6 +21,7 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
         public override void OnUpdateState(LevelManager state)
         {
             RespawnAI(state);
+            ProceedToNextLevel(state);
         }
 
         private void RespawnAI(LevelManager state)
@@ -31,6 +32,14 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
                 scientistStateManager.moveOnly = false;
                 aiTransform.position = state.aIStartPos.position;
                 state.SwitchState(state.level2);
+            }
+        }
+
+        void ProceedToNextLevel(LevelManager state)
+        {
+            if (Vector3.Distance(state.player.transform.position, state.checkPoints[3].position) < 1)
+            {
+                state.SwitchState(state.level5);
             }
         }
     }

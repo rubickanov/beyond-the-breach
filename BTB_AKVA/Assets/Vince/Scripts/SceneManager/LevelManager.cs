@@ -37,10 +37,6 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
         void Update()
         {
             currentLevel.OnUpdateState(this);
-            if (Input.GetKeyDown(KeyCode.H)){
-                currentLevel = level5;
-                currentLevel.OnEnterState(this);
-            }
         }
 
         public void SwitchState(LevelState state)

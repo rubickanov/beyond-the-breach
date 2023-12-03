@@ -75,9 +75,9 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
                 else if (taskDone[4] && !taskDone[5] && Vector3.Distance(state.playerTransform.position, state.room1PlayerPos2.position) < 1.5f)
                 {
                     state.room1Door.EnableDoor = true;
-                    for (int i = 0; i < state.listOfAI.Count; i++)
+                    for (int i = 0; i < state.listOfAI.Length; i++)
                     {
-                        AIStateManager ai = state.listOfAI.items[i].GetComponent<AIStateManager>();
+                        AIStateManager ai = state.listOfAI[i].GetComponent<AIStateManager>();
                         ai.targetIndex++;
                         ai.moveOnly = true;
                         ai.currentTarget = ai.pathPoints[ai.targetIndex];
@@ -90,9 +90,9 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
 
         IEnumerator LineUP(SceneStateManager state, float lineUpDelay = 3f)
         {
-            for (int i = 0; i < state.listOfAI.Count; i++)
+            for (int i = 0; i < state.listOfAI.Length; i++)
             {
-                AIStateManager ai = state.listOfAI.items[i].GetComponent<AIStateManager>();
+                AIStateManager ai = state.listOfAI[i].GetComponent<AIStateManager>();
                 ai.targetIndex++;
                 ai.moveOnly = true;
                 ai.currentTarget = ai.pathPoints[ai.targetIndex];
@@ -106,7 +106,7 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
         IEnumerator StartAITask(SceneStateManager state, int aiIndex) //Starting AI to do its task
         {
             yield return new WaitForSeconds(3f);
-            state.listOfAI.items[aiIndex].GetComponent<AIStateManager>().activateAI = true;
+            state.listOfAI[aiIndex].GetComponent<AIStateManager>().activateAI = true;
             aiActive = true;
             enableAI = false;
         }

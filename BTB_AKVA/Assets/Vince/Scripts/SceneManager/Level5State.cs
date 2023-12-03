@@ -19,6 +19,11 @@ namespace Assets.Vince.Scripts.SceneManager
 
         public override void OnUpdateState(LevelManager state)
         {
+            MoveAIToPathPoints(state);
+        }
+
+        private void MoveAIToPathPoints(LevelManager state)
+        {
             if (Vector3.Distance(state.scientist.transform.position, state.scientist.targets[0].position) <= 1 && !moveAI[0])
             {
                 moveAI[0] = true;
