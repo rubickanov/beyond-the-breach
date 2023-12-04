@@ -8,29 +8,21 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
 {
     public class Level2State : LevelState
     {
-        ScientistStateManager scientistStateManager;
-        Transform aiTransform;
         public override void OnEnterState(LevelManager state)
         {
-            Debug.Log("State 2");
-            scientistStateManager = state.level2AI.GetComponent<ScientistStateManager>();
-            aiTransform = state.level2AI.transform;
-            scientistStateManager.activate = true;
+            state.scientistLevel2.SetActive(true);
         }
 
         public override void OnUpdateState(LevelManager state)
         {
-            RespawnAI(state);
+            ProceedToNextLevel(state);
         }
 
-        private void RespawnAI(LevelManager state)
+        void ProceedToNextLevel(LevelManager state)
         {
-            if(Vector3.Distance(aiTransform.position, state.aIEndPos.position) < 4)
+            if (Vector3.Distance(state.player.transform.position, state.checkPoints[3].position) < 1)
             {
-                scientistStateManager.targetIndex = 0;
-                scientistStateManager.moveOnly = false;
-                aiTransform.position = state.aIStartPos.position;
-                state.SwitchState(state.level2);
+                state.SwitchState(state.level5);
             }
         }
     }

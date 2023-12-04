@@ -51,7 +51,7 @@ namespace AKVA.Assets.Vince.Scripts.AI
                     state.objOnHand = null;
                     state.moveOnly = true;
                     state.targetIndex++;
-                    state.currentTarget = state.targets[state.targetIndex];
+                    state.currentTarget = state.pathPoints[state.targetIndex];
                     state.StartCoroutine(SwitchStateDelay(state, 1f));
                 }
             }

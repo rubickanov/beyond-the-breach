@@ -91,6 +91,11 @@ namespace AKVA.Assets.Vince.Scripts.Environment
             slotIndex++;
         }
 
+        public void UnlockPassDevice()
+        {
+            PasswordMatch();
+        }
+
         IEnumerator DisableKeylight(GameObject key)
         {
             yield return new WaitForSeconds(0.1f);

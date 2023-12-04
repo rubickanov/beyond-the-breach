@@ -6,6 +6,7 @@ namespace AKVA.Animations
 {
     public class RobotAIAnim : MonoBehaviour
     {
+        Rigidbody rb;
         Animator anim;
         public string currentAnim;
         public string Robot_Walk = "WalkForward";
@@ -17,7 +18,12 @@ namespace AKVA.Animations
 
         private void Start()
         {
+            rb = GetComponent<Rigidbody>();
             anim = GetComponent<Animator>();
+        }
+
+        private void Update()
+        {
         }
 
         public void ChangeAnimState(string newState)

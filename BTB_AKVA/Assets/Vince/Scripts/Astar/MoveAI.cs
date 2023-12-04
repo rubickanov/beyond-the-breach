@@ -9,11 +9,9 @@ namespace AKVA.Assets.Vince.Scripts.Astar
         public float speed = 1;
         Vector3[] path;
         int targetIndex;
-        Rigidbody rb;
 
-        void Start ()
+        void Start()
         {
-            rb = GetComponent<Rigidbody>();
         }
 
         private void Update()
@@ -50,7 +48,6 @@ namespace AKVA.Assets.Vince.Scripts.Astar
                     }
                     currentWaypoint = path[targetIndex];
                 }
-
                 transform.position = Vector3.MoveTowards(transform.position, currentWaypoint, speed * Time.deltaTime);
                 transform.LookAt(currentWaypoint);
                 yield return null;

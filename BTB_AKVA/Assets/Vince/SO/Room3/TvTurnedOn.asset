@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b919edf9843a4024b97695c6164dfcdc, type: 3}
   m_Name: TvTurnedOn
   m_EditorClassIdentifier: 
-  value: 1
+  value: 0
