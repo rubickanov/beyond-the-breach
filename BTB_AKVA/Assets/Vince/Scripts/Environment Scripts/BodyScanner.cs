@@ -16,15 +16,16 @@ namespace AKVA.Assets.Vince.Scripts.Environment
         bool[] successfulScan;
         public bool scientistEntered = true;
         public int rotateCount;
-        Transform player;
+        [SerializeField] Transform player;
 
         bool startPlayerScanTime;
         public float currentPlayerScanningTime;
         public float maxScanTime = 5;
         bool beginLightAnimation;
         bool playerEscaped;
+        bool error;
 
-        private void Start()
+        private void Awake()
         {
             successfulScan = new bool[4];
             SetScannerOuterLightsColor(scanFailed);
@@ -39,6 +40,7 @@ namespace AKVA.Assets.Vince.Scripts.Environment
             PlayerScanTimer();
             if (playerEscaped)
             {
+                error = true;
                 ErrorLightAnimation();
             }
         }
@@ -86,7 +88,7 @@ namespace AKVA.Assets.Vince.Scripts.Environment
 
         IEnumerator RotateScientist()
         {
-            while (rotateCount < 3 && scientist != null)
+            while (rotateCount < 3 && scientist != null && !error)
             {
                 yield return new WaitForSeconds(1);
                 scanLight.SetActive(true);

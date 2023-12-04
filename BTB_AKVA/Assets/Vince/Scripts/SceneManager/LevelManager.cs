@@ -13,12 +13,10 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
         public Transform[] checkPoints;
 
         [Header("Level 2 Handler")]
-        public GameObject level2AI;
-        public Transform aIStartPos;
-        public Transform aIEndPos;
+        public GameObject scientistLevel2;
 
         [Header("Level 5 handler")]
-        public ScientistStateManager scientist;
+        public GameObject scientistLevel5;
 
         LevelState currentLevel;
         public Level1State level1 = new Level1State();
@@ -27,6 +25,7 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
         private void Awake()
         {
             //player = GameObject.FindGameObjectWithTag("Player");
+            DisableAllMovingAI();
         }
         void Start()
         {
@@ -43,6 +42,12 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
         {
             currentLevel = state;
             state.OnEnterState(this);
+        }
+
+        void DisableAllMovingAI()
+        {
+            scientistLevel2.SetActive(false);
+            scientistLevel5.SetActive(false);
         }
 
         private void OnDrawGizmos()

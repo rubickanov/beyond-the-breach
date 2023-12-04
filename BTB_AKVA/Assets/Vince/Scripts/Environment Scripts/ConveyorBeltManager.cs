@@ -51,7 +51,6 @@ namespace AKVA.Assets.Vince.Scripts.Environment
         {
             if (collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("Scientist"))
             {
-                Debug.Log("Detected");
                 objDetected = collision.gameObject.transform;
             }
         }

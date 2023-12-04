@@ -26,7 +26,7 @@ namespace AKVA.Interaction
 
         public void TakePlayerAppearance(Mesh mesh, Material material)
         {
-            gameObject.GetComponent<ScientistStateManager>()?.MindControl();
+            gameObject.GetComponent<ScientistBT>()?.SetMindControl(true);
             //meshFilter.mesh = mesh;
             //meshRenderer.material = material;
             skinnedMeshRenderer.sharedMesh = mesh;
@@ -37,6 +37,7 @@ namespace AKVA.Interaction
         {
             //meshFilter.mesh = defaultMesh;
             //meshRenderer.material = defaultMaterial;
+            gameObject.GetComponent<ScientistBT>()?.SetMindControl(false);
             skinnedMeshRenderer.sharedMesh = defaultMesh;
             skinnedMeshRenderer.material = defaultMaterial;
         }
