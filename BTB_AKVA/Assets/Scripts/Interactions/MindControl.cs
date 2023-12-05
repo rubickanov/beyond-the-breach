@@ -1,7 +1,6 @@
 using System.Collections;
 using UnityEngine;
 using AKVA.Player;
-using System.Linq.Expressions;
 
 namespace AKVA.Interaction
 {
@@ -9,7 +8,7 @@ namespace AKVA.Interaction
     {
         [SerializeField] private Transform playerCamera;
         [SerializeField] private Transform orientation;
-        
+
         [SerializeField] private float distanceToMindControl;
 
         private MindControlledObject mindControlledObject;
@@ -22,10 +21,14 @@ namespace AKVA.Interaction
         private SkinnedMeshRenderer skinnedMeshRenderer;
 
         [HideInInspector] public bool IsActive;
-
+        [SerializeField] private float timeToMindControl = 2f;
         [SerializeField] private bool hasMindControlLimit;
         [SerializeField] private float mindControlTimeLimit;
+
         private float mindControlTimer;
+        private float timerToMindControl;
+
+        [SerializeField] private bool canSwap = true;
 
         private void Awake()
         {
@@ -33,8 +36,6 @@ namespace AKVA.Interaction
             skinnedMeshRenderer = playerVisual.GetComponent<SkinnedMeshRenderer>();
             playerMesh = skinnedMeshRenderer.sharedMesh;
             playerMaterial = skinnedMeshRenderer.material;
-            //playerMesh = playerVisual.GetComponent<MeshFilter>().mesh;
-            //playerMaterial = playerVisual.GetComponent<MeshRenderer>().material;
         }
 
         private void Start()
@@ -45,18 +46,23 @@ namespace AKVA.Interaction
         private void Update()
         {
             RaycastHit hit;
-            if(!isControlling)
+            if (!isControlling)
             {
-                if(Physics.Raycast(playerCamera.position, playerCamera.forward, out hit, distanceToMindControl))
+                if (Physics.Raycast(playerCamera.position, playerCamera.forward, out hit, distanceToMindControl))
                 {
-                    if(hit.transform.TryGetComponent(out mindControlledObject))
+                    if (hit.transform.TryGetComponent(out mindControlledObject))
                     {
                         IsActive = true;
-                        if(Input.GetKeyDown(PlayerInput.Instance.Controls.mindControl))
+                        if (Input.GetKey(PlayerInput.Instance.Controls.mindControl) && canSwap)
                         {
-                            picking.DropObject();
-                            Control(mindControlledObject);
-                            mindControlledObject = hit.transform.GetComponent<MindControlledObject>();
+                            timerToMindControl += Time.deltaTime;
+                            if (timerToMindControl >= timeToMindControl)
+                            {
+                                timerToMindControl = 0;
+                                picking.DropObject();
+                                Control(mindControlledObject);
+                                mindControlledObject = hit.transform.GetComponent<MindControlledObject>();
+                            }
                         }
                     }
                     else
@@ -68,17 +74,37 @@ namespace AKVA.Interaction
                 {
                     IsActive = false;
                 }
-            } else
+            }
+            else
             {
                 IsActive = false;
-                if(Input.GetKeyDown(PlayerInput.Instance.Controls.mindControl))
+                if (Input.GetKey(PlayerInput.Instance.Controls.mindControl) && canSwap)
                 {
-                    picking.DropObject();
-                    ReturnToBody(mindControlledObject);
+                    IsActive = true;
+                    timerToMindControl += Time.deltaTime;
+                    if (timerToMindControl >= timeToMindControl)
+                    {
+                        timerToMindControl = 0;
+                        picking.DropObject();
+                        ReturnToBody(mindControlledObject);
+                    }
                 }
             }
-            
-            if(hasMindControlLimit)
+
+            if (Input.GetKeyUp(PlayerInput.Instance.Controls.mindControl))
+            {
+                timerToMindControl = 0;
+                canSwap = true;
+            }
+
+            if (!IsActive)
+            {
+                timerToMindControl = 0;
+            }
+
+          
+
+            if (hasMindControlLimit)
             {
                 if (isControlling)
                 {
@@ -91,7 +117,7 @@ namespace AKVA.Interaction
                 }
             }
         }
-        
+
         public void Control(MindControlledObject controlledObject)
         {
             Swap(controlledObject.transform);
@@ -110,6 +136,7 @@ namespace AKVA.Interaction
 
         private void Swap(Transform objectTransform)
         {
+            canSwap = false;
             StartCoroutine(SwapCoroutine(objectTransform));
         }
 
@@ -119,19 +146,29 @@ namespace AKVA.Interaction
             yield return new WaitForFixedUpdate();
             Collider objectColl = objectTransform.GetComponent<Collider>();
             objectColl.enabled = false;
-            
+
             Vector3 position = objectTransform.position;
             float yRot = objectTransform.eulerAngles.y;
-            
+
             objectTransform.position = transform.position;
             objectTransform.forward = transform.forward;
 
             transform.position = position;
             playerCamera.GetComponent<MouseLook>().SetYRotation(yRot);
-            
+
             yield return new WaitForFixedUpdate();
             objectColl.enabled = true;
             PlayerInput.Instance.EnablePlayerInput();
+        }
+
+        public float GetTimerToMindControlValue()
+        {
+            return timerToMindControl;
+        }
+
+        public float GetTimeToMindControlValue()
+        {
+            return timeToMindControl;
         }
 
         private void OnDrawGizmosSelected()
