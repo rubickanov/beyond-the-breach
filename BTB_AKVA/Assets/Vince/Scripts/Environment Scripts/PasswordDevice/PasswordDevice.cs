@@ -18,7 +18,6 @@ namespace AKVA.Assets.Vince.Scripts.Environment
         string currentPass = "";
         RaycastHit hit;
         int slotIndex;
-        bool match;
 
         private void Awake()
         {
@@ -41,7 +40,7 @@ namespace AKVA.Assets.Vince.Scripts.Environment
                         TurnOnKeyLight(hit.transform);
                         if(currentPass == password)
                         {
-                            match = true;
+                            PasswordMatch();
                         }
                         else
                         {
@@ -54,11 +53,6 @@ namespace AKVA.Assets.Vince.Scripts.Environment
                         UpdateKeySlots(hit.transform);
                     }
                 }
-            }
-
-            if (match)
-            {
-                PasswordMatch();
             }
         }
 

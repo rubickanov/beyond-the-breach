@@ -9,6 +9,8 @@ namespace AKVA.Assets.Vince.Scripts.AI
 {
     public class ScientistBT : BTree
     {
+        [SerializeField] public BoolReference playerDied;
+
         [Header("Mind Controlled")]
         public bool isMindControlled;
         public GameObject electricityVfx;
@@ -46,7 +48,7 @@ namespace AKVA.Assets.Vince.Scripts.AI
                 new BTSequence(new List<TreeNode>
                 {
                     new BTPlayerInRange(transform, visionPos, visionRadius, playerLayer, timeToNoticePlayer),
-                    new BTKillPlayer(transform),
+                    new BTKillPlayer(transform, playerDied),
                 }),
                 new BTSequence(new List<TreeNode>
                 {
