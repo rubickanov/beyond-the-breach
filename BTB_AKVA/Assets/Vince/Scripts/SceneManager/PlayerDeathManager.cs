@@ -1,3 +1,4 @@
+using System;
 using AKVA.Player;
 using AKVA.Vince.SO;
 using System.Collections;
@@ -7,7 +8,7 @@ using UnityEngine;
 public class PlayerDeathManager : MonoBehaviour
 {
     private static PlayerDeathManager _instance;
-    public static PlayerDeathManager instance { get { return _instance; } }
+    public static PlayerDeathManager Instance { get { return _instance; } }
 
     [SerializeField] BoolReference playerDied;
     [SerializeField] GameObject DeathScreenUI;
@@ -23,7 +24,12 @@ public class PlayerDeathManager : MonoBehaviour
             _instance = this;
         }
     }
-    
+
+    private void Start()
+    {
+        DeathScreenUI.SetActive(false);
+    }
+
 
     private void Update()
     {
@@ -35,8 +41,14 @@ public class PlayerDeathManager : MonoBehaviour
 
     public void ShowDeathScreen(bool value)
     {
+        Cursor.lockState = CursorLockMode.None;
         DeathScreenUI.SetActive(value);
         PlayerInput.Instance.DisablePlayerInput();
+    }
+
+    public void ResetPlayerDied()
+    {
+        playerDied.value = false;
     }
 }
 

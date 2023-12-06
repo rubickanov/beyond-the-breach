@@ -7,6 +7,8 @@ namespace AKVA.Player
     {
         [SerializeField] private PlayerMovement playerMovement;
         [SerializeField] private MouseLook mouseLook;
+        [SerializeField] private EagleVision eagleVision;
+        
         public static PlayerInput Instance { get; private set; }
 
         [SerializeField] public ControlsSO Controls;
