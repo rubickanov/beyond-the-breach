@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using EZCameraShake;
 
 namespace AKVA.Player
 {
@@ -12,6 +13,13 @@ namespace AKVA.Player
         [SerializeField] private float plusValuePerClick;
         [SerializeField] private float minusValuePerTick;
         private Rigidbody rb;
+
+        [Header("CAMERA SHAKE")] 
+        [SerializeField] private float magnitude;
+        [SerializeField] private float roughness;
+        [SerializeField] private float fadeInTime;
+        [SerializeField] private float fadeOutTime;
+
 
         private void Awake()
         {
@@ -31,6 +39,7 @@ namespace AKVA.Player
             if (Input.GetKeyDown(PlayerInput.Instance.Controls.interact))
             {
                 Escape();
+                CameraShaker.Instance.ShakeOnce(magnitude, roughness, fadeInTime, fadeOutTime);
             }
             
             
