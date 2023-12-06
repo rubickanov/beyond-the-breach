@@ -7,10 +7,11 @@ namespace AKVA.Assets.Vince.Scripts.Environment
 {
     public class SecurityComputer : MonoBehaviour
     {
-        [SerializeField] RawImage[] rawImages; 
+        [SerializeField] RawImage[] rawImages;
+        [SerializeField] bool computerIsActive = true;
         void Start()
         {
-
+            SetVideo(computerIsActive);
         }
 
         public void SetVideo(bool enable)

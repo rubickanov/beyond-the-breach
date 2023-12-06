@@ -1,5 +1,7 @@
+using AKVA.Animations;
 using AKVA.Assets.Vince.Scripts.AI;
 using AKVA.Assets.Vince.Scripts.Environment;
+using AKVA.Vince.SO;
 using Assets.Vince.Scripts.SceneManager;
 using System.Collections;
 using System.Collections.Generic;
@@ -17,6 +19,10 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
 
         [Header("Level 5 handler")]
         public GameObject scientistLevel5;
+        [Header("Level 5 Extension Level")]
+        public BoolReference switchStatus;
+        public RobotAIAnim robotAnim;
+        bool x;
 
         LevelState currentLevel;
         public Level1State level1 = new Level1State();

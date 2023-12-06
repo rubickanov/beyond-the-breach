@@ -11,10 +11,7 @@ GameObject:
   - component: {fileID: 7592017795519852007}
   - component: {fileID: 2492096538225427789}
   - component: {fileID: 117353138580844872}
-  - component: {fileID: 8255669411065918252}
-  - component: {fileID: 6472146578581107312}
-  - component: {fileID: 5994580984906583427}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: LS_plate_SButton_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -87,61 +84,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &8255669411065918252
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 138126781962293286}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.012758567, y: 0.012663971, z: 0.00086875755}
-  m_Center: {x: -0.0000000023841857, y: -0.00007580608, z: 0.0015170958}
---- !u!114 &6472146578581107312
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 138126781962293286}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 55369ce3844fd8540ad6b8dfcd814fbe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  OnSocketEnabled:
-    m_PersistentCalls:
-      m_Calls: []
-  OnSocketDisabled:
-    m_PersistentCalls:
-      m_Calls: []
-  batteryPlaceHolder: {fileID: 0}
-  isColored: 0
-  socketIsActive: 0
---- !u!114 &5994580984906583427
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 138126781962293286}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 19e8570b44032c043b3fa9903354e90a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  runtimeList: {fileID: 11400000, guid: 3faa49a49bd6922429b1d235696c709b, type: 2}
 --- !u!1 &5034221606991807034
 GameObject:
   m_ObjectHideFlags: 0
@@ -153,7 +95,7 @@ GameObject:
   - component: {fileID: 833622240647529993}
   - component: {fileID: 8572463974015228006}
   - component: {fileID: 4822271408109631761}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: LS_plate_SButton_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -237,7 +179,9 @@ GameObject:
   - component: {fileID: 6271550888933988902}
   - component: {fileID: 5532222403664178425}
   - component: {fileID: 826449401993395001}
-  m_Layer: 9
+  - component: {fileID: 5625477608735197516}
+  - component: {fileID: 6212334295826762792}
+  m_Layer: 0
   m_Name: FloorButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -312,6 +256,78 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &5625477608735197516
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7796210941725043015}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51dc0e12f21c9694b84fa23ffeedc691, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnBtnPressed:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: AKVA.Assets.Vince.Scripts.Environment.DoubleDoor,
+          Environment
+        m_MethodName: set_EnableDoor
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+  OnBtnReleased:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: AKVA.Assets.Vince.Scripts.Environment.DoubleDoor,
+          Environment
+        m_MethodName: set_EnableDoor
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  button: {fileID: 7592017795519852007}
+  layersToDetect:
+    serializedVersion: 2
+    m_Bits: 1032
+  checkBoxSize: {x: 1.27, y: 1, z: 1.22}
+  btnMat: {fileID: 117353138580844872}
+  active: 0
+--- !u!65 &6212334295826762792
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7796210941725043015}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.015345785, y: 0.015345787, z: 0.0011786257}
+  m_Center: {x: 0, y: 0, z: 0.00058931287}
 --- !u!1 &8416316042820059338
 GameObject:
   m_ObjectHideFlags: 0
@@ -323,7 +339,7 @@ GameObject:
   - component: {fileID: 8791943787017283730}
   - component: {fileID: 8401153437167196802}
   - component: {fileID: 6131122468915226606}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: LS_plate_SButton_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -8,6 +8,7 @@ namespace AKVA.Animations
     {
         Rigidbody rb;
         Animator anim;
+        public string startingAnim;
         public string currentAnim;
         public string Robot_Walk = "WalkForward";
         public string Robot_Idle = "Idle";
@@ -20,10 +21,7 @@ namespace AKVA.Animations
         {
             rb = GetComponent<Rigidbody>();
             anim = GetComponent<Animator>();
-        }
-
-        private void Update()
-        {
+            ChangeAnimState(startingAnim);
         }
 
         public void ChangeAnimState(string newState)

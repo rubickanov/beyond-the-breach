@@ -126,7 +126,7 @@ namespace AKVA.Interaction
             mindControlTimer = mindControlTimeLimit;
         }
 
-        private void ReturnToBody(MindControlledObject controlledObject)
+        public void ReturnToBody(MindControlledObject controlledObject)
         {
             Swap(controlledObject.transform);
             controlledObject.ResetAppearance();

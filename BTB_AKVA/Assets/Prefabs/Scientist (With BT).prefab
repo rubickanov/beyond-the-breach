@@ -1521,12 +1521,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81360970bedc3dc4e9ad617e405f0e47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerDied: {fileID: 11400000, guid: dd4fb4cf715b99e4d8f2984b8beda3ba, type: 2}
   isMindControlled: 0
   electricityVfx: {fileID: 2446228753156035836}
   wayPoints:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  enablePatrol: 0
   visionPos: {fileID: 8180062535118637665}
   visionRadius: 2.5
   interactableObjLayer:
@@ -1540,6 +1542,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   detectionValue: 0
+  objStatus: {fileID: 0}
 --- !u!114 &6605495417462477925
 MonoBehaviour:
   m_ObjectHideFlags: 0

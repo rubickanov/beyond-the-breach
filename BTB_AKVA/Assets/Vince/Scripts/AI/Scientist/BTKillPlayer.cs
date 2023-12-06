@@ -1,5 +1,6 @@
 using AKVA.Animations;
 using AKVA.Assets.Vince.Scripts.Astar;
+using AKVA.Vince.SO;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,10 +11,12 @@ namespace AKVA.Assets.Vince.Scripts.AI
     {
         Transform transform;
         ScientistAIAnim anim;
-        public BTKillPlayer(Transform transform)
+        ScientistBT sciBT;
+        public BTKillPlayer(Transform transform, BoolReference playerDead)
         {
             this.transform = transform;
             anim = transform.GetComponent<ScientistAIAnim>();
+            sciBT = transform.GetComponent<ScientistBT>();
         }
 
         public override NodeState Execute()
@@ -21,7 +24,9 @@ namespace AKVA.Assets.Vince.Scripts.AI
             anim.ChangeAnimState(anim.Robot_Idle);
             transform.GetComponent<MoveAI>().StopMoving();
             Debug.Log("Player Dead");
-            state = NodeState.RUNNING;
+            sciBT.playerDied.value = true
+                ;
+            state = NodeState.SUCCESS;
             return state;
         }
     }

@@ -14,5 +14,10 @@ namespace AKVA.Vince.SO
             value = false;
         }
 
+        public void SetBool(bool value)
+        {
+            this.value = value;
+        }
+
     }
 }
