@@ -15,15 +15,8 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
 
         public override void OnUpdateState(LevelManager state)
         {
-            ProceedToNextLevel(state);
         }
 
-        void ProceedToNextLevel(LevelManager state)
-        {
-            if (Vector3.Distance(state.player.transform.position, state.checkPoints[3].position) < 1)
-            {
-                state.SwitchState(state.level5);
-            }
-        }
+       
     }
 }

@@ -23,6 +23,7 @@ public class PlayerDeathManager : MonoBehaviour
             _instance = this;
         }
     }
+    
 
     private void Update()
     {

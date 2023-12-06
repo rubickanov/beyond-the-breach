@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 using EZCameraShake;
@@ -62,15 +63,21 @@ namespace AKVA.Player
             if (slider.value >= maxSliderValue)
             {
                 isActive = false;
-                Destroy(slider.transform.parent.gameObject);
                 CameraShaker.Instance.enabled = false;
-                Destroy(this);
+                Cancel();
             }
         }
 
         private void DecreaseValuePerTick()
         {
             slider.value -= minusValuePerTick * Time.deltaTime;
+        }
+
+        public void Cancel()
+        {
+            Destroy(slider.transform.parent.gameObject);
+            //CameraShaker.Instance.enabled = false;
+            Destroy(this);
         }
     }
 }

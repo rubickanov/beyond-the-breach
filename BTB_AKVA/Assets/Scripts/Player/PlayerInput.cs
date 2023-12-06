@@ -7,11 +7,9 @@ namespace AKVA.Player
     {
         [SerializeField] private PlayerMovement playerMovement;
         [SerializeField] private MouseLook mouseLook;
-        
         public static PlayerInput Instance { get; private set; }
 
         [SerializeField] public ControlsSO Controls;
-
         private void Awake()
         {
             if (Instance != null && Instance != this)

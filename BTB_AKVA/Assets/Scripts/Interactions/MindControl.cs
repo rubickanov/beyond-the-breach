@@ -140,7 +140,7 @@ namespace AKVA.Interaction
             StartCoroutine(SwapCoroutine(objectTransform));
         }
 
-        private IEnumerator SwapCoroutine(Transform objectTransform) //FIX ROTATIONS!
+        private IEnumerator SwapCoroutine(Transform objectTransform)
         {
             PlayerInput.Instance.DisablePlayerInput();
             yield return new WaitForFixedUpdate();
