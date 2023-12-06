@@ -22,7 +22,7 @@ MonoBehaviour:
         serializedVersion: 2
         m_Bits: 2048
       PassNames: []
-    overrideMaterial: {fileID: 2100000, guid: 3be90daf6f48a5a4f9370d664bd3a648, type: 2}
+    overrideMaterial: {fileID: 2100000, guid: 80c3206373eef5242a0def3d45aaac8d, type: 2}
     overrideMaterialPassIndex: 0
     overrideShader: {fileID: 0}
     overrideShaderPassIndex: 0
@@ -103,7 +103,8 @@ MonoBehaviour:
   m_RendererFeatures:
   - {fileID: -1897698929638458090}
   - {fileID: -397334371681282260}
-  m_RendererFeatureMap: 16bd42c0e004aae52c57e27e7e627cfa
+  - {fileID: 6388848960365399521}
+  m_RendererFeatureMap: 16bd42c0e004aae52c57e27e7e627cfae10d34a647c0a958
   m_UseNativeRenderPass: 0
   postProcessData: {fileID: 11400000, guid: 47d194a711e6c154f853a64bf1856c10, type: 2}
   xrSystemData: {fileID: 11400000, guid: 60e1133243b97e347b653163a8c01b64, type: 2}
@@ -146,3 +147,45 @@ MonoBehaviour:
   m_CopyDepthMode: 1
   m_AccurateGbufferNormals: 0
   m_IntermediateTextureMode: 1
+--- !u!114 &6388848960365399521
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b3d386ba5cd94485973aee1479b272e, type: 3}
+  m_Name: HiddenWires
+  m_EditorClassIdentifier: 
+  m_Active: 1
+  settings:
+    passTag: HiddenWires
+    Event: 300
+    filterSettings:
+      RenderQueueType: 0
+      LayerMask:
+        serializedVersion: 2
+        m_Bits: 65536
+      PassNames: []
+    overrideMaterial: {fileID: 2100000, guid: 3be90daf6f48a5a4f9370d664bd3a648, type: 2}
+    overrideMaterialPassIndex: 0
+    overrideShader: {fileID: 0}
+    overrideShaderPassIndex: 0
+    overrideMode: 1
+    overrideDepthState: 1
+    depthCompareFunction: 8
+    enableWrite: 1
+    stencilSettings:
+      overrideStencilState: 0
+      stencilReference: 0
+      stencilCompareFunction: 8
+      passOperation: 0
+      failOperation: 0
+      zFailOperation: 0
+    cameraSettings:
+      overrideCamera: 0
+      restoreCamera: 1
+      offset: {x: 0, y: 0, z: 0, w: 0}
+      cameraFieldOfView: 60

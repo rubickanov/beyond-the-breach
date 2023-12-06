@@ -1,4 +1,5 @@
 using AKVA.Assets.Vince.Scripts.Astar;
+using AKVA.Vince.SO;
 using log4net.Appender;
 using System.Collections;
 using System.Collections.Generic;
@@ -14,6 +15,7 @@ namespace AKVA.Assets.Vince.Scripts.AI
 
         [Header("Movement")]
         [SerializeField] Transform[] wayPoints;
+        [SerializeField] bool enablePatrol;
 
         [Header("Interaction")]
         [SerializeField] Transform visionPos;
@@ -28,6 +30,14 @@ namespace AKVA.Assets.Vince.Scripts.AI
         public LayerMask playerLayer;
         public float detectionValue;
 
+        [Header("Object to guard")]
+        public BoolReference objStatus;
+
+        private void Start()
+        {
+            SetSwitchStatus();
+        }
+
         protected override TreeNode SetupTree()
         {
             TreeNode root = new BTSelector(new List<TreeNode>{
@@ -38,6 +48,11 @@ namespace AKVA.Assets.Vince.Scripts.AI
                     new BTPlayerInRange(transform, visionPos, visionRadius, playerLayer, timeToNoticePlayer),
                     new BTKillPlayer(transform),
                 }),
+                new BTSequence(new List<TreeNode>
+                {
+                    new BTPowerIsOff(transform, objStatus),
+                    new BTGoToPower(transform, wayPoints),
+                }),
                 new BTScanning(transform, visionRadius, bodyScannerLayer),
                 new BTSequence(new List<TreeNode>
                 {
@@ -45,7 +60,7 @@ namespace AKVA.Assets.Vince.Scripts.AI
                     new MoveTowardsInteractableObj(transform),
                     new BTInteractingObj(transform),
                 }),
-                new BTPatrol(transform, wayPoints),
+                new BTPatrol(transform, wayPoints, objStatus, enablePatrol),
             });
             return root;
         }
@@ -56,11 +71,18 @@ namespace AKVA.Assets.Vince.Scripts.AI
             Gizmos.DrawWireSphere(visionPos.position, visionRadius);
         }
 
+        void SetSwitchStatus()
+        {
+            if (objStatus != null)
+            {
+                objStatus.value = true;
+            }
+        }
+
         public void SetMindControl(bool enable)
         {
             SetAlertSliderUI(enable);
             isMindControlled = enable;
-           
         }
 
         void SetAlertSliderUI(bool enable)

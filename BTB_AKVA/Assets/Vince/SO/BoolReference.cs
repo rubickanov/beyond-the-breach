@@ -9,9 +9,14 @@ namespace AKVA.Vince.SO
     {
         public bool value;
 
-        private void OnDisable()
+        //private void OnDisable()
+        //{
+        //    value = false;
+        //}
+
+        public void SetBool(bool value)
         {
-            value = false;
+            this.value = value;
         }
 
     }
