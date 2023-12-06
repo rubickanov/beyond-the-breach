@@ -14,7 +14,7 @@ namespace AKVA.Player
 
         private Renderer cameraRenderer;
         private UniversalAdditionalCameraData data;
-        private bool isEagleVision;
+        public bool isEagleVision;
 
         [SerializeField] private GameObject eagleVisionPostProcessing;
         
