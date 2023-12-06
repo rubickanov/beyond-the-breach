@@ -63,6 +63,7 @@ namespace AKVA.Player
             {
                 isActive = false;
                 Destroy(slider.transform.parent.gameObject);
+                CameraShaker.Instance.enabled = false;
                 Destroy(this);
             }
         }
