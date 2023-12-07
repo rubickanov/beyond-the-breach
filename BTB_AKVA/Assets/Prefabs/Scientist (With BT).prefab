@@ -919,6 +919,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 5362531278485021140}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &3569383698826493353
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6548307653185214970}
+  m_Layer: 10
+  m_Name: Eyes
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6548307653185214970
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3569383698826493353}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.648, z: 0.17}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5816296305467387425}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3616522219953505673
 GameObject:
   m_ObjectHideFlags: 0
@@ -1390,6 +1421,7 @@ Transform:
   - {fileID: 8180062535118637665}
   - {fileID: 6986083309673949948}
   - {fileID: 2442879851660154224}
+  - {fileID: 6548307653185214970}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &7742511666299666841
@@ -1538,10 +1570,14 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 32768
   timeToNoticePlayer: 3
+  eyesPos: {fileID: 6548307653185214970}
   playerLayer:
     serializedVersion: 2
     m_Bits: 8
-  detectionValue: 0
+  obstructionMask:
+    serializedVersion: 2
+    m_Bits: 128
+  initDetectionValue: 0
   objStatus: {fileID: 0}
 --- !u!114 &6605495417462477925
 MonoBehaviour:

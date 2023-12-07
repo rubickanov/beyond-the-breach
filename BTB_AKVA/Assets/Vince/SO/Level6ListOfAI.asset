@@ -9,10 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1db560367352a8d4eb1f54d883d26721, type: 3}
-  m_Name: Saved Checkpoint
+  m_Script: {fileID: 11500000, guid: 0e5cb16ea4f8c58429498e583a10c1f4, type: 3}
+  m_Name: Level6ListOfAI
   m_EditorClassIdentifier: 
-  position: {x: 10.51, y: 0, z: 6.4}
-  forward: {x: 0, y: 0, z: 0}
-  isSaved: 1
-  stateEnum: 0
+  items: []

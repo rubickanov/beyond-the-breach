@@ -24,8 +24,7 @@ namespace AKVA.Assets.Vince.Scripts.AI
             anim.ChangeAnimState(anim.Robot_Idle);
             transform.GetComponent<MoveAI>().StopMoving();
             Debug.Log("Player Dead");
-            sciBT.playerDied.value = true
-                ;
+            sciBT.playerDied.value = true;
             state = NodeState.SUCCESS;
             return state;
         }

@@ -54,7 +54,6 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
         void Update()
         {
             currentLevel.OnUpdateState(this);
-            Debug.Log(currentLevel);
         }
 
         public void SwitchState(LevelState state)

@@ -1,3 +1,4 @@
+using AKVA.Vince.SO;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq.Expressions;
@@ -17,6 +18,7 @@ namespace AKVA.Assets.Vince.Scripts.Environment
         public bool scientistEntered = true;
         public int rotateCount;
         [SerializeField] Transform player;
+        [SerializeField] BoolReference playerIsDead;
 
         bool startPlayerScanTime;
         public float currentPlayerScanningTime;
@@ -74,7 +76,7 @@ namespace AKVA.Assets.Vince.Scripts.Environment
             {
                 if (player != null && !successfulScan[3])
                 {
-                    //player dead
+                    playerIsDead.value = true;
                     SetScannerRayLightColor(scanFailed);
                     playerEscaped = true;
                 }
@@ -200,6 +202,7 @@ namespace AKVA.Assets.Vince.Scripts.Environment
         {
             if (!beginLightAnimation)
             {
+                playerIsDead.value = true;
                 beginLightAnimation = true;
                 StartCoroutine(AnimateScannerLight());
                 scanLight.SetActive(false);

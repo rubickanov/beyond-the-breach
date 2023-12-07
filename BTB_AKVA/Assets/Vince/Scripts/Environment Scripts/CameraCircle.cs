@@ -3,25 +3,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraCircle : MonoBehaviour
+namespace AKVA.Assets.Vince.Scripts.Environment
 {
-    [SerializeField] BoolReference playerDead;
-    void Start()
+    public class CameraCircle : MonoBehaviour
     {
-        
-    }
+        [SerializeField] BoolReference playerDead;
+        [SerializeField] BoolReference isMindControlling;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if(other.tag == "Player")
+        private void OnTriggerEnter(Collider other)
         {
-            playerDead.value = true;
+            if (other.tag == "Player" && !isMindControlling.value)
+            {
+                playerDead.value = true;
+            }
         }
     }
 }

@@ -581,6 +581,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerMovement: {fileID: 1457622184761858217}
   mouseLook: {fileID: 3014742351452828693}
+  eagleVision: {fileID: 0}
   Controls: {fileID: 11400000, guid: e759b1b6768ef094e8f0b751829d8c57, type: 2}
 --- !u!114 &1457622184761858217
 MonoBehaviour:
@@ -692,7 +693,11 @@ MonoBehaviour:
   distanceToMindControl: 10
   playerVisual: {fileID: 7555921250925473154}
   IsActive: 0
+  timeToMindControl: 2
+  hasMindControlLimit: 0
   mindControlTimeLimit: 60
+  canSwap: 1
+  isMindControlling: {fileID: 11400000, guid: f11e8dbffda562a4f8c13924e0eb5d2a, type: 2}
 --- !u!114 &3943544131264892372
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -705,6 +710,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35590129560c2a541b54b1b6c638696e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isPermanentReticle: 0
   secondsToDeactivate: 3
   reticleUI: {fileID: 0}
 --- !u!114 &8782867932267550292
@@ -720,6 +726,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cam: {fileID: 8119757861221226350}
+  isEagleVision: 0
   eagleVisionPostProcessing: {fileID: 0}
 --- !u!54 &3451814421452379816
 Rigidbody:
@@ -787,6 +794,10 @@ MonoBehaviour:
   maxSliderValue: 300
   plusValuePerClick: 20
   minusValuePerTick: 15
+  magnitude: 0
+  roughness: 0
+  fadeInTime: 0
+  fadeOutTime: 0
 --- !u!1 &2679477908832697396
 GameObject:
   m_ObjectHideFlags: 0
