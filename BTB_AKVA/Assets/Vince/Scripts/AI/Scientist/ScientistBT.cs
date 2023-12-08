@@ -21,7 +21,7 @@ namespace AKVA.Assets.Vince.Scripts.AI
 
         [Header("Interaction")]
         [SerializeField] Transform visionPos;
-        [SerializeField] float visionRadius;
+        [SerializeField] public float visionRadius;
         [SerializeField] LayerMask interactableObjLayer;
 
         [Header("Body Scanning")]
@@ -29,14 +29,18 @@ namespace AKVA.Assets.Vince.Scripts.AI
 
         [Header("PlayerDetection")]
         public float timeToNoticePlayer = 5f;
+        public Transform eyesPos;
         public LayerMask playerLayer;
-        public float detectionValue;
+        public LayerMask obstructionMask;
+        public float angleToDetect = 80;
+        [HideInInspector] public float initAngleToDetect;
 
         [Header("Object to guard")]
         public BoolReference objStatus;
 
         private void Start()
         {
+            initAngleToDetect = angleToDetect;
             SetSwitchStatus();
         }
 
@@ -47,7 +51,7 @@ namespace AKVA.Assets.Vince.Scripts.AI
                 new BTMindControlled(transform, isMindControlled),
                 new BTSequence(new List<TreeNode>
                 {
-                    new BTPlayerInRange(transform, visionPos, visionRadius, playerLayer, timeToNoticePlayer),
+                    new BTPlayerInRange(transform, visionPos, visionRadius, timeToNoticePlayer, eyesPos, playerLayer, obstructionMask),
                     new BTKillPlayer(transform, playerDied),
                 }),
                 new BTSequence(new List<TreeNode>

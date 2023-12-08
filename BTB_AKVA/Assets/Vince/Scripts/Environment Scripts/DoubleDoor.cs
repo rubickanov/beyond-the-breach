@@ -13,7 +13,10 @@ namespace AKVA.Assets.Vince.Scripts.Environment
         [SerializeField] Transform leftDoor, rightDoor;
         [SerializeField] bool activated;
         [SerializeField] bool keepItActive;
+        [SerializeField] bool openDoor;
         [SerializeField] float doorSpeed = 3f;
+        [SerializeField] float leftDoorTargetPos = -3.272f;
+        [SerializeField] float rightDoorTargetPos = 3.28f;
         [SerializeField] Material doorActivated, doorDeactivated;
 
         [Header("RayCast")]
@@ -61,13 +64,16 @@ namespace AKVA.Assets.Vince.Scripts.Environment
         void Update()
         {
             CheckPlayer();
+            if (openDoor)
+            {
+                OpenDoor();
+            }
         }
 
         private void CheckPlayer()
         {
             if (activated)
             {
-                ChangeDoorColor(doorActivated);
                 Ray ray = new Ray(rayOrigin.position, -rayOrigin.forward);
                 if (Physics.CheckBox(rayOrigin.position, physicsBoxSize, Quaternion.identity,allowedToOpen))
                 {
@@ -77,6 +83,7 @@ namespace AKVA.Assets.Vince.Scripts.Environment
                 {
                     CloseDoor();
                 }
+                ChangeDoorColor(doorActivated);
             }
             else
             {
@@ -126,9 +133,6 @@ namespace AKVA.Assets.Vince.Scripts.Environment
 
         private void OpenDoor()
         {
-            float leftDoorTargetPos = -3.272f;
-            float rightDoorTargetPos = 3.28f;
-
             if (leftDoor.localPosition.x > leftDoorTargetPos)
             {
                 float newX = Mathf.Lerp(leftDoor.localPosition.x, leftDoorTargetPos, doorSpeed * Time.deltaTime);
@@ -158,6 +162,11 @@ namespace AKVA.Assets.Vince.Scripts.Environment
                 float newX = Mathf.Lerp(rightDoor.localPosition.x, rightDoorTargetPos, doorSpeed * Time.deltaTime);
                 rightDoor.localPosition = new Vector3(newX, rightDoor.localPosition.y, rightDoor.localPosition.z);
             }
+        }
+
+        public void SetDoorToOpen(bool value)
+        {
+            openDoor = value;
         }
 
         private void OnDrawGizmos()

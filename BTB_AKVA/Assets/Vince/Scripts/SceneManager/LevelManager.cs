@@ -23,7 +23,21 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
         [Header("Level 5 Extension Level")]
         public BoolReference switchStatus;
         public RobotAIAnim robotAnim;
-        bool x;
+
+        [Header("Level 6")]
+         public GameObject [] scientistsLevel6;
+
+        [Header("Level 7")]
+        public GameObject [] scientistsLevel7;
+        public RobotMovement[] level7Robots;
+        public Transform robotQueueTriggerPoint, robotQueueTriggerPoint2;
+        public float distanceToTriggerRobots = 5f;
+        public bool moveAllRobotsToExit { get; set; }
+
+        [Header("Level 8")]
+        public Transform triggerQueue;
+        public GameObject scientistLevel8;
+        public BangingDoor backSideDoor;
 
         public static LevelManager Instance;
         
@@ -31,6 +45,9 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
         public Level1State level1 = new Level1State();
         public Level2State level2 = new Level2State();
         public Level5State level5 = new Level5State();
+        public Level6State level6 = new Level6State();
+        public Level7State level7 = new Level7State();
+        public Level8State level8 = new Level8State();
         private void Awake()
         {
             if (Instance == null)
@@ -54,7 +71,6 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
         void Update()
         {
             currentLevel.OnUpdateState(this);
-            Debug.Log(currentLevel);
         }
 
         public void SwitchState(LevelState state)
@@ -89,10 +105,13 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
                     SwitchState(level5);
                     break;
                 case LevelStatesEnum.Level6:
-                    //SwitchState(level6);
+                    SwitchState(level6);
                     break;
                 case LevelStatesEnum.Level7:
-                    //SwitchState(level7);
+                    SwitchState(level7);
+                    break;
+                case LevelStatesEnum.Level8:
+                    SwitchState(level8);
                     break;
                 default:
                     break;
@@ -118,7 +137,8 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
             Level4,
             Level5,
             Level6,
-            Level7
+            Level7,
+            Level8,
         }
     }
 }

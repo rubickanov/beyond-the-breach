@@ -21,18 +21,6 @@ namespace AKVA.Assets.Vince.Scripts.AI
         public override NodeState Execute()
         {
             object target = GetData("target");
-            //if (target == null) // check physics sphere for interactable obj
-            //{
-            //    Collider[] colliders = Physics.OverlapSphere(visionPos.position, visionRadius, interactableLayer);
-            //    if (colliders.Length > 0)
-            //    {
-            //        parent.parent.SetData("target", colliders[0].transform); //storing data in the root
-            //        state = NodeState.SUCCESS;
-            //        return state;
-            //    }
-            //    state = NodeState.FAILURE;
-            //    return state;
-            //}
 
             Collider[] colliders = Physics.OverlapSphere(visionPos.position, visionRadius, interactableLayer);
             if (colliders.Length > 0)

@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using AKVA.Player;
+using AKVA.Vince.SO;
 
 namespace AKVA.Interaction
 {
@@ -13,7 +14,7 @@ namespace AKVA.Interaction
 
         private MindControlledObject mindControlledObject;
 
-        private bool isControlling;
+        bool isControlling;
         private Picking picking;
         [SerializeField] private GameObject playerVisual;
         private Mesh playerMesh;
@@ -29,6 +30,9 @@ namespace AKVA.Interaction
         private float timerToMindControl;
 
         [SerializeField] private bool canSwap = true;
+        [SerializeField] BoolReference isMindControlling;
+
+
 
         private void Awake()
         {
@@ -116,6 +120,8 @@ namespace AKVA.Interaction
                     }
                 }
             }
+
+            isMindControlling.value = isControlling;
         }
 
         public void Control(MindControlledObject controlledObject)
@@ -171,7 +177,7 @@ namespace AKVA.Interaction
             return timeToMindControl;
         }
 
-        private void OnDrawGizmosSelected()
+        private void OnDrawGizmos()
         {
             Debug.DrawRay(playerCamera.position, playerCamera.forward * distanceToMindControl, Color.red);
         }
