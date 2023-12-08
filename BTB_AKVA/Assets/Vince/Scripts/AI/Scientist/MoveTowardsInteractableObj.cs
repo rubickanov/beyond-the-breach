@@ -36,12 +36,6 @@ namespace AKVA.Assets.Vince.Scripts.AI
                 return state;
             }
             return state;
-            //else
-            //{
-            //    Debug.Log("Interacting now");
-            //    state = NodeState.SUCCESS;
-            //    return state;
-            //}
         }
     }
 }

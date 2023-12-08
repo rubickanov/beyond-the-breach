@@ -51,7 +51,7 @@ namespace AKVA.Assets.Vince.Scripts.AI
 
             if (targetIndex >= wayPoints.Length - 1 && Vector3.Distance(transform.position, wayPoints[targetIndex].position) <= .1f)
             {
-                anim.ChangeAnimState(anim.Robot_Interaction);
+                anim.ChangeAnimState("LookingAround");
                 state = NodeState.SUCCESS;
             }
             else if (Vector3.Distance(transform.position, wayPoints[targetIndex].position) <= .1f)

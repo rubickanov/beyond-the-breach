@@ -122,7 +122,18 @@ namespace AKVA.Assets.Vince.Scripts.Environment
             numberOfBtnsActivated--;
             activated = false;
         }
+        public void DeactivateDoorWithDelay()
+        {
+            StartCoroutine(DeactivateDoorDelay());
+        }
 
+        IEnumerator DeactivateDoorDelay()
+        {
+            yield return new WaitForSeconds(14);
+            slidingDoor.localPosition = new Vector3(doorInitPos, 0f,0f);
+            SetMaterial(false);
+            activated = false;
+        }
         void SetMaterial(bool enable)
         {
             if (enable == true)

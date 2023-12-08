@@ -12,13 +12,14 @@ namespace AKVA.Assets.Vince.Scripts.AI
     {
         [SerializeField] float movementSpeed = 3f;
         [SerializeField] float rotationSpeed = 2f;
+        [SerializeField] float startDelay = 3;
         [SerializeField] float delayInterval = 4f;
         [SerializeField] Transform[] waypoints;
         RobotAIAnim anim;
         [SerializeField] public bool activateRobot;
         MoveAI moveAI;
         public int targetIndex;
-        bool activated;
+        public bool moveToNextLocation;
         bool indexAdded;
         bool moving;
 
@@ -52,8 +53,16 @@ namespace AKVA.Assets.Vince.Scripts.AI
                 if (!indexAdded)
                 {
                     indexAdded = true;
-                    StartCoroutine(MoveDelay());
+                  //  StartCoroutine(MoveDelay());
                 }
+            }
+            
+            if(moveToNextLocation)
+            {
+                moveToNextLocation = false;
+                startDelay = 0;
+                targetIndex++;
+                moving = false;
             }
         }
 
@@ -73,7 +82,7 @@ namespace AKVA.Assets.Vince.Scripts.AI
 
         IEnumerator StartDelay()
         {
-            yield return new WaitForSeconds(3);
+            yield return new WaitForSeconds(startDelay);
             MoveToTheWaypoints();
         }
     }

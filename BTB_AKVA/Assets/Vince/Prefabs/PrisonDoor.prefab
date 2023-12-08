@@ -163,7 +163,7 @@ MonoBehaviour:
   doorSpeed: 3
   leftDoorTargetPos: -4.5
   rightDoorTargetPos: 4.5
-  doorActivated: {fileID: 2100000, guid: 790eff77ed84cfd49bc3ba124a1e6b6d, type: 2}
+  doorActivated: {fileID: 2100000, guid: 04e71246c75bcad4bb526ab1430652ce, type: 2}
   doorDeactivated: {fileID: 2100000, guid: 04e71246c75bcad4bb526ab1430652ce, type: 2}
   rayOrigin: {fileID: 5041960006283849998}
   allowedToOpen:

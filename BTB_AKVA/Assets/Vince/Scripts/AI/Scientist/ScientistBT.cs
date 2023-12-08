@@ -32,7 +32,7 @@ namespace AKVA.Assets.Vince.Scripts.AI
         public Transform eyesPos;
         public LayerMask playerLayer;
         public LayerMask obstructionMask;
-        [HideInInspector] public float angleToDetect = 80;
+        public float angleToDetect = 80;
         [HideInInspector] public float initAngleToDetect;
 
         [Header("Object to guard")]
