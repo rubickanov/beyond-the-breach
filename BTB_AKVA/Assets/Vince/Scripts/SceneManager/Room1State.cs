@@ -36,6 +36,7 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
         {
             if (Vector3.Distance(state.playerTransform.position, state.room1PlayerPos.position) < 1.5f && !playerInPosition) // if player has positioned to its place holder
             {
+                state.room1TutorialMonitor.turnOnTV = true;
                 PlayerInput.Instance.DisablePlayerMovement();
                 state.StartCoroutine(StartAITask(state, 0));
                 playerInPosition = true;
@@ -72,6 +73,7 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
                 }
                 else if (taskDone[4] && !taskDone[5] && Vector3.Distance(state.playerTransform.position, state.room1PlayerPos2.position) < 1.5f)
                 {
+                    state.room1TutorialMonitor.ProceedToNextRoomText();
                     state.room1Door.EnableDoor = true;
                     for (int i = 0; i < state.listOfAI.Length; i++)
                     {
@@ -88,6 +90,7 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
 
         IEnumerator LineUP(SceneStateManager state, float lineUpDelay = 3f)
         {
+            state.room1TutorialMonitor.LineUPTxt();
             for (int i = 0; i < state.listOfAI.Length; i++)
             {
                 AIStateManager ai = state.listOfAI[i].GetComponent<AIStateManager>();

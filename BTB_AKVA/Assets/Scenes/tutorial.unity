@@ -4781,6 +4781,7 @@ MonoBehaviour:
   - {fileID: 1601061918}
   tutorialScreen: {fileID: 0}
   room1Door: {fileID: 2004929402}
+  room1TutorialMonitor: {fileID: 0}
   room1PlayerPos: {fileID: 143432850}
   room1PlayerPos2: {fileID: 1121587949}
   room1Buttons: {fileID: 11400000, guid: 3faa49a49bd6922429b1d235696c709b, type: 2}
@@ -4793,6 +4794,7 @@ MonoBehaviour:
   room2Door: {fileID: 1324020841}
   aiPos: {fileID: 0}
   room3PlayerPos: {fileID: 2025849672}
+  room3TutorialMonitor: {fileID: 0}
   imagesAppeared:
   - {fileID: 11400000, guid: 1d19217c6dc13aa45b57c69edbccfd93, type: 2}
   - {fileID: 11400000, guid: df30c8e5e56ac25499277685abc93a43, type: 2}
