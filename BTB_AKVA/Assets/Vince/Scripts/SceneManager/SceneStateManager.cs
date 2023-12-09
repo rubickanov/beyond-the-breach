@@ -32,6 +32,7 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
 
         [Header("Room 1 Scene")]
         public DoubleDoor room1Door;
+        public TutorialMonitor room1TutorialMonitor;
         public Transform room1PlayerPos, room1PlayerPos2;
         public RuntimeList room1Buttons;
         public RuntimeList room1Boxes;
@@ -45,6 +46,7 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
 
         [Header("Room 3 Scene")]
         public Transform room3PlayerPos;
+        public TutorialMonitor room3TutorialMonitor;
         public BoolReference[] imagesAppeared;
         public BoolReference tvTurnedOn;
 

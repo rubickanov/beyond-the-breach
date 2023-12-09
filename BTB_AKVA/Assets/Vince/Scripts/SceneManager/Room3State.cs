@@ -59,6 +59,8 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
         {
             if (Vector3.Distance(state.playerTransform.position, state.room3PlayerPos.position) < 1.5f && !playerInPosition && robotsInPosition) // if player has positioned to its place holder
             {
+                state.room3TutorialMonitor.turnOnTV = true;
+                state.room3TutorialMonitor.SetKeyLettersAndInstruction("E", "To Interact");
                 PlayerInput.Instance.DisablePlayerMovement();
                 state.tvTurnedOn.value = true;
                 state.imagesAppeared[0].value = true;
@@ -74,7 +76,7 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
                 if (Vector3.Distance(state.listOfAI[0].transform.position, state.listOfAI[0].GetComponent<AIStateManager>().pathPoints[12].position) < 2f && !task[0] && !aiEnabled)
                 {
                     state.imagesAppeared[5].value = true;
-                    state.StartCoroutine(showImageDelay(state, 1, 2f)); // show pass key
+                    state.StartCoroutine(showImageDelay(state, 1, 2f, "LEFT-CLICK", "To interact password buttons")); // show pass key
                     state.StartCoroutine(StartAITask(state, 0, 7f, true)); // go to the position of the  pass key
                     state.StartCoroutine(showImageDelay(state, 5, 10f)); // correct
                     aiEnabled = true;
@@ -88,7 +90,7 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
                 else if (task[1] && !task[2] && Vector3.Distance(state.listOfAI[0].transform.position, state.listOfAI[0].GetComponent<AIStateManager>().pathPoints[14].position) < 1f)
                 {
                     task[2] = true;
-                    state.StartCoroutine(showImageDelay(state, 2, 1f)); // show switch
+                    state.StartCoroutine(showImageDelay(state, 2, 1f, "E", "To Interact")); // show switch
                     state.StartCoroutine(StartAITask(state, 1, 4.5f, true)); // go to the switch pos
                 }
                 else if (task[2] && !task[3])
@@ -107,7 +109,7 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
                 else if (task[4] && !task[5] && Vector3.Distance(state.listOfAI[1].transform.position, state.listOfAI[1].GetComponent<AIStateManager>().pathPoints[14].position) < 1f)
                 {
                     task[5] = true;
-                    state.StartCoroutine(showImageDelay(state, 1, 1f)); // show image of pass key
+                    state.StartCoroutine(showImageDelay(state, 1, 1f,"LEFT-CLICK", "To interact password buttons")); // show image of pass key
                     state.StartCoroutine(StartAITask(state, 2, 5f, true));
                     state.StartCoroutine(showImageDelay(state, 5, 7f)); // correct
                 }
@@ -123,10 +125,16 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
                 }
             }
         }
-
-        IEnumerator showImageDelay(SceneStateManager state,int imgIndex, float delayTime)
+        IEnumerator showImageDelay(SceneStateManager state, int imgIndex, float delayTime)
         {
             yield return new WaitForSeconds(delayTime);
+            state.imagesAppeared[imgIndex].value = true;
+        }
+
+        IEnumerator showImageDelay(SceneStateManager state,int imgIndex, float delayTime, string interactKey, string instruction)
+        {
+            yield return new WaitForSeconds(delayTime);
+            state.room3TutorialMonitor.SetKeyLettersAndInstruction(interactKey, instruction);
             state.imagesAppeared[imgIndex].value = true;
         }
 

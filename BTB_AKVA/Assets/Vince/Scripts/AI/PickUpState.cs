@@ -1,3 +1,4 @@
+using AKVA.Assets.Vince.Scripts.Environment;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -31,6 +32,7 @@ namespace AKVA.Assets.Vince.Scripts.AI
                 if (state.pickUp)
                 {
                     state.objOnHand = colliders[0].gameObject;
+                    state.objOnHand.GetComponent<InteractableBattery>().batteryOnHand = true;
                     state.targetIndex++;
                     state.currentTarget = state.pathPoints[state.targetIndex];
                     state.StartCoroutine(SwitchDelay(state, 2f));
