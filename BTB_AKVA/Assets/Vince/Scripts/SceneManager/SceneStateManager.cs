@@ -27,7 +27,7 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
         [Header("Movement Tutorial")]
         public float timeDelayBeforePlayerMovement;
         public float timeDelayDuringTutorial;
-        public DoubleDoor roomDoor;
+        public DoubleDoor [] roomDoor;
         [HideInInspector] public TutorialScreen tutorialScreen;
 
         [Header("Room 1 Scene")]
@@ -47,7 +47,6 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
         public Transform room3PlayerPos;
         public BoolReference[] imagesAppeared;
         public BoolReference tvTurnedOn;
-        public Transform[] aiDestination;
 
         private void Awake()
         {

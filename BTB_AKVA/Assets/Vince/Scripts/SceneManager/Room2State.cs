@@ -14,12 +14,14 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
         bool enableAI; //Initiate Each AI to be activated
         bool[] taskDone;
         bool rotated;
+        bool[] positioned;
+        private bool RobotsInPosition = false;
 
         public override void OnEnterState(SceneStateManager state)
         {
-            Debug.Log("Room 2 State!");
             state.playerPicking.enabled = false;
             taskDone = new bool[6];
+            positioned = new bool[4];
             state.aiPos = state.listOfAI[2].GetComponent<AIStateManager>().pathPoints[6].transform;
         }
 
@@ -30,13 +32,31 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
 
         public override void OnUpdateState(SceneStateManager state)
         {
+            SetAIPositions(state);
             CheckIfPlayerIsInThePlaceHolder(state);
             ActivateAI(state);
         }
 
+        private void SetAIPositions(SceneStateManager state)
+        {
+            if (!RobotsInPosition)
+            {
+                if (Vector3.Distance(state.listOfAI[2].transform.position, state.listOfAI[0].GetComponent<AIStateManager>().pathPoints[4].position) < 1f)
+                {
+                    for (int i = 0; i < state.listOfAI.Length; i++)
+                    {
+                        AIStateManager aiManager = state.listOfAI[i].GetComponent<AIStateManager>();
+                        aiManager.activateAI = true;
+                    }
+                    RobotsInPosition = true;
+                }
+
+            }
+        }
+
         private void CheckIfPlayerIsInThePlaceHolder(SceneStateManager state)
         {
-            if (Vector3.Distance(state.playerTransform.position, state.room2PlayerPos.position) < 1.5f && !playerInPosition) // if player has positioned to its place holder
+            if (Vector3.Distance(state.playerTransform.position, state.room2PlayerPos.position) < 1.5f && !playerInPosition && RobotsInPosition)
             {
                 if (!rotated)
                 {
@@ -46,7 +66,6 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
                         ai.transform.rotation = Quaternion.identity;
                     }
                 }
-                Debug.Log("Player is In position");
                 PlayerInput.Instance.DisablePlayerMovement();
                 state.StartCoroutine(StartAITask(state, 0));
                 playerInPosition = true;
@@ -138,7 +157,7 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
 
         IEnumerator ProceedToNextRoom(SceneStateManager state, AIStateManager ai)
         {
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForSeconds(0);
             ai.SwitchState(ai.moveState);
             state.SwitchState(state.room3State);
         }

@@ -14,6 +14,7 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
 {
     public class Room3State : SceneState
     {
+        bool robotsInPosition;
         bool playerInPosition;
         bool aiActive; //Initiates the AI task
         bool[] task; //Initiate Each AI to be activated
@@ -34,13 +35,29 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
 
         public override void OnUpdateState(SceneStateManager state)
         {
+            SetAIPositions(state);
             CheckIfPlayerIsInThePlaceHolder(state);
             AITask(state);
+        }
+        private void SetAIPositions(SceneStateManager state)
+        {
+            if (!robotsInPosition)
+            {
+                if (Vector3.Distance(state.listOfAI[2].transform.position, state.listOfAI[0].GetComponent<AIStateManager>().pathPoints[10].position) <= 2f)
+                {
+                    for (int i = 0; i < state.listOfAI.Length; i++)
+                    {
+                        AIStateManager aiManager = state.listOfAI[i].GetComponent<AIStateManager>();
+                        aiManager.activateAI = true;
+                    }
+                    robotsInPosition = true;
+                }
+            }
         }
 
         private void CheckIfPlayerIsInThePlaceHolder(SceneStateManager state)
         {
-            if (Vector3.Distance(state.playerTransform.position, state.room3PlayerPos.position) < 1.5f && !playerInPosition) // if player has positioned to its place holder
+            if (Vector3.Distance(state.playerTransform.position, state.room3PlayerPos.position) < 1.5f && !playerInPosition && robotsInPosition) // if player has positioned to its place holder
             {
                 PlayerInput.Instance.DisablePlayerMovement();
                 state.tvTurnedOn.value = true;
@@ -54,7 +71,7 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
         {
             if (aiActive)
             {
-                if (Vector3.Distance(state.listOfAI[0].transform.position, state.aiDestination[0].position) < 2f && !task[0] && !aiEnabled)
+                if (Vector3.Distance(state.listOfAI[0].transform.position, state.listOfAI[0].GetComponent<AIStateManager>().pathPoints[12].position) < 2f && !task[0] && !aiEnabled)
                 {
                     state.imagesAppeared[5].value = true;
                     state.StartCoroutine(showImageDelay(state, 1, 2f)); // show pass key
@@ -68,7 +85,7 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
                     task[1] = true;
                     state.StartCoroutine(StartAITask(state, 0, 10f, true)); // go back to pos
                 }
-                else if (task[1] && !task[2] && Vector3.Distance(state.listOfAI[0].transform.position, state.listOfAI[0].GetComponent<AIStateManager>().pathPoints[12].position) < 1f)
+                else if (task[1] && !task[2] && Vector3.Distance(state.listOfAI[0].transform.position, state.listOfAI[0].GetComponent<AIStateManager>().pathPoints[14].position) < 1f)
                 {
                     task[2] = true;
                     state.StartCoroutine(showImageDelay(state, 2, 1f)); // show switch
@@ -81,13 +98,13 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
                     state.StartCoroutine(showImageDelay(state, 3, 10f)); // show image of button
                     state.StartCoroutine(StartAITask(state, 1, 14f, true)); // go to button
                 }
-                else if (task[3] && !task[4] && Vector3.Distance(state.listOfAI[1].transform.position, state.listOfAI[1].GetComponent<AIStateManager>().pathPoints[11].position) < 1f)
+                else if (task[3] && !task[4] && Vector3.Distance(state.listOfAI[1].transform.position, state.listOfAI[1].GetComponent<AIStateManager>().pathPoints[13].position) < 1f)
                 {
                     task[4] = true;
                     state.imagesAppeared[5].value = true; // correct
                     state.StartCoroutine(StartAITask(state, 1, 4f, true)); // go back to pos
                 }
-                else if (task[4] && !task[5] && Vector3.Distance(state.listOfAI[1].transform.position, state.listOfAI[1].GetComponent<AIStateManager>().pathPoints[12].position) < 1f)
+                else if (task[4] && !task[5] && Vector3.Distance(state.listOfAI[1].transform.position, state.listOfAI[1].GetComponent<AIStateManager>().pathPoints[14].position) < 1f)
                 {
                     task[5] = true;
                     state.StartCoroutine(showImageDelay(state, 1, 1f)); // show image of pass key
@@ -99,7 +116,7 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
                     task[6] = true;
                     state.StartCoroutine(showImageDelay(state, 2, 10f)); // show image of switch
                     state.StartCoroutine(StartAITask(state, 2, 13f, true)); // go to switch pos
-                }else if (task[6] && !task[7] && Vector3.Distance(state.listOfAI[2].transform.position, state.listOfAI[2].GetComponent<AIStateManager>().pathPoints[11].position) < 1f)
+                }else if (task[6] && !task[7] && Vector3.Distance(state.listOfAI[2].transform.position, state.listOfAI[2].GetComponent<AIStateManager>().pathPoints[13].position) < 1f)
                 {
                     task[7] = true;
                     state.StartCoroutine(Electricute(state, 5));
@@ -133,11 +150,20 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
             {
                 yield return new WaitForSeconds(delayTime);
                 GameObject ai = state.listOfAI[index];
-                ai.GetComponent<Animator>().applyRootMotion = true;
                 ai.GetComponent<CapsuleCollider>().enabled = false;
                 ai.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
                 ai.GetComponent<AIStateManager>().SwitchState(ai.GetComponent<AIStateManager>().deathState);
                 index--;
+            }
+        }
+
+        IEnumerator MoveDown(CapsuleCollider collider)
+        {
+            yield return new WaitForSeconds(3f);
+            while (collider.height > 0.1f)
+            {
+                yield return null;
+                collider.height -= 0.005f * Time.deltaTime;
             }
         }
     }

@@ -24,7 +24,7 @@ namespace AKVA.Assets.Vince.Scripts.AI
 
         private void LookForObjectsToPick(AIStateManager state)
         {
-            Collider[] colliders = Physics.OverlapSphere(state.transform.position, state.sphereRadius, state.objectsToPick);
+            Collider[] colliders = Physics.OverlapSphere(state.spherOrigin.position, state.sphereRadius, state.objectsToPick);
 
             if (colliders.Length > 0)
             { 
@@ -38,7 +38,7 @@ namespace AKVA.Assets.Vince.Scripts.AI
                 }
 
                 if (state.objOnHand != null) { return; }
-                state.transform.LookAt(colliders[0].transform);
+                //state.transform.LookAt(colliders[0].transform);
             }
         }
 

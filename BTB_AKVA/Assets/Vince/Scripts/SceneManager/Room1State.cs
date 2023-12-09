@@ -19,7 +19,6 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
         bool[] taskDone;
         public override void OnEnterState(SceneStateManager state)
         {
-            Debug.Log("Room 1 State");
             taskDone = new bool[6];
         }
 
@@ -37,7 +36,6 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
         {
             if (Vector3.Distance(state.playerTransform.position, state.room1PlayerPos.position) < 1.5f && !playerInPosition) // if player has positioned to its place holder
             {
-                Debug.Log("Player is In position");
                 PlayerInput.Instance.DisablePlayerMovement();
                 state.StartCoroutine(StartAITask(state, 0));
                 playerInPosition = true;
@@ -128,7 +126,7 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
 
         IEnumerator ProceedToNextRoom(SceneStateManager state, AIStateManager ai)
         {
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForSeconds(0f);
             ai.SwitchState(ai.moveState);
             state.SwitchState(state.room2State);
         }

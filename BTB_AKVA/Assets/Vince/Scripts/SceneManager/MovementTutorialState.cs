@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using AKVA.Player;
+using AKVA.Assets.Vince.Scripts.Environment;
 
 namespace AKVA.Assets.Vince.Scripts.SceneManager
 {
@@ -49,7 +50,10 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
                 {
                     state.tutorialScreen.ProceedToNextRoomText();
                     state.StartCoroutine(EnableMovement(state));
-                    state.roomDoor.EnableDoor = true;
+                    foreach(DoubleDoor door in state.roomDoor)
+                    {
+                        door.EnableDoor = true;
+                    }
                     state.SwitchState(state.room1State);
                 }
             }
@@ -63,7 +67,6 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
 
             //Enables Movement again after disabling it
             yield return new WaitForSeconds(state.timeDelayDuringTutorial);
-            Debug.Log("Movement Enabled");
             PlayerInput.Instance.EnablePlayerMovement();
         }
     }

@@ -16,7 +16,6 @@ namespace AKVA.Assets.Vince.Scripts.AI
 
         public override void OnEnterState(AIStateManager state)
         {
-            Debug.Log("DropState");
         }
         public override void OnUpdateState(AIStateManager state)
         {
