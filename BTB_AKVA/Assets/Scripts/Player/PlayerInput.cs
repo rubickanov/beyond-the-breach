@@ -1,3 +1,4 @@
+using System.Runtime.CompilerServices;
 using AKVA.Controls;
 using UnityEngine;
 
@@ -36,6 +37,16 @@ namespace AKVA.Player
             mouseLook.enabled = false;
         }
 
+        public void EnablePlayerMouseInput()
+        {
+            mouseLook.enabled = true;
+        }
+        
+        public void DisablePlayerMouseInput()
+        {
+            mouseLook.enabled = false;
+        }
+
         public void DisablePlayerMovement()
         {
             playerMovement.enabled = false;
@@ -43,9 +54,11 @@ namespace AKVA.Player
 
         public void EnablePlayerMovement()
         {
+            if (playerMovement.transform.TryGetComponent(out QTEEscape qte)) return;
             playerMovement.enabled = true;
         }
 
         public bool GetPlayerMovement => playerMovement.enabled;
+        public bool IsCameraInputEnabled => mouseLook.enabled;
     }
 }
