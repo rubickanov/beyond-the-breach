@@ -35,12 +35,12 @@ namespace AKVA.Assets.Vince.Scripts.Environment
                     {
                         if (battery.batteryOnHand)
                         {
-                            SetKeyLettersAndInstruction("E", "TO DROP OBJECTS");
+                            SetKeyLettersAndInstruction("[E]", "TO DROP OBJECTS");
                             break;
                         }
                         else
                         {
-                            SetKeyLettersAndInstruction("E", "TO PICK UP OBJECTS");
+                            SetKeyLettersAndInstruction("[E]", "TO PICK UP OBJECTS");
                         }
                     }
                 }
@@ -52,6 +52,14 @@ namespace AKVA.Assets.Vince.Scripts.Environment
         {
             whiteBgInitScale = transform.localScale.y;
             whiteBG.transform.localScale = new Vector3(whiteBG.localScale.x, 0, whiteBG.localScale.z);
+        }
+
+        public void SetKeyLettersAndInstruction(string letter, string function, float txtSize)
+        {
+            keyLetters.fontSize = txtSize;
+            instructionTxt.fontSize = txtSize;
+            keyLetters.SetText(letter);
+            instructionTxt.SetText(function);
         }
 
         public void SetKeyLettersAndInstruction(string letter, string function)
@@ -73,7 +81,7 @@ namespace AKVA.Assets.Vince.Scripts.Environment
             instructionTxt.gameObject.SetActive(false);
             pressTxt.gameObject.SetActive(false);
             keyLetters.fontSize = 20;
-            keyLetters.SetText("Proceed To The Next Room");
+            keyLetters.SetText("PROCEED TO NEXT ROOM");
         }
     }
 }

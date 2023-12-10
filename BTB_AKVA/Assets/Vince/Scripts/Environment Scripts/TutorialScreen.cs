@@ -48,7 +48,7 @@ namespace AKVA.Assets.Vince.Scripts.Environment
             functionTxt.gameObject.SetActive(false);
             pressTxt.gameObject.SetActive(false);
             keyLetters.fontSize = 20;
-            keyLetters.SetText("Proceed To The Next Room");
+            keyLetters.SetText("PROCEED TO NEXT ROOM");
         }
     }
 }

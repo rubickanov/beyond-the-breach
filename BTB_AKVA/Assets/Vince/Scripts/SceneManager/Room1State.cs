@@ -8,18 +8,39 @@ using AKVA.Assets.Vince.Scripts.Environment;
 using PlasticGui.WorkspaceWindow;
 using UnityEditor;
 using UnityEditor.Build;
+using TMPro;
 
 namespace AKVA.Assets.Vince.Scripts.SceneManager
 {
     public class Room1State : SceneState
     {
+        TextMeshProUGUI systemTxt;
+        TextMeshProUGUI movementUI;
+        Color hudColor;
+        bool interactionAnim;
+        bool interaction = true;
+        int dotNum1;
+        int dotNum2;
+        bool numberSystem = true;
+        bool numberTxtAnimating;
+
         bool playerInPosition;
         bool aiActive; //Initiates the AI task
         bool enableAI; //Initiate Each AI to be activated
         bool[] taskDone;
         public override void OnEnterState(SceneStateManager state)
         {
+            movementUI = state.initializeTxt;
+            systemTxt = state.movementTestTxt;
+            hudColor = state.hudColor;
             taskDone = new bool[6];
+            systemTxt.color = Color.green;
+
+            if (!numberTxtAnimating)
+            {
+                state.StartCoroutine(NumberAnimTxt());
+                numberTxtAnimating = true;
+            }
         }
 
         public override void OnUpdateState(SceneStateManager state)
@@ -38,7 +59,15 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
             {
                 state.room1TutorialMonitor.turnOnTV = true;
                 PlayerInput.Instance.DisablePlayerMovement();
+                SetMovementUI(false);
                 state.StartCoroutine(StartAITask(state, 0));
+                numberSystem = false;
+                if (!interactionAnim)
+                {
+                    systemTxt.color = Color.green;
+                    state.StartCoroutine(InteractionAnimTxt());
+                    interactionAnim = true;
+                }
                 playerInPosition = true;
             }
         }
@@ -63,15 +92,18 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
                 {
                     state.playerPicking.enabled = true;
                     taskDone[2] = true;
+                    SetMovementUI(true);
                     PlayerInput.Instance.EnablePlayerMovement();
                 }
                 else if (GetNumberOfActiveSockets(state) == 4 && Vector3.Distance(state.playerTransform.position, state.room1PlayerPos.position) < 1.5f && !taskDone[4])
                 {
+                    SetMovementUI(false);
                     PlayerInput.Instance.DisablePlayerMovement();
+                    interaction = false;
                     state.StartCoroutine(LineUP(state));
                     taskDone[4] = true;
                 }
-                else if (taskDone[4] && !taskDone[5] && Vector3.Distance(state.playerTransform.position, state.room1PlayerPos2.position) < 1.5f)
+                else if (taskDone[4] && !taskDone[5] && Vector3.Distance(state.playerTransform.position, state.room1PlayerPos2.position) < 1f)
                 {
                     state.room1TutorialMonitor.ProceedToNextRoomText();
                     state.room1Door.EnableDoor = true;
@@ -100,6 +132,7 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
                 ai.SwitchState(ai.moveState);
                 yield return new WaitForSeconds(lineUpDelay);
             }
+            SetMovementUI(true);
             PlayerInput.Instance.EnablePlayerMovement();
         }
 
@@ -126,6 +159,65 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
             return activeSockets;
         }
 
+        IEnumerator InteractionAnimTxt()
+        {
+            yield return new WaitForSeconds(3);
+            systemTxt.color = hudColor;
+
+            while (interaction)
+            {
+                yield return new WaitForSeconds(.5f);
+
+                if (dotNum2 < 4)
+                {
+                    systemTxt.SetText("CHECKING INTERACTION SYSTEM" + new string('.', dotNum2));
+                }
+                else
+                {
+                    systemTxt.SetText("CHECKING INTERACTION SYSTEM");
+                    dotNum2 = 0;
+                }
+                dotNum2++;
+            }
+            systemTxt.color = Color.green;
+            systemTxt.SetText("INTERACTION SYSTEM SUCCESS");
+        }
+
+        IEnumerator NumberAnimTxt()
+        {
+            yield return new WaitForSeconds(2f);
+            systemTxt.color = hudColor;
+            while (numberSystem)
+            {
+                yield return new WaitForSeconds(.5f);
+
+                if (dotNum1 < 4)
+                {
+                    systemTxt.SetText("NUMBER RECOGNITION SYSTEM" + new string('.', dotNum1));
+                }
+                else
+                {
+                    systemTxt.SetText("NUMBER RECOGNITION SYSTEM");
+                    dotNum1 = 0;
+                }
+                dotNum1++;
+            }
+            systemTxt.SetText("NUMBER RECOGNITION SUCCESS");
+        }
+
+        public void SetMovementUI(bool value)
+        {
+            if (value)
+            {
+                movementUI.color = Color.green;
+                movementUI.SetText("MOVEMENT: ENABLED");
+            }
+            else
+            {
+                movementUI.color = Color.red;
+                movementUI.SetText("MOVEMENT: DISABLED");
+            }
+        }
 
         IEnumerator ProceedToNextRoom(SceneStateManager state, AIStateManager ai)
         {
