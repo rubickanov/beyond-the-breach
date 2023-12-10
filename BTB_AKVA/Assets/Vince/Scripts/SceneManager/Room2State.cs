@@ -5,6 +5,7 @@ using System;
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace AKVA.Assets.Vince.Scripts.SceneManager
 {
@@ -184,7 +185,7 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
             ai.SwitchState(ai.moveState);
             state.SwitchState(state.room3State);
         }
-
+        
         IEnumerator AnimTxt()
         {
             while (txtAnim)

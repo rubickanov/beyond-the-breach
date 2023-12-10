@@ -68,6 +68,7 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
 
         [Header("Load To Next Scene")]
         public string sceneName;
+        public float loadDelay = 3f;
 
         [Header("CAMERA SHAKE")]
         public CameraShaker cameraShaker;

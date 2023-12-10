@@ -1,5 +1,5 @@
 {
-    "name": "SceneManager",
+    "name": "GameManager",
     "rootNamespace": "",
     "references": [
         "GUID:ef5a9a3f348b8a34b9434632446eb982",

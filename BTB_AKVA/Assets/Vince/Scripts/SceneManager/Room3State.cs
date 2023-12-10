@@ -1,6 +1,5 @@
 using AKVA.Assets.Vince.Scripts.AI;
 using AKVA.Assets.Vince.Scripts.Environment;
-using AKVA.Assets.Vince.Scripts.SceneManager;
 using AKVA.Player;
 using EZCameraShake;
 using PlasticGui.WorkspaceWindow.BranchExplorer;
@@ -35,6 +34,7 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
         int dotNum;
         bool txtAnimating;
         bool errorAnimated;
+        bool errorAnimating = true;
 
         GameObject electricVFX;
         bool enableCameraShake;
@@ -257,7 +257,7 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
 
         IEnumerator AnimateErrorTxt()
         {
-            while (true)
+            while (errorAnimating)
             {
                 yield return new WaitForSeconds(.5f);
                 systemTxt.gameObject.SetActive(false);
@@ -268,12 +268,16 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
 
         IEnumerator LoadToDifferentScene(SceneStateManager state)
         {
-            yield return new WaitForSeconds(7);
+            yield return new WaitForSeconds(6);
             state.PlayerHUDWithoutAnim.SetActive(false);
             state.blackBG.color = new Color(state.blackBG.color.r, state.blackBG.color.g, state.blackBG.color.b, 1);
 
-            yield return new WaitForSeconds(7);
-            //Load scene here
+            yield return new WaitForSeconds(5);
+            errorAnimating = false;
+            movementUI.gameObject.SetActive(false);
+            yield return new WaitForSeconds(state.loadDelay);
+            Debug.Log("Scene Loaded");
+            //UnityEngine.SceneManagement.SceneManager.LoadScene(state.sceneName);
         }
 
         void SetRoomToRed(SceneStateManager state)

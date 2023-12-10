@@ -5607,6 +5607,8 @@ MonoBehaviour:
   - {fileID: 1234168013}
   - {fileID: 754634825}
   - {fileID: 287027136}
+  sceneName: 
+  loadDelay: 4
   cameraShaker: {fileID: 2086774017}
   magnitude: 0.5
   roughness: 10
