@@ -16,7 +16,6 @@ namespace AKVA.Assets.Vince.Scripts.AI
 
         public override void OnEnterState(AIStateManager state)
         {
-            Debug.Log("DropState");
         }
         public override void OnUpdateState(AIStateManager state)
         {
@@ -47,6 +46,7 @@ namespace AKVA.Assets.Vince.Scripts.AI
                 if (state.dropItem)
                 {
                     state.objOnHand.transform.position = colliderPos.position;
+                    state.objOnHand.GetComponent<InteractableBattery>().batteryOnHand = false;
                     state.objOnHand.GetComponent<Collider>().isTrigger = false;
                     state.objOnHand = null;
                     state.moveOnly = true;

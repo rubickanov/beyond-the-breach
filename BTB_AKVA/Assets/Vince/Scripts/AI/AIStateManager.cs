@@ -14,6 +14,7 @@ namespace AKVA.Assets.Vince.Scripts.AI
 
         [Header("PickUp")]
         public GameObject objOnHand;
+        public Transform spherOrigin;
         public Transform itemPlaceHolder;
         public LayerMask objectsToPick;
         public float sphereRadius = 1f;
@@ -30,7 +31,9 @@ namespace AKVA.Assets.Vince.Scripts.AI
         //public Transform[] targets;
         public List<Transform> pathPoints;
         public bool moveOnly;
-        public bool x;
+        public bool applyRootMotion;
+
+        public GameObject electricityVfx;
 
         //states
         public AIState currentState;
@@ -54,12 +57,6 @@ namespace AKVA.Assets.Vince.Scripts.AI
                 currentState.OnUpdateState(this);
             }
             HoldObject();
-
-            if (x)
-            {
-                x = true;
-                SwitchState(deathState);
-            }
         }
 
         private void HoldObject()
@@ -98,10 +95,10 @@ namespace AKVA.Assets.Vince.Scripts.AI
 
         private void OnDrawGizmos()
         {
-            if (itemPlaceHolder != null)
+            if (spherOrigin != null)
             {
                 Gizmos.color = Color.green;
-                Gizmos.DrawWireSphere(itemPlaceHolder.position, sphereRadius);
+                Gizmos.DrawWireSphere(spherOrigin.position, sphereRadius);
             }
         }
 

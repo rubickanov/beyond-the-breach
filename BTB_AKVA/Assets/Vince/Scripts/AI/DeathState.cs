@@ -8,11 +8,13 @@ namespace AKVA.Assets.Vince.Scripts.AI
     {
         public override void OnEnterState(AIStateManager state)
         {
-            state.robotAnim.ChangeAnimState(state.robotAnim.Robot_Death);
+            state.electricityVfx.SetActive(true);
+            state.robotAnim.ChangeAnimState("Elect");
         }
 
         public override void OnUpdateState(AIStateManager state)
         {
+            state.GetComponent<Animator>().applyRootMotion = true;
         }
         public override void OnCollisionEnter(AIStateManager state, Collider collider)
         {

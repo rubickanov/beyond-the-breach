@@ -11,7 +11,7 @@ namespace AKVA.Assets.Vince.Scripts.AI
     {
         public override void OnEnterState(AIStateManager state)
         {
-            state.pathFind.FindPath(state.currentTarget);
+            //state.pathFind.FindPath(state.currentTarget);
             WalkAnimation(state);
         }
 
@@ -22,7 +22,22 @@ namespace AKVA.Assets.Vince.Scripts.AI
 
         private void CheckTargetDistance(AIStateManager state)
         {
-            if (Vector3.Distance(state.gameObject.transform.localPosition, state.currentTarget.localPosition) <= 2f)
+            if (Vector3.Distance(state.gameObject.transform.localPosition, state.currentTarget.localPosition) > .1f)
+            {
+                state.transform.localPosition = Vector3.MoveTowards(state.transform.localPosition, state.currentTarget.localPosition, 3 * Time.deltaTime);
+
+                Quaternion targetRotation = Quaternion.LookRotation(state.currentTarget.localPosition - state.transform.localPosition);
+                targetRotation.eulerAngles = new Vector3(0f, targetRotation.eulerAngles.y, 0f);
+                state.transform.localRotation = targetRotation;
+            }
+            else
+            {
+                //state.StartCoroutine(PlaceAIToPosition(state, state.currentTarget.localPosition));
+                state.transform.rotation = Quaternion.identity;
+                state.robotAnim.ChangeAnimState(state.robotAnim.Robot_Idle);
+            }
+
+            if (Vector3.Distance(state.gameObject.transform.localPosition, state.currentTarget.localPosition) <= .1f)
             {
                 if (!state.moveOnly)
                 {
@@ -35,12 +50,7 @@ namespace AKVA.Assets.Vince.Scripts.AI
                         state.SwitchState(state.dropState);
                     }
                 }
-                else
-                {
-                    state.StartCoroutine(PlaceAIToPosition(state, state.currentTarget.localPosition));
-                }
-                state.robotAnim.ChangeAnimState(state.robotAnim.Robot_Idle);
-                state.transform.rotation = Quaternion.identity;
+                
             }
         }
 
@@ -67,7 +77,7 @@ namespace AKVA.Assets.Vince.Scripts.AI
 
             float elapsedTime = 0f;
             Vector3 startingPos = state.transform.localPosition;
-            if(Vector3.Distance(state.transform.localPosition, targetPos) > 2)
+            if (Vector3.Distance(state.transform.localPosition, targetPos) > 2)
             {
                 state.robotAnim.ChangeAnimState(state.robotAnim.Robot_Walk);
             }

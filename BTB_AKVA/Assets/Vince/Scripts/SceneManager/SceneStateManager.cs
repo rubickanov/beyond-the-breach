@@ -8,12 +8,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using AKVA.Assets.Vince.SO;
 using AKVA.Vince.SO;
+using TMPro;
+using UnityEngine.UI;
+using EZCameraShake;
 
 namespace AKVA.Assets.Vince.Scripts.SceneManager
 {
     public class SceneStateManager : MonoBehaviour
     {
         SceneState currentState;
+        public TutorialIntroState tutorialIntro = new TutorialIntroState();
         public MovementTutorialState movementTutorial = new MovementTutorialState();
         public Room1State room1State = new Room1State();
         public Room2State room2State = new Room2State();
@@ -23,15 +27,24 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
         [HideInInspector] public Picking playerPicking;
         public GameObject [] listOfAI;
 
+        [Header("Game Intro")]
+        public float initTxtFadeInTime = 0.5f;
+        public float bgImageFadeOutTimeDelay = 8f;
+        public TextMeshProUGUI initializeTxt;
+        public Image blackBG;
+        public GameObject PlayerHUDSprite, PlayerHUDWithoutAnim;
+        public Color hudColor;
 
         [Header("Movement Tutorial")]
+        public TextMeshProUGUI movementTestTxt;
         public float timeDelayBeforePlayerMovement;
         public float timeDelayDuringTutorial;
-        public DoubleDoor roomDoor;
+        public DoubleDoor [] roomDoor;
         [HideInInspector] public TutorialScreen tutorialScreen;
 
         [Header("Room 1 Scene")]
         public DoubleDoor room1Door;
+        public TutorialMonitor room1TutorialMonitor;
         public Transform room1PlayerPos, room1PlayerPos2;
         public RuntimeList room1Buttons;
         public RuntimeList room1Boxes;
@@ -45,18 +58,35 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
 
         [Header("Room 3 Scene")]
         public Transform room3PlayerPos;
+        public TutorialMonitor [] room3TutorialMonitor;
         public BoolReference[] imagesAppeared;
         public BoolReference tvTurnedOn;
-        public Transform[] aiDestination;
+        public GameObject electricVFX;
+        public Renderer room3Renderer;
+        public Texture2D redTexture;
+        public Light [] realTimeLights;
+
+        [Header("Load To Next Scene")]
+        public string sceneName;
+        public float loadDelay = 3f;
+
+        [Header("CAMERA SHAKE")]
+        public CameraShaker cameraShaker;
+        public float magnitude;
+        public float roughness;
+        public float fadeInTime;
+        public float fadeOutTime;
 
         private void Awake()
         {
-           //playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
+            //playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
+            cameraShaker.enabled = false;
             playerPicking = playerTransform.GetComponent<Picking>();
             tutorialScreen = FindObjectOfType<TutorialScreen>();
             playerPicking.enabled = false;
             PlayerInput.Instance.DisablePlayerMovement();
-            MovementTutorial();
+            PlayerInput.Instance.DisablePlayerInput();
+            SwitchState(tutorialIntro);
         }
 
         private void Update()
@@ -71,19 +101,6 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
         {
             currentState = state;
             state.OnEnterState(this);
-        }
-
-        private void MovementTutorial()
-        {
-            PlayerInput.Instance.EnablePlayerMovement();
-            StartCoroutine(StartMovementTutorial());
-        }
-
-        IEnumerator StartMovementTutorial()
-        {
-            yield return new WaitForSeconds(timeDelayBeforePlayerMovement);
-            currentState = movementTutorial;
-            currentState.OnEnterState(this);
         }
     }
 }

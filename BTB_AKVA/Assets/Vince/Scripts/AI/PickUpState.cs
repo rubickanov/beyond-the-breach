@@ -1,3 +1,4 @@
+using AKVA.Assets.Vince.Scripts.Environment;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -24,13 +25,14 @@ namespace AKVA.Assets.Vince.Scripts.AI
 
         private void LookForObjectsToPick(AIStateManager state)
         {
-            Collider[] colliders = Physics.OverlapSphere(state.transform.position, state.sphereRadius, state.objectsToPick);
+            Collider[] colliders = Physics.OverlapSphere(state.spherOrigin.position, state.sphereRadius, state.objectsToPick);
 
             if (colliders.Length > 0)
             { 
                 if (state.pickUp)
                 {
                     state.objOnHand = colliders[0].gameObject;
+                    state.objOnHand.GetComponent<InteractableBattery>().batteryOnHand = true;
                     state.targetIndex++;
                     state.currentTarget = state.pathPoints[state.targetIndex];
                     state.StartCoroutine(SwitchDelay(state, 2f));
@@ -38,7 +40,7 @@ namespace AKVA.Assets.Vince.Scripts.AI
                 }
 
                 if (state.objOnHand != null) { return; }
-                state.transform.LookAt(colliders[0].transform);
+                //state.transform.LookAt(colliders[0].transform);
             }
         }
 
