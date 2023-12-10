@@ -22,6 +22,7 @@ namespace AKVA.Interaction
         private SkinnedMeshRenderer skinnedMeshRenderer;
 
         [HideInInspector] public bool IsActive;
+        [HideInInspector] public bool IsUnHacking;
         [SerializeField] private float timeToMindControl = 2f;
         [SerializeField] private bool hasMindControlLimit;
         [SerializeField] private float mindControlTimeLimit;
@@ -31,7 +32,6 @@ namespace AKVA.Interaction
 
         [SerializeField] private bool canSwap = true;
         [SerializeField] BoolReference isMindControlling;
-
 
 
         private void Awake()
@@ -59,6 +59,9 @@ namespace AKVA.Interaction
                         IsActive = true;
                         if (Input.GetKey(PlayerInput.Instance.Controls.mindControl) && canSwap)
                         {
+                            PlayerInput.Instance.DisablePlayerMouseInput();
+                            playerCamera.transform.forward =
+                                (mindControlledObject.transform.position - playerCamera.transform.position) + new Vector3(0, 1.5f, 0);
                             timerToMindControl += Time.deltaTime;
                             if (timerToMindControl >= timeToMindControl)
                             {
@@ -66,17 +69,20 @@ namespace AKVA.Interaction
                                 picking.DropObject();
                                 Control(mindControlledObject);
                                 mindControlledObject = hit.transform.GetComponent<MindControlledObject>();
+                                PlayerInput.Instance.EnablePlayerMouseInput();
                             }
                         }
                     }
                     else
                     {
                         IsActive = false;
+                        PlayerInput.Instance.EnablePlayerMouseInput();
                     }
                 }
                 else
                 {
                     IsActive = false;
+                    PlayerInput.Instance.EnablePlayerMouseInput();
                 }
             }
             else
@@ -84,7 +90,9 @@ namespace AKVA.Interaction
                 IsActive = false;
                 if (Input.GetKey(PlayerInput.Instance.Controls.mindControl) && canSwap)
                 {
+                    IsUnHacking = true;
                     IsActive = true;
+
                     timerToMindControl += Time.deltaTime;
                     if (timerToMindControl >= timeToMindControl)
                     {

@@ -1,7 +1,5 @@
-using System;
 using UnityEngine;
 using AKVA.GameplayUI;
-using UnityEditor;
 
 namespace AKVA.Interaction
 {
@@ -10,6 +8,7 @@ namespace AKVA.Interaction
         [SerializeField] private bool isPermanentReticle;
         [SerializeField] private int secondsToDeactivate;
         [SerializeField] private ReticleUI reticleUI;
+        
         private MindControl mindControl;
         private Interaction interaction;
         private Picking picking;
@@ -57,9 +56,9 @@ namespace AKVA.Interaction
                 if (!reticleUI.IsEnabled)
                 {
                     reticleUI.EnableReticle();
-
+            
                 }
-                if (mindControl.IsActive)
+                if (mindControl.IsActive && !mindControl.IsUnHacking)
                 {
                  reticleUI.SetMindControlUI();   
                 } else if (picking.IsActive || interaction.IsActive)
@@ -67,9 +66,12 @@ namespace AKVA.Interaction
                     reticleUI.SetInteractionUI();
                 } else if (passDeviceChecker.IsActive)
                 {
-                    reticleUI.SetDefaultUI();
+                    reticleUI.SetPasswordReticle();
+                } else if (mindControl.IsActive && mindControl.IsUnHacking)
+                {
+                    reticleUI.SetUnMindControlUI();
                 }
-                
+            
             }
         }
     }
