@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using UnityEditor.PackageManager.UI;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,30 +14,87 @@ namespace AKVA.GameplayUI
         [SerializeField] private Image imageHolder;
 
         [Header("RETICLE TYPES")] 
-        [SerializeField] private Sprite defaultReticle;
-        [SerializeField] private Sprite interactReticle;
-        [SerializeField] private Sprite mindControlReticle;
+        [SerializeField] private Animator animator;
+        [SerializeField] private GameObject defaultReticle;
+        [SerializeField] private GameObject interactReticle;
+        [SerializeField] private GameObject mindControlReticle;
+        [SerializeField] private GameObject unMindControlReticle;
+        [SerializeField] private GameObject passwordReticle;
         
         [Header("TIMINGS")]
         [SerializeField] private float timeToDisable;
         [SerializeField] private AnimationCurve curveToDisable;
+        [SerializeField] private float blendSmoothTime = 0.3f;
 
+        private Animation anim;
+        
         public bool IsEnabled;
 
+        private const string BLEND = "Blend";
+
+        private bool isExpanded;
+        private float blendValue;
+
+        private void Start()
+        {
+            defaultReticle.SetActive(true);
+            DisableAllReticles();
+        }
+
+        private void Update()
+        {
+            animator.SetFloat(BLEND, blendValue);
+        }
 
         public void SetDefaultUI()
         {
-            imageHolder.sprite = defaultReticle;
+           // imageHolder.sprite = defaultReticle;
+           CompressAnimation();
+           DisableAllReticles();
         }
 
         public void SetInteractionUI()
         {
-            imageHolder.sprite = interactReticle;
+            //imageHolder.sprite = interactReticle;
+            ExpandAnimation();
+            DisableAllReticles();
+            if (blendValue >= 9f)
+            {
+                interactReticle.SetActive(true);
+            }
         }
 
         public void SetMindControlUI()
         {
-            imageHolder.sprite = mindControlReticle;
+            //imageHolder.sprite = mindControlReticle;
+            ExpandAnimation();
+            DisableAllReticles();
+            
+            
+            if (blendValue >= 9f)
+            {
+                mindControlReticle.SetActive(true);
+            }
+        }
+        
+        public void SetUnMindControlUI()
+        {
+            //imageHolder.sprite = unMindControlReticle;
+            ExpandAnimation();
+            DisableAllReticles();
+            
+            
+            if (blendValue >= 9f)
+            {
+                unMindControlReticle.SetActive(true);
+            }
+        }
+        
+        public void SetPasswordReticle()
+        {
+            //imageHolder.sprite = unMindControlReticle;
+            DisableAllReticles();
+            passwordReticle.SetActive(true);
         }
         
         public void EnableReticle()
@@ -96,5 +154,25 @@ namespace AKVA.GameplayUI
                 yield return null;
             }
         }
+
+        private void DisableAllReticles()
+        {
+            interactReticle.SetActive(false);
+            mindControlReticle.SetActive(false);
+            unMindControlReticle.SetActive(false);
+            passwordReticle.SetActive(false);
+        }
+
+
+        private void ExpandAnimation()
+        {
+                blendValue = Mathf.Lerp(blendValue, 10, blendSmoothTime);
+        }
+
+        private void CompressAnimation()
+        {
+                blendValue = Mathf.Lerp(blendValue, 0, blendSmoothTime);
+        }
+        
     }
 }
