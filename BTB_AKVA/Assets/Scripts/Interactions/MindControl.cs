@@ -33,6 +33,9 @@ namespace AKVA.Interaction
         [SerializeField] private bool canSwap = true;
         [SerializeField] BoolReference isMindControlling;
 
+        [Header("HUD")]
+        [SerializeField] GameObject playerHUD, scientistHUD;
+
 
         private void Awake()
         {
@@ -138,6 +141,9 @@ namespace AKVA.Interaction
 
         public void Control(MindControlledObject controlledObject)
         {
+            scientistHUD.SetActive(true);
+            playerHUD.SetActive(false);
+
             Swap(controlledObject.transform);
             controlledObject.TakePlayerAppearance(playerMesh, playerMaterial);
             isControlling = true;
@@ -146,6 +152,9 @@ namespace AKVA.Interaction
 
         public void ReturnToBody(MindControlledObject controlledObject)
         {
+            scientistHUD.SetActive(false);
+            playerHUD.SetActive(true);
+
             Swap(controlledObject.transform);
             controlledObject.ResetAppearance();
             isControlling = false;

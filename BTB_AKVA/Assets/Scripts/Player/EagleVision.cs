@@ -17,6 +17,9 @@ namespace AKVA.Player
         public bool isEagleVision;
         public bool qteActivate = true;
 
+        [Header("UI")]
+        public GameObject enableEagleVision;
+
         [SerializeField] private GameObject eagleVisionPostProcessing;
         
             
@@ -29,10 +32,12 @@ namespace AKVA.Player
         {
             if (Input.GetKey(KeyCode.Tab))
             {
+                enableEagleVision.SetActive(false);
                 isEagleVision = true;
             }
             else if(Input.GetKeyUp(KeyCode.Tab) && !qteActivate)
             {
+                enableEagleVision.SetActive(true);
                 isEagleVision = false;
             }
 

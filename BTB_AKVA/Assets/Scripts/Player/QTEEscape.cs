@@ -29,17 +29,23 @@ namespace AKVA.Player
 
         [Header("Eagle Vision Event")]
         EagleVision eagleVision;
-        public GameObject gridBarrierImg;
+
         public float maxEagleVisionTime = .3f;
         public float eagleVisionTimeAfterQTE = 3f;
         float currentTime;
         int randomIndex;
         bool eagleVisionEnabled;
 
+        public GameObject gridBarrierImg;
+        public GameObject playerBlueHUD;
+        public GameObject playerRedHUD;
+
         private void Awake()
         {
             rb = GetComponent<Rigidbody>();
             eagleVision = GetComponent<EagleVision>();
+            playerRedHUD.SetActive(true);
+            playerBlueHUD.SetActive(false);
             gridBarrierImg.SetActive(false);
         }
 
@@ -134,6 +140,8 @@ namespace AKVA.Player
 
         IEnumerator EnableEagleVisionForCoupleOfSeconds()
         {
+            playerBlueHUD.SetActive(true);
+            playerRedHUD.SetActive(false);
             eagleVision.isEagleVision = true;
             yield return new WaitForSeconds(eagleVisionTimeAfterQTE);
             eagleVision.qteActivate = false;
