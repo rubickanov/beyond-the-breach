@@ -44,9 +44,11 @@ namespace AKVA.Player
         {
             rb = GetComponent<Rigidbody>();
             eagleVision = GetComponent<EagleVision>();
-            playerRedHUD.SetActive(true);
-            playerBlueHUD.SetActive(false);
-            gridBarrierImg.SetActive(false);
+
+            if(playerRedHUD == null ){ return; }
+            playerRedHUD?.SetActive(true);
+            playerBlueHUD?.SetActive(false);
+            gridBarrierImg?.SetActive(false);
         }
 
         private void Start()

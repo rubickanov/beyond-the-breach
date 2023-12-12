@@ -111,7 +111,7 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
                 {
                     state.playerPicking.enabled = true;
                     SetMovementUI(true);
-                    PlayerInput.Instance.EnablePlayerMovement();
+                    PlayerInput.Instance.EnablePlayerInput();
                     taskDone[2] = true;
                 }
                 else if (GetNumberOfActiveSockets(state) == 4 && !taskDone[3] && Vector3.Distance(state.playerTransform.position, state.room2PlayerPos.position) < 1.5f)
@@ -135,7 +135,7 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
                         state.StartCoroutine(ProceedToNextRoom(state, ai));
                     }
                     SetMovementUI(true);
-                    PlayerInput.Instance.EnablePlayerMovement();
+                    PlayerInput.Instance.EnablePlayerInput();
                 }
 
             }
@@ -153,7 +153,7 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
                 yield return new WaitForSeconds(lineUpDelay);
             }
             SetMovementUI(true);
-            PlayerInput.Instance.EnablePlayerMovement();
+            PlayerInput.Instance.EnablePlayerInput();
         }
 
         IEnumerator StartAITask(SceneStateManager state, int aiIndex) //Starting AI to do its task

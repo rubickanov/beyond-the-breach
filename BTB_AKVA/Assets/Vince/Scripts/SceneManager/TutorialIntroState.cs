@@ -104,7 +104,6 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
         {
             yield return new WaitForSeconds(delayTime);
             initializeTxt.color = Color.green;
-            PlayerInput.Instance.EnablePlayerInput();
             initializeTxt.SetText(txt);
             movementTxtEnabled = true;
             state.SwitchState(state.movementTutorial);

@@ -16,12 +16,15 @@ namespace AKVA.Interaction
 
         [HideInInspector] public bool IsActive;
 
+        ShowUI objUI;
+
         private void Update()
         {
             if (currentObject == null)
             {
                 if (Physics.Raycast(playerCam.position, playerCam.forward, out RaycastHit hit, pickupRange, pickupMask))
                 {
+                    ShowUI(hit);
                     IsActive = true;
                     if (Input.GetKeyDown(PlayerInput.Instance.Controls.pick))
                     {
@@ -30,8 +33,9 @@ namespace AKVA.Interaction
                 }
                 else
                 {
+                    DisableUI();
                     IsActive = false;
-                }    
+                }
             }
             else
             {
@@ -41,7 +45,7 @@ namespace AKVA.Interaction
                     DropObject();
                 }
             }
-            
+
         }
 
         void FixedUpdate()
@@ -53,6 +57,7 @@ namespace AKVA.Interaction
 
                 currentObject.transform.forward = transform.forward;
                 currentObject.velocity = DirectionToPoint * 12f * DistanceToPoint;
+                DisableUI();
             }
 
             BatteryInteraction();
@@ -69,7 +74,7 @@ namespace AKVA.Interaction
         public void DropObject()
         {
             if (currentObject == null) return;
-            
+
             currentObject.useGravity = true;
             currentObject = null;
         }
@@ -87,11 +92,32 @@ namespace AKVA.Interaction
             }
             else
             {
-                if(battery != null)
+                if (battery != null)
                 {
                     battery.batteryOnHand = false;
                     battery = null;
                 }
+            }
+        }
+
+        void ShowUI(RaycastHit hit)
+        {
+            if (hit.transform.GetComponent<ShowUI>() != null && currentObject == null)
+            {
+                if (objUI == null)
+                {
+                    objUI = hit.transform.GetComponent<ShowUI>();
+                    objUI.SetTheUI(true);
+                }
+            }
+        }
+
+        void DisableUI()
+        {
+            if (objUI != null)
+            {
+                objUI.SetTheUI(false);
+                objUI = null;
             }
         }
     }

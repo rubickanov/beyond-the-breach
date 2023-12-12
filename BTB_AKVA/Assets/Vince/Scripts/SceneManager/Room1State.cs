@@ -90,10 +90,10 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
                 }
                 else if (GetNumberOfActiveSockets(state) == 3 && !taskDone[2] && !enableAI)
                 {
+                    PlayerInput.Instance.EnablePlayerInput();
                     state.playerPicking.enabled = true;
                     taskDone[2] = true;
                     SetMovementUI(true);
-                    PlayerInput.Instance.EnablePlayerMovement();
                 }
                 else if (GetNumberOfActiveSockets(state) == 4 && Vector3.Distance(state.playerTransform.position, state.room1PlayerPos.position) < 1.5f && !taskDone[4])
                 {
@@ -133,7 +133,7 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
                 yield return new WaitForSeconds(lineUpDelay);
             }
             SetMovementUI(true);
-            PlayerInput.Instance.EnablePlayerMovement();
+            PlayerInput.Instance.EnablePlayerInput();
         }
 
 
