@@ -1,5 +1,6 @@
 using AKVA.Assets.Vince.Scripts.Astar;
 using AKVA.Vince.SO;
+using Codice.Client.BaseCommands.BranchExplorer;
 using log4net.Appender;
 using System.Collections;
 using System.Collections.Generic;
@@ -23,11 +24,13 @@ namespace AKVA.Assets.Vince.Scripts.AI
         [SerializeField] Transform visionPos;
         [SerializeField] public float visionRadius;
         [SerializeField] LayerMask interactableObjLayer;
+        public bool interacting;
 
         [Header("Body Scanning")]
         [SerializeField] LayerMask bodyScannerLayer;
 
         [Header("PlayerDetection")]
+        public Transform player;
         public float timeToNoticePlayer = 5f;
         public Transform eyesPos;
         public LayerMask playerLayer;
@@ -40,6 +43,7 @@ namespace AKVA.Assets.Vince.Scripts.AI
 
         private void Start()
         {
+            player = GameObject.Find("NewPlayer").transform;
             initAngleToDetect = angleToDetect;
             SetSwitchStatus();
         }
@@ -63,7 +67,6 @@ namespace AKVA.Assets.Vince.Scripts.AI
                 new BTSequence(new List<TreeNode>
                 {
                     new BTInteractableObjInRange(transform, visionPos, visionRadius, interactableObjLayer),
-                    new MoveTowardsInteractableObj(transform),
                     new BTInteractingObj(transform),
                 }),
                 new BTPatrol(transform, wayPoints, objStatus, enablePatrol),

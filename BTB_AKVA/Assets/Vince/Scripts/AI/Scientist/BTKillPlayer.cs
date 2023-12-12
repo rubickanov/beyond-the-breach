@@ -12,6 +12,7 @@ namespace AKVA.Assets.Vince.Scripts.AI
         Transform transform;
         ScientistAIAnim anim;
         ScientistBT sciBT;
+        Transform player;
         public BTKillPlayer(Transform transform, BoolReference playerDead)
         {
             this.transform = transform;
@@ -23,6 +24,15 @@ namespace AKVA.Assets.Vince.Scripts.AI
         {
             anim.ChangeAnimState(anim.Robot_Idle);
             transform.GetComponent<MoveAI>().StopMoving();
+
+            Vector3 directionToTarget = (sciBT.player.position - transform.position).normalized;
+
+            Quaternion targetRotation = Quaternion.LookRotation(directionToTarget);
+
+            targetRotation = Quaternion.Euler(0, targetRotation.eulerAngles.y, 0);
+
+            transform.rotation = targetRotation;
+
             sciBT.playerDied.value = true;
             state = NodeState.SUCCESS;
             return state;

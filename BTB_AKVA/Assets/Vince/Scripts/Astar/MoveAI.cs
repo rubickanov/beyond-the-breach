@@ -6,12 +6,15 @@ namespace AKVA.Assets.Vince.Scripts.Astar
 {
     public class MoveAI : MonoBehaviour
     {
+        public bool transformLookAt;
+        public bool lockYPos = true;
         public float speed = 1;
         Vector3[] path;
         int targetIndex;
-
+        float initY;
         void Start()
         {
+            initY = transform.position.y;
         }
 
         private void Update()
@@ -48,8 +51,29 @@ namespace AKVA.Assets.Vince.Scripts.Astar
                     }
                     currentWaypoint = path[targetIndex];
                 }
-                transform.position = Vector3.MoveTowards(transform.position, currentWaypoint, speed * Time.deltaTime);
-                transform.LookAt(currentWaypoint);
+                float initY = transform.position.y;
+
+                if (lockYPos)
+                {
+                    transform.position = Vector3.MoveTowards(transform.position, new Vector3(currentWaypoint.x, currentWaypoint.y, currentWaypoint.z), speed * Time.deltaTime);
+                }
+                else
+                {
+                    transform.position = Vector3.MoveTowards(transform.position, currentWaypoint, speed * Time.deltaTime);
+
+                }
+
+                if (transformLookAt)
+                {
+                    Vector3 directionToTarget = (currentWaypoint - transform.position).normalized;
+
+                    Quaternion targetRotation = Quaternion.LookRotation(directionToTarget);
+
+                    targetRotation = Quaternion.Euler(0, targetRotation.eulerAngles.y, 0);
+
+                    transform.rotation = targetRotation;
+                }
+
                 yield return null;
             }
         }

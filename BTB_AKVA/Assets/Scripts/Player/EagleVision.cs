@@ -15,6 +15,7 @@ namespace AKVA.Player
         private Renderer cameraRenderer;
         private UniversalAdditionalCameraData data;
         public bool isEagleVision;
+        public bool qteActivate = true;
 
         [SerializeField] private GameObject eagleVisionPostProcessing;
         
@@ -30,11 +31,11 @@ namespace AKVA.Player
             {
                 isEagleVision = true;
             }
-            else
+            else if(Input.GetKeyUp(KeyCode.Tab) && !qteActivate)
             {
                 isEagleVision = false;
             }
-            
+
             if (isEagleVision)
             {
                 EnableEagleVision();

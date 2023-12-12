@@ -1,4 +1,5 @@
 using AKVA.Animations;
+using AKVA.Assets.Vince.Scripts.Astar;
 using AKVA.Assets.Vince.Scripts.Environment;
 using Codice.CM.Common.Tree;
 using System.Collections;
@@ -29,27 +30,29 @@ namespace AKVA.Assets.Vince.Scripts.AI
             if (!animated)
             {
                 animated = true;
+                scientistBT.interacting = true;
                 scientistBT.StartCoroutine(TriggerAnimation(1f));
             }
 
             if (currentTime < interactionTime)
             {
+                scientistBT.transform.rotation = Quaternion.LookRotation(Vector3.forward);
                 currentTime += Time.deltaTime;
+                state = NodeState.RUNNING;
             }
             else
             {
                 scientistBT.StartCoroutine(ResetTask(3));
+                scientistBT.interacting = false;
                 state = NodeState.FAILURE;
                 return state;
             }
-            state = NodeState.RUNNING;
             return state;
         }
 
         IEnumerator TriggerAnimation(float delayTime)
         {
             yield return new WaitForSeconds(delayTime);
-
             anim.ChangeAnimState(anim.Robot_Interaction);
         }
 
@@ -57,7 +60,6 @@ namespace AKVA.Assets.Vince.Scripts.AI
         {
             yield return new WaitForSeconds(time);
             currentTime = 0;
-            ClearData("target");
             animated = false;
         }
     }

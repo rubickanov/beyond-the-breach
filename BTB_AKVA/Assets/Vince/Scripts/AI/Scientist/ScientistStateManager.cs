@@ -24,6 +24,7 @@ namespace AKVA.Assets.Vince.Scripts.AI
         public SciMoveState moveState = new SciMoveState();
         public SciInteractState interactState = new SciInteractState();
         public IdleState IdleState = new IdleState();
+
         void Start()
         {
             sciAnim = GetComponent<ScientistAIAnim>();

@@ -58,7 +58,7 @@ public class Scientist_FinalLevel : MonoBehaviour
 
     private void ChaseTarget()
     {
-        if (activate)
+        if (activate && !playerDead.value)
         {
             transform.LookAt(currentTarget);
             if (Vector3.Distance(transform.position, currentTarget) < stoppingDistance)
@@ -78,6 +78,10 @@ public class Scientist_FinalLevel : MonoBehaviour
             }
             anim.ChangeAnimState("Run");
             MoveAI();
+        }
+        else
+        {
+            anim.ChangeAnimState(anim.Robot_Idle);
         }
     }
 }

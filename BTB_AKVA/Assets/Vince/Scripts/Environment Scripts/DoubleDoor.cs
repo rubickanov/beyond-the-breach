@@ -68,6 +68,11 @@ namespace AKVA.Assets.Vince.Scripts.Environment
             {
                 OpenDoor();
             }
+
+            if (!activated)
+            {
+                CloseDoor();
+            }
         }
 
         private void CheckPlayer()

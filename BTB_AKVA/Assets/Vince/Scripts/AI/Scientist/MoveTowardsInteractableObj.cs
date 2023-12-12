@@ -28,10 +28,18 @@ namespace AKVA.Assets.Vince.Scripts.AI
             }
             if (Vector3.Distance(transform.position, target.position) > 2f)
             {
+                Debug.Log("Dstiance interact : " + Vector3.Distance(transform.position, target.position));
                 transform.position = Vector3.MoveTowards(transform.position, target.position, 0.5f * Time.deltaTime);
-                Vector3 directionToTarget = (new Vector3(target.position.x, transform.position.y, target.position.z) - transform.position).normalized;
 
-                transform.rotation = Quaternion.LookRotation(directionToTarget);
+                Vector3 targetPosition = new Vector3(target.position.x, transform.position.y, target.position.z);
+                Vector3 directionToTarget = (targetPosition - transform.position).normalized;
+
+                Quaternion targetRotation = Quaternion.LookRotation(directionToTarget);
+
+                targetRotation = Quaternion.Euler(0, targetRotation.eulerAngles.y, 0);
+
+                transform.rotation = targetRotation;
+
                 state = NodeState.RUNNING;
                 return state;
             }

@@ -25,6 +25,7 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
 
         private void CheckIfPlayerHasReachedTriggerPos(LevelManager state)
         {
+            Debug.Log(Vector3.Distance(state.player.transform.position, state.robotQueueTriggerPoint.position));
             if(Vector3.Distance(state.player.transform.position, state.robotQueueTriggerPoint.position) < state.distanceToTriggerRobots)
             {
                 TriggerRunningRobotsTowardTheExit(state, 0);
@@ -36,7 +37,7 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
             }
         }
 
-        private void TriggerRunningRobotsTowardTheExit(LevelManager state, int queueIndex)
+        void TriggerRunningRobotsTowardTheExit(LevelManager state, int queueIndex)
         {
             if (!robotsTriggered[queueIndex])
             {

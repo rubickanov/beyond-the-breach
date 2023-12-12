@@ -14,75 +14,62 @@ namespace AKVA.Assets.Vince.Scripts.AI
         [SerializeField] float rotationSpeed = 2f;
         [SerializeField] float startDelay = 3;
         [SerializeField] float delayInterval = 4f;
+        [SerializeField] float stoppingDistance = 1f;
         [SerializeField] Transform[] waypoints;
         RobotAIAnim anim;
         [SerializeField] public bool activateRobot;
-        MoveAI moveAI;
         public int targetIndex;
         public bool moveToNextLocation;
-        bool indexAdded;
-        bool moving;
+        bool sawDoorOpened;
+
 
         private void Start()
         {
             anim = GetComponent<RobotAIAnim>();
-            moveAI = GetComponent<MoveAI>();
         }
 
         private void Update()
         {
             if (activateRobot)
             {
-                StartCoroutine(StartDelay());
+                StartCoroutine(StartRobotDelay());
             }
         }
 
         void MoveToTheWaypoints()
         {
-            if(!moving)
+            if (Vector3.Distance(transform.localPosition, waypoints[targetIndex].localPosition) >= stoppingDistance && moveToNextLocation)
             {
-                moving = true;
-                indexAdded = false;
                 anim.ChangeAnimState(anim.Robot_Run);
-                moveAI.FindPath(waypoints[targetIndex]);
+                transform.position = Vector3.MoveTowards(transform.position, waypoints[targetIndex].position, movementSpeed * Time.deltaTime);
+
+                Vector3 directionToTarget = (waypoints[targetIndex].position - transform.position).normalized;
+
+                Quaternion targetRotation = Quaternion.LookRotation(directionToTarget);
+
+                targetRotation = Quaternion.Euler(0, targetRotation.eulerAngles.y, 0);
+
+                transform.rotation = targetRotation;
             }
-            if (Vector3.Distance(transform.position, waypoints[targetIndex].position) <= 2.5f)
+            else if(Vector3.Distance(transform.localPosition, waypoints[targetIndex].localPosition) <= stoppingDistance && moveToNextLocation)
             {
                 anim.ChangeAnimState(anim.Robot_Scared);
                 if (targetIndex >= waypoints.Length - 1) { return; }
-                if (!indexAdded)
-                {
-                    indexAdded = true;
-                  //  StartCoroutine(MoveDelay());
-                }
-            }
-            
-            if(moveToNextLocation)
-            {
-                moveToNextLocation = false;
-                startDelay = 0;
                 targetIndex++;
-                moving = false;
+                moveToNextLocation = false;
             }
         }
 
-        IEnumerator MoveRobotToTarget(Transform target)
+        IEnumerator StartRobotDelay()
         {
-            yield return new WaitForSeconds(delayInterval);
-            anim.ChangeAnimState(anim.Robot_Run);
-            transform.position = Vector3.MoveTowards(transform.position, target.position, movementSpeed * Time.deltaTime);
-        }
+            if (!sawDoorOpened)
+            {
+                Quaternion targetRot = Quaternion.LookRotation(Vector3.right);
+                transform.rotation = targetRot;
+                sawDoorOpened = true;
+            }
 
-        IEnumerator MoveDelay()
-        {
-            yield return new WaitForSeconds(delayInterval);
-            targetIndex++;
-            moving = false;
-        }
-
-        IEnumerator StartDelay()
-        {
-            yield return new WaitForSeconds(startDelay);
+            yield return new WaitForSeconds(3);
             MoveToTheWaypoints();
         }
     }

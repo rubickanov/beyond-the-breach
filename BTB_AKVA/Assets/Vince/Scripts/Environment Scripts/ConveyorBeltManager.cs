@@ -55,6 +55,15 @@ namespace AKVA.Assets.Vince.Scripts.Environment
             }
         }
 
+        private void OnCollisionStay(Collision collision)
+        {
+            if(collision.gameObject.tag == "Junk" && this.enabled)
+            {
+                collision.transform.position += -transform.right * conveyorSpeed * Time.deltaTime;
+            }
+        }
+
+
         private void OnCollisionExit(Collision collision)
         {
             if (collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("Scientist"))

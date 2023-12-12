@@ -16,6 +16,7 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
             {
                 RobotMovement robotMovement = robot.GetComponent<RobotMovement>();
                 robotMovement.activateRobot = true;
+                robotMovement.moveToNextLocation = true;
             }
         }
     }

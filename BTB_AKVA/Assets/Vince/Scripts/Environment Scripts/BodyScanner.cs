@@ -103,6 +103,7 @@ namespace AKVA.Assets.Vince.Scripts.Environment
                 }
                 rotateCount++;
             }
+            scientist.transform.Rotate(new Vector3(0f, 180f, 0f));
             SetScannerOuterLightsColor(scanSuccess);
         }
 

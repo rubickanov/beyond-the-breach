@@ -72,6 +72,10 @@ namespace AKVA.Interaction
                                 PlayerInput.Instance.EnablePlayerMouseInput();
                             }
                         }
+                        else
+                        {
+                            PlayerInput.Instance.EnablePlayerInput();
+                        }
                     }
                     else
                     {

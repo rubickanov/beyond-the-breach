@@ -31,7 +31,7 @@ namespace AKVA.Assets.Vince.Scripts.AI
         }
         public override NodeState Execute()
         {
-            if (objToGuard != null)
+            if (objToGuard != null || sciBT.interacting)
             {
                 state = NodeState.FAILURE;
                 return state;
@@ -39,18 +39,18 @@ namespace AKVA.Assets.Vince.Scripts.AI
 
             if (wayPoints.Length > 0)
             {
-                if (patrol && Vector3.Distance(currentTransform.position, wayPoints[targetIndex].position) <= 3f)
+                if (patrol && Vector3.Distance(currentTransform.position, wayPoints[targetIndex].position) <= 1.5f)
                 {
                     anim.ChangeAnimState(anim.Robot_Idle);
                 }
 
                 //Looking at the vending machine
-                if(patrol && Vector3.Distance(currentTransform.position, wayPoints[0].position) <= 2.5f){
+                if(patrol && Vector3.Distance(currentTransform.position, wayPoints[0].position) <= 1){
                     currentTransform.rotation = Quaternion.Euler(0f,90f,0f);
-                }else if(patrol && Vector3.Distance(currentTransform.position, wayPoints[1].position) <= 2.5f)
+                }else if(patrol && Vector3.Distance(currentTransform.position, wayPoints[1].position) <= 1f)
                 {
                     currentTransform.rotation = Quaternion.Euler(0f, 90f, 0f);
-                    currentTransform.GetComponent<ScientistBT>().StartCoroutine(RotateDelay(180f));
+                    //currentTransform.GetComponent<ScientistBT>().StartCoroutine(RotateDelay(180f));
                 }
 
                 if (patrol && !aiMoved)
@@ -72,7 +72,7 @@ namespace AKVA.Assets.Vince.Scripts.AI
                     targetIndex = 0;
                     aiMoved = false;
                 }
-                else if (Vector3.Distance(currentTransform.position, wayPoints[targetIndex].position) <= 2.5f)
+                else if (Vector3.Distance(currentTransform.position, wayPoints[targetIndex].position) <= 1.5f)
                 {
                     targetIndex++;
                     aiMoved = false;
