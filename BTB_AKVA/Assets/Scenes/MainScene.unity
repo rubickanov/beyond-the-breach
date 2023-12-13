@@ -1791,7 +1791,7 @@ MonoBehaviour:
   playerTransform: {fileID: 1894986265}
   playerCameraTransform: {fileID: 881107352}
   savedCheckpoint: {fileID: 11400000, guid: 7af07fe51c0e373488bf1315c47f6b6b, type: 2}
-  enableCheckpoint: 1
+  enableCheckpoint: 0
 --- !u!114 &64366177
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14174,7 +14174,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &454923805
 Transform:
   m_ObjectHideFlags: 0
@@ -16150,7 +16150,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &530398579
 Transform:
   m_ObjectHideFlags: 0
@@ -20208,7 +20208,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &658101563
 Transform:
   m_ObjectHideFlags: 0
@@ -47236,6 +47236,12 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 822660554}
   m_SourcePrefab: {fileID: 100100000, guid: 267a3854dd1ad0849b502b69904c3b13, type: 3}
+--- !u!1 &1521688082 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1633244908260465256, guid: 93bb202217b456d4a983347085db078c,
+    type: 3}
+  m_PrefabInstance: {fileID: 1627403215}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1521958042
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -50610,7 +50616,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1655990058
 Transform:
   m_ObjectHideFlags: 0
@@ -66855,7 +66861,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2076219631
 Transform:
   m_ObjectHideFlags: 0
@@ -67774,7 +67780,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2095745605
 Transform:
   m_ObjectHideFlags: 0
@@ -75106,7 +75112,7 @@ PrefabInstance:
     - target: {fileID: 1410726131186694045, guid: 7ea641099ed0ec54e8cf14c58673c406,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.644
+      value: 66.65
       objectReference: {fileID: 0}
     - target: {fileID: 1410726131186694045, guid: 7ea641099ed0ec54e8cf14c58673c406,
         type: 3}
@@ -75116,7 +75122,7 @@ PrefabInstance:
     - target: {fileID: 1410726131186694045, guid: 7ea641099ed0ec54e8cf14c58673c406,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.495
+      value: 72.83
       objectReference: {fileID: 0}
     - target: {fileID: 1410726131186694045, guid: 7ea641099ed0ec54e8cf14c58673c406,
         type: 3}
@@ -75264,6 +75270,11 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 7707694562265835710, guid: 7ea641099ed0ec54e8cf14c58673c406,
+        type: 3}
+      propertyPath: qte
+      value: 
+      objectReference: {fileID: 1521688082}
     - target: {fileID: 7707694562265835710, guid: 7ea641099ed0ec54e8cf14c58673c406,
         type: 3}
       propertyPath: slider
