@@ -13,6 +13,9 @@ namespace AKVA.Interaction
 
         [HideInInspector] public bool IsActive;
 
+        //UI
+        ShowUI objUI;
+
         private void Update()
         {
             RaycastHit hit;
@@ -20,6 +23,7 @@ namespace AKVA.Interaction
             {
                 if (hit.transform.TryGetComponent(out currentInteraction))
                 {
+                    ShowUI(hit);
                     IsActive = true;
                     if (Input.GetKeyDown(PlayerInput.Instance.Controls.interact))
                     {
@@ -28,11 +32,13 @@ namespace AKVA.Interaction
                 }
                 else
                 {
+                    DisableUI();
                     IsActive = false;
                 }
             }
             else
             {
+                DisableUI();
                 IsActive = false;
             }
         }
@@ -41,6 +47,26 @@ namespace AKVA.Interaction
         private void OnDrawGizmosSelected()
         {
             Debug.DrawRay(playerCamera.position, playerCamera.forward * distanceToInteract, Color.green);
+        }
+
+        void ShowUI(RaycastHit hit)
+        {
+            if (hit.transform.GetComponent<ShowUI>() != null)
+            {
+                if (objUI == null)
+                {
+                    objUI = hit.transform.GetComponent<ShowUI>();
+                    objUI.SetTheUI(true);
+                }
+            }
+        }
+        void DisableUI()
+        {
+            if (objUI != null)
+            {
+                objUI.SetTheUI(false);
+                objUI = null;
+            }
         }
     }
 }

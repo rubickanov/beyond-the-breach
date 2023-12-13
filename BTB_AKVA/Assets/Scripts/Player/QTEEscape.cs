@@ -106,7 +106,7 @@ namespace AKVA.Player
 
         public void Cancel()
         {
-            Destroy(slider.transform.parent.gameObject);
+            slider.transform.parent.gameObject.SetActive(false);
             StartCoroutine(EnableEagleVisionForCoupleOfSeconds());
         }
 

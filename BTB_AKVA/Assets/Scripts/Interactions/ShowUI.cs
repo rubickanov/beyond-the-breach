@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 namespace AKVA.Interaction
@@ -16,6 +17,11 @@ namespace AKVA.Interaction
         public void SetTheUI(bool value)
         {
             UI.SetActive(value);
+        }
+
+        public void SetInteractionText(string text)
+        {
+            UI.GetComponentInChildren<TextMeshProUGUI>().SetText(text);
         }
     }
 }

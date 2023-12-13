@@ -196,6 +196,7 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
         IEnumerator Electricute(SceneStateManager state, float delayTime)
         {
             yield return new WaitForSeconds(1f);
+            state.OnRobotError.Invoke();
             state.imagesAppeared[4].value = true;
             SetRoomToRed(state);
             while (index >= 0/*state.listOfAI.Length*/)

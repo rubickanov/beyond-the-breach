@@ -35,6 +35,7 @@ namespace AKVA.Interaction
 
         [Header("HUD")]
         [SerializeField] GameObject playerHUD, scientistHUD;
+        ShowUI objUI; // UI world canvas
 
 
         private void Awake()
@@ -57,8 +58,10 @@ namespace AKVA.Interaction
             {
                 if (Physics.Raycast(playerCamera.position, playerCamera.forward, out hit, distanceToMindControl))
                 {
+
                     if (hit.transform.TryGetComponent(out mindControlledObject))
                     {
+                        ShowUI(hit);
                         IsActive = true;
                         if (Input.GetKey(PlayerInput.Instance.Controls.mindControl) && canSwap)
                         {
@@ -73,6 +76,13 @@ namespace AKVA.Interaction
                                 Control(mindControlledObject);
                                 mindControlledObject = hit.transform.GetComponent<MindControlledObject>();
                                 PlayerInput.Instance.EnablePlayerMouseInput();
+
+                                //World Canvas UI
+                                if (objUI != null)
+                                {
+                                    objUI.SetInteractionText("TO RETURN");
+                                }
+
                             }
                         }
                         else
@@ -82,6 +92,7 @@ namespace AKVA.Interaction
                     }
                     else
                     {
+                        DisableUI();
                         IsActive = false;
                         PlayerInput.Instance.EnablePlayerMouseInput();
                     }
@@ -201,6 +212,27 @@ namespace AKVA.Interaction
         private void OnDrawGizmos()
         {
             Debug.DrawRay(playerCamera.position, playerCamera.forward * distanceToMindControl, Color.red);
+        }
+
+        void ShowUI(RaycastHit hit)
+        {
+            if (hit.transform.GetComponent<ShowUI>() != null)
+            {
+                if (objUI == null)
+                {
+                    objUI = hit.transform.GetComponent<ShowUI>();
+                    objUI.SetTheUI(true);
+                }
+            }
+        }
+        void DisableUI()
+        {
+            if (objUI != null)
+            {
+                objUI.SetInteractionText("TO CONTROL");
+                objUI.SetTheUI(false);
+                objUI = null;
+            }
         }
     }
 }

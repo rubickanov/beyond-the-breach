@@ -64,6 +64,7 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
                 numberSystem = false;
                 if (!interactionAnim)
                 {
+                    state.OnSuccess.Invoke();
                     systemTxt.color = Color.green;
                     state.StartCoroutine(InteractionAnimTxt());
                     interactionAnim = true;
@@ -99,6 +100,7 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
                 {
                     SetMovementUI(false);
                     PlayerInput.Instance.DisablePlayerMovement();
+                    state.OnSuccess.Invoke();
                     interaction = false;
                     state.StartCoroutine(LineUP(state));
                     taskDone[4] = true;

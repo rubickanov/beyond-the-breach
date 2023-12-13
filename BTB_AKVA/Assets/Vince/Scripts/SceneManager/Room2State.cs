@@ -117,6 +117,7 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
                 else if (GetNumberOfActiveSockets(state) == 4 && !taskDone[3] && Vector3.Distance(state.playerTransform.position, state.room2PlayerPos.position) < 1.5f)
                 {
                     txtAnim = false;
+                    state.OnSuccess.Invoke();
                     SetMovementUI(false);
                     PlayerInput.Instance.DisablePlayerMovement();
                     state.StartCoroutine(LineUP(state));
