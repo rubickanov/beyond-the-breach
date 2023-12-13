@@ -1051,6 +1051,81 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 32653851}
   m_Mesh: {fileID: 4300000, guid: 6ce8f3922fab00148a70b85b881085e9, type: 3}
+--- !u!1 &34084469
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 34084470}
+  - component: {fileID: 34084472}
+  - component: {fileID: 34084471}
+  m_Layer: 5
+  m_Name: DialogueReticle
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &34084470
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 34084469}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1028213320}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 174.2, y: 97.9875}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &34084471
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 34084469}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.33333334, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: c7d884d252552114e91c27512f79973e, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &34084472
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 34084469}
+  m_CullTransparentMesh: 1
 --- !u!4 &37332075 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4821360728723820, guid: b89410c93f2a383409231a86cfdc0a2b,
@@ -8841,6 +8916,16 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1494396807104588530, guid: 1da11da79921ab242b3d324ba6b5949a,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1494396807104588530, guid: 1da11da79921ab242b3d324ba6b5949a,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 0.33333334
+      objectReference: {fileID: 0}
     - target: {fileID: 2624754754430015750, guid: 1da11da79921ab242b3d324ba6b5949a,
         type: 3}
       propertyPath: m_AnchorMax.x
@@ -8890,6 +8975,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchorMin.x
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7337694745389012587, guid: 1da11da79921ab242b3d324ba6b5949a,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7337694745389012587, guid: 1da11da79921ab242b3d324ba6b5949a,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 9053539473811563791, guid: 1da11da79921ab242b3d324ba6b5949a,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9053539473811563791, guid: 1da11da79921ab242b3d324ba6b5949a,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 0.33333334
       objectReference: {fileID: 0}
     - target: {fileID: 9058820798184060939, guid: 1da11da79921ab242b3d324ba6b5949a,
         type: 3}
@@ -22499,6 +22604,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Reticle
       objectReference: {fileID: 0}
+    - target: {fileID: 1129217256760184005, guid: c23fb55d9a11aeb4fa9c7a3853968867,
+        type: 3}
+      propertyPath: dialogueReticle
+      value: 
+      objectReference: {fileID: 34084469}
     - target: {fileID: 2041158735136683752, guid: c23fb55d9a11aeb4fa9c7a3853968867,
         type: 3}
       propertyPath: mindControl
@@ -22607,6 +22717,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 9071170460438845290, guid: c23fb55d9a11aeb4fa9c7a3853968867,
+        type: 3}
+      insertIndex: 5
+      addedObject: {fileID: 34084470}
     - targetCorrespondingSourceObject: {fileID: 9071170460438845290, guid: c23fb55d9a11aeb4fa9c7a3853968867,
         type: 3}
       insertIndex: -1
