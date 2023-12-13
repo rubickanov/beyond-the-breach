@@ -64,6 +64,7 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
                 numberSystem = false;
                 if (!interactionAnim)
                 {
+                    state.OnSuccess.Invoke();
                     systemTxt.color = Color.green;
                     state.StartCoroutine(InteractionAnimTxt());
                     interactionAnim = true;
@@ -90,15 +91,16 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
                 }
                 else if (GetNumberOfActiveSockets(state) == 3 && !taskDone[2] && !enableAI)
                 {
+                    PlayerInput.Instance.EnablePlayerInput();
                     state.playerPicking.enabled = true;
                     taskDone[2] = true;
                     SetMovementUI(true);
-                    PlayerInput.Instance.EnablePlayerMovement();
                 }
                 else if (GetNumberOfActiveSockets(state) == 4 && Vector3.Distance(state.playerTransform.position, state.room1PlayerPos.position) < 1.5f && !taskDone[4])
                 {
                     SetMovementUI(false);
                     PlayerInput.Instance.DisablePlayerMovement();
+                    state.OnSuccess.Invoke();
                     interaction = false;
                     state.StartCoroutine(LineUP(state));
                     taskDone[4] = true;
@@ -133,7 +135,7 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
                 yield return new WaitForSeconds(lineUpDelay);
             }
             SetMovementUI(true);
-            PlayerInput.Instance.EnablePlayerMovement();
+            PlayerInput.Instance.EnablePlayerInput();
         }
 
 

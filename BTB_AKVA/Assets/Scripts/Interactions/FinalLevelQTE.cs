@@ -17,13 +17,17 @@ namespace AKVA.Interaction
 
         private void OnEnable()
         {
-            PlayerInput.Instance.DisablePlayerMovement();
             PlayerInput.Instance.DisablePlayerInput();
             slider.value = 0;
         }
 
+        private void OnDisable()
+        {
+        }
+
         private void Update()
         {
+            PlayerInput.Instance.DisablePlayerInput();
             UpdateSlider();
         }
 

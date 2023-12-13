@@ -3,6 +3,7 @@ using UnityEngine;
 using AKVA.Player;
 using AKVA.Assets.Vince.Scripts.Environment;
 using TMPro;
+using System;
 
 namespace AKVA.Assets.Vince.Scripts.SceneManager
 {
@@ -25,7 +26,7 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
                 started = true;
                 state.StartCoroutine(AnimTxt());
             }
-
+            state.StartCoroutine(EnableMovement(2));
             state.tutorialScreen.turnOnTV = true;
             state.tutorialScreen.SetKeyLettersAndInsruction("[W]", "TO MOVE FORWARD");
         }
@@ -42,23 +43,23 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
         {
             if (PlayerInput.Instance.GetPlayerMovement)
             {
-                if (Input.GetKeyDown(PlayerInput.Instance.Controls.forward) && !movementTask[0]) // move forward
+                if (Input.GetKeyDown(PlayerInput.Instance.Controls.forward) && !movementTask[0] && !movementTask[1])// move forward
                 {
                     movementTask[0] = true;
                     state.tutorialScreen.SetKeyLettersAndInsruction("[S]", "TO MOVE BACKWARDS");
-                    state.StartCoroutine(EnableMovement(state));
+                    state.StartCoroutine(EnableMovement(0f));
                 }
                 else if (movementTask[0] && Input.GetKeyDown(PlayerInput.Instance.Controls.backwards)) // move back
                 {
                     movementTask[1] = true;
                     state.tutorialScreen.SetKeyLettersAndInsruction("[D]", "TO MOVE RIGHT");
-                    state.StartCoroutine(EnableMovement(state));
+                    state.StartCoroutine(EnableMovement(0f));
                 }
                 else if (movementTask[1] && Input.GetKeyDown(PlayerInput.Instance.Controls.right)) // move right
                 {
                     movementTask[2] = true;
                     state.tutorialScreen.SetKeyLettersAndInsruction("[A]", "TO MOVE LEFT");
-                    state.StartCoroutine(EnableMovement(state));
+                    state.StartCoroutine(EnableMovement(0f));
                 }
                 else if (movementTask[2] && Input.GetKeyDown(PlayerInput.Instance.Controls.left)) // move left
                 {
@@ -97,15 +98,11 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
             movementCheckTxt.SetText("MOVEMENT SYSTEM SUCCESS");
         }
 
-        IEnumerator EnableMovement(SceneStateManager state)
+        IEnumerator EnableMovement(float time)
         {
-            // after pressing the key it will disable movement after a sec
-            yield return new WaitForSeconds(1f);
-            PlayerInput.Instance.DisablePlayerMovement();
-
             //Enables Movement again after disabling it
-            yield return new WaitForSeconds(state.timeDelayDuringTutorial);
-            PlayerInput.Instance.EnablePlayerMovement();
+            yield return new WaitForSeconds(time);
+            PlayerInput.Instance.EnablePlayerInput();
         }
     }
 }

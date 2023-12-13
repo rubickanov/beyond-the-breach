@@ -4,7 +4,8 @@ namespace AKVA.Player
 {
     public class MouseLook : MonoBehaviour
     {
-        [SerializeField] private float mouseSensitivity = 1500f;
+        [SerializeField] private float mouseSensitivity = 1000f;
+        [SerializeField] private FloatReference mouseSensMultiplayer;
         [SerializeField] private Transform orientation;
 
         [Header("SMOOTHNESS")] [Range(0, 1)] [SerializeField]
@@ -26,8 +27,8 @@ namespace AKVA.Player
 
         private void Update()
         {
-            float mouseX = Input.GetAxisRaw("Mouse X") * mouseSensitivity * Time.deltaTime;
-            float mouseY = Input.GetAxisRaw("Mouse Y") * mouseSensitivity * Time.deltaTime;
+            float mouseX = Input.GetAxisRaw("Mouse X") * mouseSensitivity * mouseSensMultiplayer.value * Time.deltaTime;
+            float mouseY = Input.GetAxisRaw("Mouse Y") * mouseSensitivity * mouseSensMultiplayer.value * Time.deltaTime;
 
             xRotation -= mouseY;
             xRotation = Mathf.Clamp(xRotation, -90f, 90f);

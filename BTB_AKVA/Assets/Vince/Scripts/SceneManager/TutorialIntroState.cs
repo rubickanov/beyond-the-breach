@@ -20,6 +20,8 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
         int dotNum;
         bool initTxtAnim = true;
         bool movementTxtEnabled;
+        SceneStateManager state;
+        bool successSFxPlayed;
         
         public override void OnEnterState(SceneStateManager state)
         {
@@ -32,6 +34,7 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
             AdjustBlackBGAlpha(1);
             state.StartCoroutine(InitTxtAnim());
             state.StartCoroutine(ActivatePlayerHUD(state));
+            this.state = state;
         }
 
         public override void OnExitState(SceneStateManager state)
@@ -61,6 +64,7 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
 
                 if (dotNum < 4)
                 {
+                    state.OnLoad.Invoke();
                     initializeTxt.SetText("INITIALIZING HUD DISPLAY" + new string('.', dotNum));
                 }
                 else
@@ -75,6 +79,7 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
         IEnumerator ActivatePlayerHUD(SceneStateManager state)
         {
             yield return new WaitForSeconds(5f);
+            state.OnHUDActivate.Invoke();
             playerHUDSprite.SetActive(true);
             yield return new WaitForSeconds(1f);
             playerHUDNoSprite.SetActive(true);
@@ -93,6 +98,12 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
             
             if(blackImage.color.a <= 0.3f && !movementTxtEnabled)
             {
+                if (!successSFxPlayed)
+                {
+                    successSFxPlayed = true;
+                    state.OnSuccess.Invoke();
+                }
+
                 initTxtAnim = false;
                 initializeTxt.color = Color.green;
                 initializeTxt.SetText("HUD COMPLETE");
@@ -104,7 +115,6 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
         {
             yield return new WaitForSeconds(delayTime);
             initializeTxt.color = Color.green;
-            PlayerInput.Instance.EnablePlayerInput();
             initializeTxt.SetText(txt);
             movementTxtEnabled = true;
             state.SwitchState(state.movementTutorial);

@@ -26,6 +26,6 @@ public class RestartButton : MonoBehaviour
     private void RestartLevel()
     {
         PlayerDeathManager.Instance.ResetPlayerDied();
-        SceneManager.LoadScene(2);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }

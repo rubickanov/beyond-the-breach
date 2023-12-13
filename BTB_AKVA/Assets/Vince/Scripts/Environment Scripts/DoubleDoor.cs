@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace AKVA.Assets.Vince.Scripts.Environment
 {
@@ -26,6 +27,12 @@ namespace AKVA.Assets.Vince.Scripts.Environment
         [SerializeField] Vector3 physicsBoxSize;
         RaycastHit hit;
         public float leftDoorInitPos, rightDoorInitPos;
+
+        [Header("Events")]
+        public UnityEvent OnDoorActive;
+        public UnityEvent OnDoorOpened;
+        bool doorOpening;
+        bool doorActive;
 
         #region Properties
         public bool EnableDoor { set => activated = value; get => activated; }
@@ -83,12 +90,25 @@ namespace AKVA.Assets.Vince.Scripts.Environment
                 if (Physics.CheckBox(rayOrigin.position, physicsBoxSize, Quaternion.identity,allowedToOpen))
                 {
                     OpenDoor();
+
+                    if (!doorOpening)
+                    {
+                        doorOpening = true;
+                        OnDoorOpened.Invoke();
+                    }
                 }
                 else
                 {
+                    doorOpening = false;
                     CloseDoor();
                 }
                 ChangeDoorColor(doorActivated);
+
+                if (!doorActive)
+                {
+                    doorActive = true;
+                    OnDoorActive.Invoke();
+                }
             }
             else
             {

@@ -1,11 +1,8 @@
-using System;
 using UnityEngine;
 using UnityEngine.UI;
 using EZCameraShake;
-using UnityEditor;
 using System.Collections;
-using UnityEditor.Graphs;
-using UnityEngine.Experimental.Rendering;
+using UnityEngine.Serialization;
 
 namespace AKVA.Player
 {
@@ -39,14 +36,17 @@ namespace AKVA.Player
         public GameObject gridBarrierImg;
         public GameObject playerBlueHUD;
         public GameObject playerRedHUD;
+        [FormerlySerializedAs("qte")] public GameObject qteSlider;
 
         private void Awake()
         {
             rb = GetComponent<Rigidbody>();
             eagleVision = GetComponent<EagleVision>();
-            playerRedHUD.SetActive(true);
-            playerBlueHUD.SetActive(false);
-            gridBarrierImg.SetActive(false);
+
+            if(playerRedHUD == null ){ return; }
+            playerRedHUD?.SetActive(true);
+            playerBlueHUD?.SetActive(false);
+            gridBarrierImg?.SetActive(false);
         }
 
         private void Start()
@@ -92,20 +92,14 @@ namespace AKVA.Player
             if (slider.value >= maxSliderValue)
             {
                 isActive = false;
-                CameraShaker.Instance.enabled = false;
-                Cancel();
+                DisableQTE();
+                StartCoroutine(EnableEagleVisionForCoupleOfSeconds());
             }
         }
 
         private void DecreaseValuePerTick()
         {
             slider.value -= minusValuePerTick * Time.deltaTime;
-        }
-
-        public void Cancel()
-        {
-            Destroy(slider.transform.parent.gameObject);
-            StartCoroutine(EnableEagleVisionForCoupleOfSeconds());
         }
 
         // eagle vision
@@ -144,10 +138,25 @@ namespace AKVA.Player
             playerRedHUD.SetActive(false);
             eagleVision.isEagleVision = true;
             yield return new WaitForSeconds(eagleVisionTimeAfterQTE);
-            eagleVision.qteActivate = false;
             eagleVision.isEagleVision = false;
+            eagleVision.qteActivate = false;
             //CameraShaker.Instance.enabled = false;
             Destroy(this);
+        }
+
+        public void DisableQTE()
+        {
+            qteSlider.SetActive(false);
+            if (CameraShaker.Instance)
+            {
+                CameraShaker.Instance.enabled = false;
+            }
+            this.enabled = false;
+        }
+
+        public void DisableUI()
+        {
+            qteSlider.SetActive(false);
         }
     }
 }

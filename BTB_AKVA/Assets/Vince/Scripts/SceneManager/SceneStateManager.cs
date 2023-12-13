@@ -11,6 +11,7 @@ using AKVA.Vince.SO;
 using TMPro;
 using UnityEngine.UI;
 using EZCameraShake;
+using UnityEngine.Events;
 
 namespace AKVA.Assets.Vince.Scripts.SceneManager
 {
@@ -34,6 +35,9 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
         public Image blackBG;
         public GameObject PlayerHUDSprite, PlayerHUDWithoutAnim;
         public Color hudColor;
+        public UnityEvent OnLoad;
+        public UnityEvent OnHUDActivate;
+        public UnityEvent OnSuccess;
 
         [Header("Movement Tutorial")]
         public TextMeshProUGUI movementTestTxt;
@@ -65,6 +69,7 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
         public Renderer room3Renderer;
         public Texture2D redTexture;
         public Light [] realTimeLights;
+        public UnityEvent OnRobotError;
 
         [Header("Load To Next Scene")]
         public string sceneName;

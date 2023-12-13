@@ -1,8 +1,5 @@
-using System;
 using AKVA.Player;
 using AKVA.Vince.SO;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerDeathManager : MonoBehaviour
@@ -22,6 +19,7 @@ public class PlayerDeathManager : MonoBehaviour
         else
         {
             _instance = this;
+            playerDied.value = false;
         }
     }
 
@@ -42,6 +40,7 @@ public class PlayerDeathManager : MonoBehaviour
     public void ShowDeathScreen(bool value)
     {
         Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
         DeathScreenUI.SetActive(value);
         PlayerInput.Instance.DisablePlayerInput();
     }
