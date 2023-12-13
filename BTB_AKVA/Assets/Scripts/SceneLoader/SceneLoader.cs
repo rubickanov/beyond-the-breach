@@ -17,6 +17,8 @@ namespace AKVA
         bool enableFadeOut;
         private void Awake()
         {
+            Time.timeScale = 1;
+            
             AdjustImageAlpha(0f);
         }
         public void LoadScene(string sceneName)
