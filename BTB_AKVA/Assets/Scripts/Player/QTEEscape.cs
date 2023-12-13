@@ -39,6 +39,7 @@ namespace AKVA.Player
         public GameObject gridBarrierImg;
         public GameObject playerBlueHUD;
         public GameObject playerRedHUD;
+        public GameObject qte;
 
         private void Awake()
         {
@@ -150,6 +151,12 @@ namespace AKVA.Player
             eagleVision.qteActivate = false;
             eagleVision.isEagleVision = false;
             //CameraShaker.Instance.enabled = false;
+            Destroy(this);
+        }
+
+        public void DisableQTE()
+        {
+            qte.SetActive(false);
             Destroy(this);
         }
     }

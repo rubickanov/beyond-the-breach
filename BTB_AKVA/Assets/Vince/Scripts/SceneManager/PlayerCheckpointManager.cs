@@ -34,7 +34,7 @@ namespace AKVA.Player
             levelManager.SetCurrentLevel(savedCheckpoint.stateEnum);
 
             playerCameraTransform.GetComponent<CameraShaker>().enabled = false;
-            playerTransform.GetComponent<QTEEscape>().Cancel();
+            playerTransform.GetComponent<QTEEscape>().DisableQTE();
         }
     }
 }
