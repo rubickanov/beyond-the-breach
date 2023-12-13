@@ -107,7 +107,8 @@ namespace AKVA.Player
         public void Cancel()
         {
             slider.transform.parent.gameObject.SetActive(false);
-            StartCoroutine(EnableEagleVisionForCoupleOfSeconds());
+            this.enabled = false;
+            //StartCoroutine(EnableEagleVisionForCoupleOfSeconds());
         }
 
         // eagle vision
