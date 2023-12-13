@@ -1,7 +1,9 @@
 using System.Collections;
+using System.Numerics;
 using UnityEngine;
 using AKVA.Player;
 using AKVA.Vince.SO;
+using Vector3 = UnityEngine.Vector3;
 
 namespace AKVA.Interaction
 {
@@ -66,8 +68,8 @@ namespace AKVA.Interaction
                         if (Input.GetKey(PlayerInput.Instance.Controls.mindControl) && canSwap)
                         {
                             PlayerInput.Instance.DisablePlayerMouseInput();
-                            playerCamera.transform.forward =
-                                (mindControlledObject.transform.position - playerCamera.transform.position) + new Vector3(0, 1.5f, 0);
+                            playerCamera.transform.forward = Vector3.Lerp(playerCamera.transform.forward,  (mindControlledObject.transform.position - playerCamera.transform.position) + new Vector3(0, 1.5f, 0), 0.15f)
+                               ;
                             timerToMindControl += Time.deltaTime;
                             if (timerToMindControl >= timeToMindControl)
                             {

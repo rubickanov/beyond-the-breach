@@ -1,11 +1,8 @@
-using System;
 using UnityEngine;
 using UnityEngine.UI;
 using EZCameraShake;
-using UnityEditor;
 using System.Collections;
-using UnityEditor.Graphs;
-using UnityEngine.Experimental.Rendering;
+using UnityEngine.Serialization;
 
 namespace AKVA.Player
 {
@@ -39,7 +36,7 @@ namespace AKVA.Player
         public GameObject gridBarrierImg;
         public GameObject playerBlueHUD;
         public GameObject playerRedHUD;
-        public GameObject qte;
+        [FormerlySerializedAs("qte")] public GameObject qteSlider;
 
         private void Awake()
         {
@@ -95,21 +92,14 @@ namespace AKVA.Player
             if (slider.value >= maxSliderValue)
             {
                 isActive = false;
-                CameraShaker.Instance.enabled = false;
-                Cancel();
+                DisableQTE();
+                StartCoroutine(EnableEagleVisionForCoupleOfSeconds());
             }
         }
 
         private void DecreaseValuePerTick()
         {
             slider.value -= minusValuePerTick * Time.deltaTime;
-        }
-
-        public void Cancel()
-        {
-            slider.transform.parent.gameObject.SetActive(false);
-            this.enabled = false;
-            //StartCoroutine(EnableEagleVisionForCoupleOfSeconds());
         }
 
         // eagle vision
@@ -148,16 +138,25 @@ namespace AKVA.Player
             playerRedHUD.SetActive(false);
             eagleVision.isEagleVision = true;
             yield return new WaitForSeconds(eagleVisionTimeAfterQTE);
-            eagleVision.qteActivate = false;
             eagleVision.isEagleVision = false;
+            eagleVision.qteActivate = false;
             //CameraShaker.Instance.enabled = false;
             Destroy(this);
         }
 
         public void DisableQTE()
         {
-            qte.SetActive(false);
-            Destroy(this);
+            qteSlider.SetActive(false);
+            if (CameraShaker.Instance)
+            {
+                CameraShaker.Instance.enabled = false;
+            }
+            this.enabled = false;
+        }
+
+        public void DisableUI()
+        {
+            qteSlider.SetActive(false);
         }
     }
 }

@@ -1708,7 +1708,7 @@ MonoBehaviour:
   playerTransform: {fileID: 1894986265}
   playerCameraTransform: {fileID: 881107352}
   savedCheckpoint: {fileID: 11400000, guid: 7af07fe51c0e373488bf1315c47f6b6b, type: 2}
-  enableCheckpoint: 0
+  enableCheckpoint: 1
 --- !u!114 &64366177
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -75633,17 +75633,17 @@ PrefabInstance:
     - target: {fileID: 1410726131186694045, guid: 7ea641099ed0ec54e8cf14c58673c406,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 66.65
+      value: -3.54
       objectReference: {fileID: 0}
     - target: {fileID: 1410726131186694045, guid: 7ea641099ed0ec54e8cf14c58673c406,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.796
+      value: -0.877
       objectReference: {fileID: 0}
     - target: {fileID: 1410726131186694045, guid: 7ea641099ed0ec54e8cf14c58673c406,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 72.83
+      value: -0.659
       objectReference: {fileID: 0}
     - target: {fileID: 1410726131186694045, guid: 7ea641099ed0ec54e8cf14c58673c406,
         type: 3}
@@ -75811,6 +75811,11 @@ PrefabInstance:
       propertyPath: magnitude
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 7707694562265835710, guid: 7ea641099ed0ec54e8cf14c58673c406,
+        type: 3}
+      propertyPath: qteSlider
+      value: 
+      objectReference: {fileID: 1521688082}
     - target: {fileID: 7707694562265835710, guid: 7ea641099ed0ec54e8cf14c58673c406,
         type: 3}
       propertyPath: roughness

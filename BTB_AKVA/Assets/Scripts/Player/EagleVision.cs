@@ -32,12 +32,12 @@ namespace AKVA.Player
         {
             if (Input.GetKey(KeyCode.Tab))
             {
-                enableEagleVision.SetActive(false);
+                enableEagleVision.SetActive(true);
                 isEagleVision = true;
             }
-            else if(Input.GetKeyUp(KeyCode.Tab) && !qteActivate)
+            else if(!qteActivate)
             {
-                enableEagleVision.SetActive(true);
+                enableEagleVision.SetActive(false);
                 isEagleVision = false;
             }
 
