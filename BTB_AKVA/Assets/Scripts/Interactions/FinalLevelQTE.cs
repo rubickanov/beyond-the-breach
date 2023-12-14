@@ -40,7 +40,7 @@ namespace AKVA.Interaction
             if (Input.GetKeyDown(PlayerInput.Instance.Controls.interact))
             {
                 OnUpdateValue.Invoke();
-                slider.value += additionalValue * Time.deltaTime;
+                slider.value += additionalValue;
             }
         }
     }

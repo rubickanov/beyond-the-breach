@@ -41,7 +41,7 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
 
         public static LevelManager Instance;
         
-        LevelState currentLevel;
+        public LevelState currentLevel {  get; private set; }
         public Level1State level1 = new Level1State();
         public Level2State level2 = new Level2State();
         public Level5State level5 = new Level5State();

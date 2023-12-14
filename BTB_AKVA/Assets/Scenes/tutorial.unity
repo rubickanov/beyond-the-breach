@@ -14980,7 +14980,7 @@ PrefabInstance:
         type: 3}
       propertyPath: mindControl
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2697661757891413359}
     - target: {fileID: 5819169507212920992, guid: c23fb55d9a11aeb4fa9c7a3853968867,
         type: 3}
       propertyPath: m_StaticEditorFlags
@@ -29137,6 +29137,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mouseSensitivity: 975
+  mouseSensMultiplayer: {fileID: 11400000, guid: eb19219d4d1f18444a10efdf7cef8b2c,
+    type: 2}
   orientation: {fileID: 4727037070956719356}
   cameraSmoothness: 0.111
   smoothnessMethod: 2
@@ -31671,6 +31673,7 @@ MonoBehaviour:
   playerCamera: {fileID: 8058034786442099899}
   distanceToInteract: 8
   IsActive: 0
+  IsDialogueActive: 0
 --- !u!1 &4536516908433977864
 GameObject:
   m_ObjectHideFlags: 0
@@ -33168,6 +33171,7 @@ MonoBehaviour:
   gridBarrierImg: {fileID: 0}
   playerBlueHUD: {fileID: 0}
   playerRedHUD: {fileID: 0}
+  qteSlider: {fileID: 0}
 --- !u!4 &7718994592887187022
 Transform:
   m_ObjectHideFlags: 0

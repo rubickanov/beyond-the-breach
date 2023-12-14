@@ -15,7 +15,8 @@ public class TextTyperEffect : MonoBehaviour
     private float animationTimer;
     private float delayBetweenCharsTimer;
 
-    private readonly string allChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz01234567890";
+    //private readonly string allChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz01234567890";
+    private readonly string allChars = "01";
     private int index = 0;
     private int indexCount = -2;
 

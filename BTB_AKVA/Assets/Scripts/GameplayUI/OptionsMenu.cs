@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class OptionsMenu : MonoBehaviour
 {
     [Header("MENUS")]
-    [SerializeField] private GameObject uiToEnableAfterClose;
+    [SerializeField] private GameObject[] uiToEnableAfterClose;
     
     [Header("TEXTS")]
     [SerializeField] private TextMeshProUGUI sensValueText;
@@ -51,7 +51,11 @@ public class OptionsMenu : MonoBehaviour
     
     private void Close()
     {
-        uiToEnableAfterClose.SetActive(true);
+        foreach (GameObject o in uiToEnableAfterClose)
+        {
+            o.SetActive(true);
+        }
+
         this.gameObject.SetActive(false);
     }
 
