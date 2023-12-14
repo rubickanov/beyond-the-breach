@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using AKVA.Vince.SO;
 using Codice.Client.BaseCommands;
+using UnityEngine.Events;
 
 namespace AKVA.Assets.Vince.Scripts.Environment
 {
@@ -15,8 +16,15 @@ namespace AKVA.Assets.Vince.Scripts.Environment
         [SerializeField] float showImgDelay = 3f;
         [SerializeField] BoolReference[] imagesAppeared;
         [SerializeField] BoolReference tvTurnedOn;
+        public UnityEvent OnCorrectScreen;
+        bool sfxPlayed;
         float bgInitScale;
         Vector3 imageInitScale;
+
+        float currentMaxResetTime = 5f;
+        float currentTime;
+        bool timerEnabled;
+
         private void Awake()
         {
             bgInitScale = bg.transform.localScale.y;
@@ -54,7 +62,7 @@ namespace AKVA.Assets.Vince.Scripts.Environment
                 {
                     StartCoroutine(ShowImage(3));
                 }
-                
+
                 if (imagesAppeared[4].value) // wrong
                 {
                     StartCoroutine(ShowImage(4));
@@ -63,6 +71,27 @@ namespace AKVA.Assets.Vince.Scripts.Environment
                 if (imagesAppeared[5].value) // correct
                 {
                     StartCoroutine(ShowImage(5));
+                }
+            }
+            Timer();
+        }
+
+        void Timer()
+        {
+            if (tvTurnedOn.value)
+            {
+                if (timerEnabled)
+                {
+                    if (currentTime < currentMaxResetTime)
+                    {
+                        currentTime += Time.deltaTime;
+                    }
+                    else
+                    {
+                        sfxPlayed = false;
+                        timerEnabled = false;
+                        currentTime = 0f;
+                    }
                 }
             }
         }
@@ -90,8 +119,16 @@ namespace AKVA.Assets.Vince.Scripts.Environment
             {
                 spriteRenderer.transform.localScale = Vector3.one * 0.6609973f;
                 bg.GetComponent<SpriteRenderer>().color = Color.red;
-            }else if(imgNum == 5)
+            }
+            else if (imgNum == 5)
             {
+                if (!sfxPlayed)
+                {
+                    OnCorrectScreen.Invoke();
+                    sfxPlayed = true;
+                    timerEnabled = true;
+                }
+
                 spriteRenderer.transform.localScale = Vector3.one * 0.6609973f;
                 bg.GetComponent<SpriteRenderer>().color = Color.green;
             }

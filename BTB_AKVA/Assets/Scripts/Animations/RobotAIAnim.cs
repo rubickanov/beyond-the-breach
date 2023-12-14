@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace AKVA.Animations
 {
@@ -19,6 +20,10 @@ namespace AKVA.Animations
         public string Robot_Scared = "LookAroundScared";
         public string Robot_Death = "Electricute";
 
+        public UnityEvent OnWalk;
+        public UnityEvent Electricuted;
+       
+
         private void Start()
         {
             rb = GetComponent<Rigidbody>();
@@ -33,6 +38,16 @@ namespace AKVA.Animations
             if(currentAnim == newState) { anim.applyRootMotion = true; } else {  anim.applyRootMotion = false; }
             anim.Play(newState);
             currentAnim = newState;
+        }
+
+        public void FootStep()
+        {
+            OnWalk.Invoke();
+        }
+
+        public void Electricute()
+        {
+            Electricuted.Invoke();
         }
     }
 }

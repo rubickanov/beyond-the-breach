@@ -39,8 +39,11 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
         GameObject electricVFX;
         bool enableCameraShake;
 
+        SceneStateManager state;
         public override void OnEnterState(SceneStateManager state)
         {
+            this.state = state;
+
             roomMat = state.room3Renderer.material;
             redTex = state.redTexture;
 
@@ -50,6 +53,7 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
             state.playerPicking.enabled = false;
             task = new bool[8];
             electricVFX = state.electricVFX;
+            state.tvTurnedOn.value = true;
         }
 
         public override void OnExitState(SceneStateManager state)
@@ -91,7 +95,10 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
                 }
                 SetMovementUI(false);
                 PlayerInput.Instance.DisablePlayerMovement();
-                state.tvTurnedOn.value = true;
+
+                SetScreenImages(state.neuroLabSprite, false);
+                SetScreenImages(state.interactableSprites, true);
+
                 state.imagesAppeared[0].value = true;
                 state.StartCoroutine(StartAITask(state, 0, 4.5f, false));
 
@@ -114,7 +121,7 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
                 {
                     state.imagesAppeared[5].value = true;
 
-                    state.StartCoroutine(showImageDelay(state, 1, 2f, "[LEFT-CLICK]", "TO INTERACT PASSWORD BUTTONS",36)); // show pass key
+                    state.StartCoroutine(showImageDelay(state, 1, 2f, "[LEFT-CLICK]", "TO INTERACT PASSWORD BUTTONS", 36)); // show pass key
                     state.StartCoroutine(StartAITask(state, 0, 7f, true)); // go to the position of the  pass key
                     state.StartCoroutine(showImageDelay(state, 5, 10f)); // correct
                     aiEnabled = true;
@@ -141,6 +148,7 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
                 else if (task[3] && !task[4] && Vector3.Distance(state.listOfAI[1].transform.position, state.listOfAI[1].GetComponent<AIStateManager>().pathPoints[13].position) < 1f)
                 {
                     task[4] = true;
+                    state.OnScreenCorrect.Invoke();
                     state.imagesAppeared[5].value = true; // correct
                     state.StartCoroutine(StartAITask(state, 1, 4f, true)); // go back to pos
                 }
@@ -167,6 +175,12 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
         IEnumerator showImageDelay(SceneStateManager state, int imgIndex, float delayTime)
         {
             yield return new WaitForSeconds(delayTime);
+
+            if (imgIndex == 5)
+            {
+                state.OnScreenCorrect.Invoke();
+            }
+
             state.imagesAppeared[imgIndex].value = true;
         }
 
@@ -178,6 +192,7 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
                 TutorialMonitor monitor = state.room3TutorialMonitor[i];
                 monitor.SetKeyLettersAndInstruction(interactKey, instruction, txtSize);
             }
+
             state.imagesAppeared[imgIndex].value = true;
         }
 
@@ -199,6 +214,13 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
             state.OnRobotError.Invoke();
             state.imagesAppeared[4].value = true;
             SetRoomToRed(state);
+            state.AlarmSound.Invoke();
+
+            yield return new WaitForSeconds(3f);
+            state.ForceShutdownAudio.Invoke();
+
+            yield return new WaitForSeconds(5f);
+
             while (index >= 0/*state.listOfAI.Length*/)
             {
                 yield return new WaitForSeconds(delayTime);
@@ -218,6 +240,7 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
 
                 if (dotNum < 4)
                 {
+                    state.OnLoad.Invoke();
                     systemTxt.SetText("IMAGE RECOGNITION SYSTEM" + new string('.', dotNum));
                 }
                 else
@@ -263,6 +286,7 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
                 yield return new WaitForSeconds(.5f);
                 systemTxt.gameObject.SetActive(false);
                 yield return new WaitForSeconds(.5f);
+                state.HUDError.Invoke();
                 systemTxt.gameObject.SetActive(true);
             }
         }
@@ -287,12 +311,11 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
             roomMat.SetTexture("_EmissionMap", redTex);
             roomMat.SetColor("_EmissionColor", Color.red * 10);
 
-            foreach(Light lights in state.realTimeLights)
+            foreach (Light lights in state.realTimeLights)
             {
                 lights.color = Color.red;
                 lights.intensity = 10f;
             }
-
         }
 
         void CameraShake(SceneStateManager state)
@@ -300,6 +323,14 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
             if (enableCameraShake)
             {
                 CameraShaker.Instance.ShakeOnce(state.magnitude, state.roughness, state.fadeInTime, state.fadeOutTime);
+            }
+        }
+
+        void SetScreenImages(GameObject [] imgs, bool value)
+        {
+            foreach(GameObject img in imgs)
+            {
+                img.SetActive(value);
             }
         }
 

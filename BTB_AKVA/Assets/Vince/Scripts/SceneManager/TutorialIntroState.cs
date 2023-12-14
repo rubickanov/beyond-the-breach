@@ -22,6 +22,7 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
         bool movementTxtEnabled;
         SceneStateManager state;
         bool successSFxPlayed;
+        bool labSpeakerEnabled;
         
         public override void OnEnterState(SceneStateManager state)
         {
@@ -107,18 +108,36 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
                 initTxtAnim = false;
                 initializeTxt.color = Color.green;
                 initializeTxt.SetText("HUD COMPLETE");
-                state.StartCoroutine(SetInitializeText(3,"MOVEMENT: ENABLED", state));
+                state.tutorialScreen.turnOnTV = true;
+                state.StartCoroutine(EnableVoice(2));
+            }
+        }
+
+        IEnumerator EnableVoice(float delayTime)
+        {
+            yield return new WaitForSeconds(delayTime);
+            if (!labSpeakerEnabled)
+            {
+                labSpeakerEnabled = true;
+                state.LabSpeaker.Invoke();
+                state.StartCoroutine(SetInitializeText(state.movementDelayTime, "MOVEMENT: ENABLED", state));
             }
         }
 
         IEnumerator SetInitializeText(float delayTime, string txt, SceneStateManager state)
         {
             yield return new WaitForSeconds(delayTime);
+
+            state.neuroLabLogo.SetActive(false);
+            state.screenTxt.SetActive(true);
+            state.OnSuccess.Invoke();
             initializeTxt.color = Color.green;
             initializeTxt.SetText(txt);
             movementTxtEnabled = true;
             state.SwitchState(state.movementTutorial);
         }
+
+
 
         void AdjustInitTxtAlpha(float alphaValue)
         {
