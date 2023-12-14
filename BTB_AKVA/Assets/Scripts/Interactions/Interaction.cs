@@ -12,6 +12,7 @@ namespace AKVA.Interaction
         private IInteractable currentInteraction;
 
         [HideInInspector] public bool IsActive;
+        [HideInInspector] public bool IsDialogueActive;
 
         //UI
         ShowUI objUI;
@@ -24,7 +25,14 @@ namespace AKVA.Interaction
                 if (hit.transform.TryGetComponent(out currentInteraction))
                 {
                     ShowUI(hit);
-                    IsActive = true;
+                    if (currentInteraction is NPCDialouge)
+                    {
+                        IsDialogueActive = true;
+                    }
+                    else
+                    {
+                        IsActive = true;
+                    }
                     if (Input.GetKeyDown(PlayerInput.Instance.Controls.interact))
                     {
                         currentInteraction.Interact();
@@ -34,12 +42,14 @@ namespace AKVA.Interaction
                 {
                     DisableUI();
                     IsActive = false;
+                    IsDialogueActive = false;
                 }
             }
             else
             {
                 DisableUI();
                 IsActive = false;
+                IsDialogueActive = false;
             }
         }
 

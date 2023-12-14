@@ -20,6 +20,7 @@ namespace AKVA.GameplayUI
         [SerializeField] private GameObject mindControlReticle;
         [SerializeField] private GameObject unMindControlReticle;
         [SerializeField] private GameObject passwordReticle;
+        [SerializeField] private GameObject dialogueReticle;
         
         [Header("TIMINGS")]
         [SerializeField] private float timeToDisable;
@@ -62,6 +63,13 @@ namespace AKVA.GameplayUI
             {
                 interactReticle.SetActive(true);
             }
+        }
+
+        public void SetDialogueUI()
+        {
+            ExpandAnimation();
+            DisableAllReticles();
+            dialogueReticle.SetActive(true);
         }
 
         public void SetMindControlUI()
@@ -161,6 +169,7 @@ namespace AKVA.GameplayUI
             mindControlReticle.SetActive(false);
             unMindControlReticle.SetActive(false);
             passwordReticle.SetActive(false);
+            dialogueReticle.SetActive(false);
         }
 
 
