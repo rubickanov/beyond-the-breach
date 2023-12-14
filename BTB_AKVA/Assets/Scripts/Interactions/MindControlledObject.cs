@@ -1,3 +1,4 @@
+using System;
 using AKVA.Assets.Vince.Scripts.AI;
 using UnityEngine;
 
@@ -11,7 +12,7 @@ namespace AKVA.Interaction
 
         public Mesh defaultMesh;
         public Material defaultMaterial;
-
+        
         private void Awake()
         {
             skinnedMeshRenderer = GetComponentInChildren<SkinnedMeshRenderer>();
@@ -22,6 +23,11 @@ namespace AKVA.Interaction
             //defaultMaterial = meshRenderer.material;
             defaultMesh = skinnedMeshRenderer.sharedMesh;
             defaultMaterial = skinnedMeshRenderer.material;
+        }
+
+        private void Start()
+        {
+            
         }
 
         public void TakePlayerAppearance(Mesh mesh, Material material)
