@@ -35,6 +35,11 @@ namespace AKVA.Player
             {
                 HandleLastCheckPoint();
             }
+
+            if (!PlayerPrefs.HasKey("MainSceneUnlocked"))
+            {
+                PlayerPrefs.SetInt("MainSceneUnlocked", 1);
+            }
         }
 
         private void StartGameOnSavedCheckpoint()
