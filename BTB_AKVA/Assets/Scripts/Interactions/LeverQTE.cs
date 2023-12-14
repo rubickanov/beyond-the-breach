@@ -11,6 +11,7 @@ namespace AKVA.Interaction
         [SerializeField] Transform leverTransform;
         [SerializeField] GameObject finalLevelQTE;
         [SerializeField] float rotationForce = 0.1f;
+        
         bool disabled;
         void OnEnable()
         {
