@@ -12,12 +12,10 @@ namespace AKVA.Dialogue
         // Left Speaker
         [Space(10)]
         [SerializeField] private TextMeshProUGUI speakerOneName;
-        [SerializeField] private GameObject speakerOneSprite;
     
         // Right Speaker
         [Space(10)]
         [SerializeField] private TextMeshProUGUI speakerTwoName;
-        [SerializeField] private GameObject speakerTwoSprite;
     
         [Space(10)]
         [SerializeField] private TextMeshProUGUI textField;
@@ -72,19 +70,15 @@ namespace AKVA.Dialogue
         private void ShowLeftSpeaker()
         {
             speakerOneName.gameObject.SetActive(true);
-            speakerOneSprite.SetActive(true);
         
             speakerTwoName.gameObject.SetActive(false);
-            speakerTwoSprite.SetActive(false);
         }
 
         private void ShowRightSpeaker()
         {
             speakerTwoName.gameObject.SetActive(true);
-            speakerTwoSprite.SetActive(true);
         
             speakerOneName.gameObject.SetActive(false);
-            speakerOneSprite.SetActive(false);
         }
     
         public void StartDialogue(DialogueSO dialogueSO)
@@ -105,10 +99,8 @@ namespace AKVA.Dialogue
         private void AssignSpeakersData(DialogueSO dialogueSO)
         {
             speakerOneName.text = dialogueSO.SpeakerOne.Name;
-            speakerOneSprite.GetComponent<Image>().sprite = dialogueSO.SpeakerOne.Sprite;
 
             speakerTwoName.text = dialogueSO.SpeakerTwo.Name;
-            speakerTwoSprite.GetComponent<Image>().sprite = dialogueSO.SpeakerTwo.Sprite;
         }
 
         private void Step()
@@ -139,8 +131,6 @@ namespace AKVA.Dialogue
 
             _isActiveAlready = false;
 
-            speakerOneSprite.SetActive(false);
-            speakerTwoSprite.SetActive(false);
             gameObject.SetActive(false);
         }
     }

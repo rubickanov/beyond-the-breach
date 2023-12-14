@@ -35,7 +35,7 @@ namespace AKVA.Interaction
         private void Update()
         {
             
-            if (!mindControl.IsActive && !picking.IsActive && !interaction.IsActive && !passDeviceChecker.IsActive)
+            if (!mindControl.IsActive && !picking.IsActive && !interaction.IsActive && !passDeviceChecker.IsActive && !interaction.IsDialogueActive)
             {
                 reticleUI.SetDefaultUI();
                 if(!isPermanentReticle)
@@ -58,6 +58,7 @@ namespace AKVA.Interaction
                     reticleUI.EnableReticle();
             
                 }
+                
                 if (mindControl.IsActive && !mindControl.IsUnHacking)
                 {
                  reticleUI.SetMindControlUI();   
@@ -70,6 +71,9 @@ namespace AKVA.Interaction
                 } else if (mindControl.IsActive && mindControl.IsUnHacking)
                 {
                     reticleUI.SetUnMindControlUI();
+                } else if (interaction.IsDialogueActive)
+                {
+                    reticleUI.SetDialogueUI();
                 }
             
             }

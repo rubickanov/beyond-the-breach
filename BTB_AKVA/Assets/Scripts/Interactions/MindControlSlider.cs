@@ -18,6 +18,7 @@ namespace AKVA.GameplayUI
 
         private void Update()
         {
+            if (!mindControl) return;
             if (mindControl.GetTimeToMindControlValue() <= 0) return;
             timerToMindControl = mindControl.GetTimerToMindControlValue();
             

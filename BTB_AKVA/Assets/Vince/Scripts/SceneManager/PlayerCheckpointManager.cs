@@ -1,3 +1,4 @@
+using System;
 using EZCameraShake;
 using UnityEngine;
 using AKVA.Assets.Vince.Scripts.SceneManager;
@@ -12,6 +13,10 @@ namespace AKVA.Player
 
         [SerializeField] private bool enableCheckpoint = true;
 
+        [SerializeField] private GameObject scientist;
+        [SerializeField] private GameObject redCircle1;
+        [SerializeField] private GameObject redCircle2;
+
         private LevelManager levelManager;
         
         private void Awake()
@@ -21,6 +26,19 @@ namespace AKVA.Player
             if (enableCheckpoint)
             {
                 StartGameOnSavedCheckpoint();
+            }
+        }
+
+        private void Start()
+        {
+            if (savedCheckpoint.isLastCheckPoint)
+            {
+                HandleLastCheckPoint();
+            }
+
+            if (!PlayerPrefs.HasKey("MainSceneUnlocked"))
+            {
+                PlayerPrefs.SetInt("MainSceneUnlocked", 1);
             }
         }
 
@@ -37,6 +55,13 @@ namespace AKVA.Player
             playerTransform.GetComponent<QTEEscape>().enabled = false;
             playerTransform.GetComponent<QTEEscape>().DisableUI();
             playerTransform.GetComponent<EagleVision>().qteActivate = false;
+        }
+
+        private void HandleLastCheckPoint()
+        {
+            scientist.SetActive(false);
+            redCircle1.SetActive(false);
+            redCircle2.SetActive(false);
         }
     }
 }

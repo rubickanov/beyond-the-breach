@@ -13,7 +13,9 @@ namespace AKVA.Player
 
         public bool isSaved = false;
 
-        [FormerlySerializedAs("state")] public LevelManager.LevelStatesEnum stateEnum;
+        public LevelManager.LevelStatesEnum stateEnum;
+
+        public bool isLastCheckPoint = false;
 
         public void ResetCheckpoint()
         {
