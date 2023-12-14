@@ -1720,6 +1720,16 @@ PrefabInstance:
       propertyPath: m_fontColor32.rgba
       value: 4289440683
       objectReference: {fileID: 0}
+    - target: {fileID: 3016452844388186927, guid: 4dba66e61ef59074ba6ae2ecc3de927b,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3016452844388186927, guid: 4dba66e61ef59074ba6ae2ecc3de927b,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 0.33333334
+      objectReference: {fileID: 0}
     - target: {fileID: 3021203158945538636, guid: 4dba66e61ef59074ba6ae2ecc3de927b,
         type: 3}
       propertyPath: uiToEnableAfterClose
@@ -1779,6 +1789,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: OptionsMenuChild
+      objectReference: {fileID: 0}
+    - target: {fileID: 3579393793265436747, guid: 4dba66e61ef59074ba6ae2ecc3de927b,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3579393793265436747, guid: 4dba66e61ef59074ba6ae2ecc3de927b,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 0.33333334
       objectReference: {fileID: 0}
     - target: {fileID: 3584663108708111695, guid: 4dba66e61ef59074ba6ae2ecc3de927b,
         type: 3}
@@ -1914,6 +1934,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6392020081024599990, guid: 4dba66e61ef59074ba6ae2ecc3de927b,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6392020081024599990, guid: 4dba66e61ef59074ba6ae2ecc3de927b,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 0.33333334
       objectReference: {fileID: 0}
     - target: {fileID: 6481374226009266368, guid: 4dba66e61ef59074ba6ae2ecc3de927b,
         type: 3}
