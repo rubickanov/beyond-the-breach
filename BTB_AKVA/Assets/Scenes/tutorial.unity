@@ -24175,6 +24175,11 @@ PrefabInstance:
       propertyPath: soundFX
       value: 
       objectReference: {fileID: 1469579954}
+    - target: {fileID: 7209484085973211815, guid: 1da11da79921ab242b3d324ba6b5949a,
+        type: 3}
+      propertyPath: soundFX
+      value: 
+      objectReference: {fileID: 1469579954}
     - target: {fileID: 7337694745389012587, guid: 1da11da79921ab242b3d324ba6b5949a,
         type: 3}
       propertyPath: m_Color.g
