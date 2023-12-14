@@ -26,24 +26,28 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
 
         public Transform playerTransform;
         [HideInInspector] public Picking playerPicking;
-        public GameObject [] listOfAI;
+        public GameObject[] listOfAI;
 
         [Header("Game Intro")]
         public float initTxtFadeInTime = 0.5f;
         public float bgImageFadeOutTimeDelay = 8f;
+        public float movementDelayTime = 13f;
         public TextMeshProUGUI initializeTxt;
         public Image blackBG;
-        public GameObject PlayerHUDSprite, PlayerHUDWithoutAnim;
+        public GameObject PlayerHUDSprite, PlayerHUDWithoutAnim, neuroLabLogo, screenTxt;
         public Color hudColor;
         public UnityEvent OnLoad;
         public UnityEvent OnHUDActivate;
+        public UnityEvent LabSpeaker;
         public UnityEvent OnSuccess;
+        public UnityEvent MovementSuccess;
+        public UnityEvent OnMovementEnabled;
 
         [Header("Movement Tutorial")]
         public TextMeshProUGUI movementTestTxt;
         public float timeDelayBeforePlayerMovement;
         public float timeDelayDuringTutorial;
-        public DoubleDoor [] roomDoor;
+        public DoubleDoor[] roomDoor;
         [HideInInspector] public TutorialScreen tutorialScreen;
 
         [Header("Room 1 Scene")]
@@ -62,16 +66,23 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
 
         [Header("Room 3 Scene")]
         public Transform room3PlayerPos;
-        public TutorialMonitor [] room3TutorialMonitor;
+        public GameObject[] neuroLabSprite;
+        public GameObject[] interactableSprites;
+        public TutorialMonitor[] room3TutorialMonitor;
         public BoolReference[] imagesAppeared;
         public BoolReference tvTurnedOn;
         public GameObject electricVFX;
         public Renderer room3Renderer;
         public Texture2D redTexture;
-        public Light [] realTimeLights;
+        public Light[] realTimeLights;
+        public UnityEvent OnScreenCorrect;
         public UnityEvent OnRobotError;
+        public UnityEvent ForceShutdownAudio;
+        public UnityEvent AlarmSound;
+        public UnityEvent HUDError;
+        public AudioSource audioSource;
 
-        [Header("Load To Next Scene")]
+       [Header("Load To Next Scene")]
         public string sceneName;
         public float loadDelay = 3f;
 

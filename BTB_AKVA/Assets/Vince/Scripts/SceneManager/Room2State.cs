@@ -16,6 +16,7 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
         bool txtAnim = true;
         int dotNum;
         bool txtAnimated;
+        SceneStateManager state;
 
         bool playerInPosition;
         bool aiActive; //Initiates the AI task
@@ -27,6 +28,7 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
 
         public override void OnEnterState(SceneStateManager state)
         {
+            this.state = state;
             state.playerPicking.enabled = false;
             movementUI = state.initializeTxt;
             systemTxt = state.movementTestTxt;
@@ -111,6 +113,7 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
                 {
                     state.playerPicking.enabled = true;
                     SetMovementUI(true);
+                    state.OnMovementEnabled.Invoke();
                     PlayerInput.Instance.EnablePlayerInput();
                     taskDone[2] = true;
                 }
@@ -136,6 +139,7 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
                         state.StartCoroutine(ProceedToNextRoom(state, ai));
                     }
                     SetMovementUI(true);
+                    state.OnMovementEnabled.Invoke();
                     PlayerInput.Instance.EnablePlayerInput();
                 }
 
@@ -195,6 +199,7 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
 
                 if (dotNum < 4)
                 {
+                    state.OnLoad.Invoke();
                     systemTxt.SetText("COLOR RECOGNITION SYSTEM" + new string('.', dotNum));
                 }
                 else

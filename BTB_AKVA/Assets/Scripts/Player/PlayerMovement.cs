@@ -53,11 +53,11 @@ namespace AKVA.Player
         private void Update()
         {
             HandlePlayerInput();
+            HandleMovement();
         }
 
         private void FixedUpdate()
         {
-            HandleMovement();
         }
 
         private void HandleGravity()
