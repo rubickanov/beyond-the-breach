@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using UnityEngine;
+using UnityEngine.Events;
 using static UnityEditor.Experimental.GraphView.GraphView;
 
 namespace AKVA.Assets.Vince.Scripts.Environment
@@ -10,6 +11,7 @@ namespace AKVA.Assets.Vince.Scripts.Environment
     public class BodyScanner : MonoBehaviour
     {
         [SerializeField] float scanInterval = 3f;
+        [SerializeField] float scanningProcedureDelayTime = 10f;
         [SerializeField] GameObject scanLight;
         [SerializeField] Material outerLightsMat, scanLightMat, scannerObjMat;
         [SerializeField] Color scanFailed, scanSuccess;
@@ -20,16 +22,28 @@ namespace AKVA.Assets.Vince.Scripts.Environment
         [SerializeField] Transform player;
         [SerializeField] BoolReference playerIsDead;
 
+        public UnityEvent OnEnterScan;
+        public UnityEvent ScanInitSfx2;
+        public UnityEvent OnScanSuccess;
+        public UnityEvent OnCorrectRot;
+        public UnityEvent OnScanFailed;
+
         bool startPlayerScanTime;
         public float currentPlayerScanningTime;
         public float maxScanTime = 5;
         bool beginLightAnimation;
         bool playerEscaped;
+        bool startPlayerScan;
+        bool playerEntered;
         bool error;
+        bool [] initSFxPlayed;
+        bool[] correctRotSfx;
 
         private void Awake()
         {
             successfulScan = new bool[4];
+            initSFxPlayed = new bool[2];
+            correctRotSfx = new bool[4];
             SetScannerOuterLightsColor(scanFailed);
             SetScannerRayLightColor(scanSuccess);
             outerLightsMat.SetColor("_EmissionColor", Color.red);
@@ -38,6 +52,11 @@ namespace AKVA.Assets.Vince.Scripts.Environment
 
         private void Update()
         {
+            if (player != null && !playerEntered)
+            {
+                playerEntered = true;
+                StartCoroutine(StartPlayerScanDelay());
+            }
             PlayerScanProcedure();
             PlayerScanTimer();
             if (playerEscaped)
@@ -52,6 +71,7 @@ namespace AKVA.Assets.Vince.Scripts.Environment
             if (other.tag == "Scientist")
             {
                 scientist = other.gameObject;
+                OnEnterScan.Invoke();
                 ScanningProceedureForScientist();
                 scientistEntered = true;
             }
@@ -88,13 +108,25 @@ namespace AKVA.Assets.Vince.Scripts.Environment
             StartCoroutine(RotateScientist());
         }
 
+        void PlayerScanningProcedureDelay()
+        {
+            StartCoroutine(RotateScientist());
+        }
+
         IEnumerator RotateScientist()
         {
+            yield return new WaitForSeconds(scanningProcedureDelayTime);
+
+            ScanInitSfx2.Invoke();
+
+            yield return new WaitForSeconds(7);
+
             while (rotateCount < 3 && scientist != null && !error)
             {
                 yield return new WaitForSeconds(1);
                 scanLight.SetActive(true);
                 yield return new WaitForSeconds(scanInterval);
+                OnCorrectRot.Invoke();
                 scanLight.SetActive(false);
                 yield return new WaitForSeconds(2);
                 if (rotateCount < 2)
@@ -104,12 +136,32 @@ namespace AKVA.Assets.Vince.Scripts.Environment
                 rotateCount++;
             }
             scientist.transform.Rotate(new Vector3(0f, 180f, 0f));
+            OnScanSuccess.Invoke();
             SetScannerOuterLightsColor(scanSuccess);
+        }
+
+        IEnumerator StartPlayerScanDelay()
+        {
+            if (!initSFxPlayed[0])
+            {
+                OnEnterScan.Invoke();
+                initSFxPlayed[0] = true;
+            }
+            yield return new WaitForSeconds(scanningProcedureDelayTime);
+
+            if (!initSFxPlayed[1])
+            {
+                initSFxPlayed[1] = true;
+                ScanInitSfx2.Invoke();
+            }
+
+            yield return new WaitForSeconds(7);
+            startPlayerScan = true;
         }
 
         void PlayerScanProcedure()
         {
-            if (player != null)
+            if (startPlayerScan)
             {
                 float playerRotationY = player.transform.rotation.eulerAngles.y;
                 if (!successfulScan[0])
@@ -122,6 +174,7 @@ namespace AKVA.Assets.Vince.Scripts.Environment
                     if (playerRotationY < 200 && playerRotationY > 150)
                     {
                         StartCoroutine(BeginPlayerScan(3, 1));
+                        PlayCorrectRotSfx(0);
                         scanLight.SetActive(false);
                     }
                     else
@@ -136,6 +189,7 @@ namespace AKVA.Assets.Vince.Scripts.Environment
                     {
                         StartCoroutine(BeginPlayerScan(3, 2));
                         scanLight.SetActive(false);
+                        PlayCorrectRotSfx(1);
                     }
                     else
                     {
@@ -148,6 +202,8 @@ namespace AKVA.Assets.Vince.Scripts.Environment
                 {
                     if ((playerRotationY > 340 && playerRotationY < 360) || (playerRotationY >= 0 && playerRotationY < 40))
                     {
+                        PlayCorrectRotSfx(2);
+                        OnScanSuccess.Invoke();
                         successfulScan[3] = true;
                         scanLight.SetActive(false);
                     }
@@ -203,6 +259,7 @@ namespace AKVA.Assets.Vince.Scripts.Environment
         {
             if (!beginLightAnimation)
             {
+                OnScanFailed.Invoke();
                 playerIsDead.value = true;
                 beginLightAnimation = true;
                 StartCoroutine(AnimateScannerLight());
@@ -223,6 +280,20 @@ namespace AKVA.Assets.Vince.Scripts.Environment
                 scannerObjMat.SetColor("_EmissionColor", Color.white);
                 yield return new WaitForSeconds(0.3f);
             }
+        }
+
+        void PlayCorrectRotSfx(int boolIndex)
+        {
+            if (!correctRotSfx[boolIndex])
+            {
+                correctRotSfx[boolIndex] = true;
+                OnCorrectRot.Invoke();
+            }
+        }
+
+        void SetSubtitle()
+        {
+            
         }
     }
 }

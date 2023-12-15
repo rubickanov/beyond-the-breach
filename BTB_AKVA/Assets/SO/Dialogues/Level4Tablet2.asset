@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70e901587237ecc44a093f9a9ae65627, type: 3}
+  m_Name: Level4Tablet2
+  m_EditorClassIdentifier: 
+  SpeakerOne: {fileID: 11400000, guid: eed2c4852c9e63d4dabcb862a64c2fca, type: 2}
+  SpeakerTwo: {fileID: 11400000, guid: eed2c4852c9e63d4dabcb862a64c2fca, type: 2}
+  Sentences:
+  - sentenceText: Famous NeuroLabs Head Fatally Wounded By Creation!
+    IsFirstSpeaker: 1
+  - sentenceText: Dr. Jenkins is a well-known scientist and is the head of the NeuroLabs,
+      a laboratory known to be controlled by AI. During an experiment that Jenkins
+      was leading, a supposed error had caused the assisting robot to malfunction
+      before slamming its metal arms right into Jenkins' face.
+    IsFirstSpeaker: 1
+  - sentenceText: Staff say that Jenkins is in a critical state as of now and do
+      not know where to head from here. Is this really what the future holds?
+    IsFirstSpeaker: 1

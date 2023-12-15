@@ -24,7 +24,6 @@ public class SubtitleManager : MonoBehaviour
             Instance = this;
         }
     }
-
    
     public void PlayPublicAnnoucememnt(string annoucememntTxt, int clipIndex, float txtDuration)
     {

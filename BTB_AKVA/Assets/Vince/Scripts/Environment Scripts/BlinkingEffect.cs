@@ -5,24 +5,24 @@ using UnityEngine;
 
 namespace AKVA.Assets.Vince.Scripts.Environment
 {
-    public class RobotHead : MonoBehaviour
+    public class BlinkingEffect : MonoBehaviour
     {
         [SerializeField] float blinkingDelay = 1f;
-        [SerializeField] Material robotHeadMat;
+        [SerializeField] Material blinkMat;
     
         private void Start()
         {
-            StartCoroutine(BlinkingRobotHead());
+            StartCoroutine(Blinking());
         }
 
-        IEnumerator BlinkingRobotHead()
+        IEnumerator Blinking()
         {
             while (true)
             {
                 yield return new WaitForSeconds(blinkingDelay);
-                robotHeadMat.DisableKeyword("_EMISSION");
+                blinkMat.DisableKeyword("_EMISSION");
                 yield return new WaitForSeconds(blinkingDelay);
-                robotHeadMat.EnableKeyword("_EMISSION");
+                blinkMat.EnableKeyword("_EMISSION");
             }
         }
     }

@@ -15,7 +15,6 @@ namespace Assets.Vince.Scripts.SceneManager
         bool switchEnabled;
         public override void OnEnterState(LevelManager state)
         {
-            Debug.Log("Level 5");
             state.scientistLevel5.SetActive(true);
             anim = state.robotAnim;
 
