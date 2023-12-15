@@ -39,6 +39,7 @@ namespace AKVA.Interaction
         [SerializeField] GameObject playerHUD, scientistHUD;
         ShowUI objUI; // UI world canvas
         bool hackingSfxPlaying;
+        public AudioSource sfx;
         public UnityEvent hudSfx;
         public UnityEvent hackingSFX;
 
@@ -72,17 +73,11 @@ namespace AKVA.Interaction
                             PlayerInput.Instance.DisablePlayerMouseInput();
                             playerCamera.transform.forward = Vector3.Lerp(playerCamera.transform.forward,  (mindControlledObject.transform.position - playerCamera.transform.position) + new Vector3(0, 1.5f, 0), 0.15f);
                             timerToMindControl += Time.deltaTime;
-
-                            if (!hackingSfxPlaying)
-                            {
-                                hackingSfxPlaying = true;
-                                hackingSFX.Invoke();
-                            }
-
-
+                            HackingSFX();
                             if (timerToMindControl >= timeToMindControl)
                             {
-                                hackingSfxPlaying = false;
+                                DisableHackingSFX();
+
                                 timerToMindControl = 0;
                                 picking.DropObject();
                                 Control(mindControlledObject);
@@ -98,6 +93,7 @@ namespace AKVA.Interaction
                         }
                         else
                         {
+                            DisableHackingSFX();
                             PlayerInput.Instance.EnablePlayerInput();
                         }
                     }
@@ -123,8 +119,13 @@ namespace AKVA.Interaction
                     IsActive = true;
 
                     timerToMindControl += Time.deltaTime;
+
+                    HackingSFX();
+
                     if (timerToMindControl >= timeToMindControl)
                     {
+                        DisableHackingSFX();
+
                         timerToMindControl = 0;
                         picking.DropObject();
                         ReturnToBody(mindControlledObject);
@@ -134,6 +135,7 @@ namespace AKVA.Interaction
 
             if (Input.GetKeyUp(PlayerInput.Instance.Controls.mindControl))
             {
+                DisableHackingSFX();
                 timerToMindControl = 0;
                 canSwap = true;
             }
@@ -247,6 +249,21 @@ namespace AKVA.Interaction
                 objUI.SetTheUI(false);
                 objUI = null;
             }
+        }
+
+        void HackingSFX()
+        {
+            if (!hackingSfxPlaying)
+            {
+                hackingSfxPlaying = true;
+                hackingSFX.Invoke();
+            }
+        }
+
+        void DisableHackingSFX()
+        {
+            hackingSfxPlaying = false;
+            //sfx.Stop();
         }
     }
 }

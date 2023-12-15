@@ -85843,6 +85843,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2697661756211700112, guid: 7ea641099ed0ec54e8cf14c58673c406,
         type: 3}
+      propertyPath: sfx
+      value: 
+      objectReference: {fileID: 1236214177}
+    - target: {fileID: 2697661756211700112, guid: 7ea641099ed0ec54e8cf14c58673c406,
+        type: 3}
       propertyPath: playerHUD
       value: 
       objectReference: {fileID: 4767322}
