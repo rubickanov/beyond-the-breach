@@ -24,7 +24,7 @@ namespace Assets.Vince.Scripts.SceneManager
         public override void OnUpdateState(LevelManager state)
         {
             switchEnabled = state.switchStatus.value;
-            SetRobotAnimation();
+            //SetRobotAnimation();
         }
 
         void SetRobotAnimation()

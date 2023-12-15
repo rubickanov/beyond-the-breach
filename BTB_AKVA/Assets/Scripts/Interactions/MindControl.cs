@@ -3,6 +3,7 @@ using UnityEngine;
 using AKVA.Player;
 using AKVA.Vince.SO;
 using Vector3 = UnityEngine.Vector3;
+using UnityEngine.Events;
 
 namespace AKVA.Interaction
 {
@@ -37,7 +38,9 @@ namespace AKVA.Interaction
         [Header("HUD")]
         [SerializeField] GameObject playerHUD, scientistHUD;
         ShowUI objUI; // UI world canvas
-
+        bool hackingSfxPlaying;
+        public UnityEvent hudSfx;
+        public UnityEvent hackingSFX;
 
         private void Awake()
         {
@@ -67,17 +70,24 @@ namespace AKVA.Interaction
                         if (Input.GetKey(PlayerInput.Instance.Controls.mindControl) && canSwap)
                         {
                             PlayerInput.Instance.DisablePlayerMouseInput();
-                            playerCamera.transform.forward = Vector3.Lerp(playerCamera.transform.forward,  (mindControlledObject.transform.position - playerCamera.transform.position) + new Vector3(0, 1.5f, 0), 0.15f)
-                               ;
+                            playerCamera.transform.forward = Vector3.Lerp(playerCamera.transform.forward,  (mindControlledObject.transform.position - playerCamera.transform.position) + new Vector3(0, 1.5f, 0), 0.15f);
                             timerToMindControl += Time.deltaTime;
+
+                            if (!hackingSfxPlaying)
+                            {
+                                hackingSfxPlaying = true;
+                                hackingSFX.Invoke();
+                            }
+
+
                             if (timerToMindControl >= timeToMindControl)
                             {
+                                hackingSfxPlaying = false;
                                 timerToMindControl = 0;
                                 picking.DropObject();
                                 Control(mindControlledObject);
                                 mindControlledObject = hit.transform.GetComponent<MindControlledObject>();
                                 PlayerInput.Instance.EnablePlayerMouseInput();
-
                                 //World Canvas UI
                                 if (objUI != null)
                                 {
@@ -153,6 +163,7 @@ namespace AKVA.Interaction
 
         public void Control(MindControlledObject controlledObject)
         {
+            hudSfx.Invoke();
             scientistHUD.SetActive(true);
             playerHUD.SetActive(false);
 
@@ -164,6 +175,7 @@ namespace AKVA.Interaction
 
         public void ReturnToBody(MindControlledObject controlledObject)
         {
+            hudSfx.Invoke();
             scientistHUD.SetActive(false);
             playerHUD.SetActive(true);
 
@@ -226,6 +238,7 @@ namespace AKVA.Interaction
                 }
             }
         }
+
         void DisableUI()
         {
             if (objUI != null)

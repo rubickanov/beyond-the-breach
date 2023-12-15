@@ -23,6 +23,7 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
         public Room1State room1State = new Room1State();
         public Room2State room2State = new Room2State();
         public Room3State room3State = new Room3State();
+        public PreMainSceneState preMainSceneState = new PreMainSceneState();
 
         public Transform playerTransform;
         [HideInInspector] public Picking playerPicking;
@@ -80,11 +81,24 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
         public UnityEvent ForceShutdownAudio;
         public UnityEvent AlarmSound;
         public UnityEvent HUDError;
-        public AudioSource audioSource;
 
-       [Header("Load To Next Scene")]
+        public AudioSource sfx;
+        public AudioSource bgMusic;
+        public AudioSource alarmSound;
+
+
+        [Header("Pre-Main Scene")]
+        public GameObject subtitle;
+        public TextMeshProUGUI speakerTxt, subTxt;
+        public float subtitleDelay;
+        public UnityEvent Scientist1Sound;
+        public UnityEvent Scientist2Sound;
+        public UnityEvent MetalClangking;
+        public UnityEvent ThrowingMetalSfx;
+
+        [Header("Load To Next Scene")]
         public string sceneName;
-        public float loadDelay = 3f;
+        public float preMainSceneDelay = 3f;
 
         [Header("CAMERA SHAKE")]
         public CameraShaker cameraShaker;
@@ -110,6 +124,11 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
             if (currentState != null)
             {
                 currentState.OnUpdateState(this);
+            }
+
+            if (Input.GetKeyDown(KeyCode.T))
+            {
+                SwitchState(preMainSceneState);
             }
         }
 
