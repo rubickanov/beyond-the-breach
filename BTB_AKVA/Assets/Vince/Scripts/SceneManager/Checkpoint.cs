@@ -1,4 +1,5 @@
 using AKVA.Assets.Vince.Scripts.SceneManager;
+using Assets.Vince.Scripts.SceneManager;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -10,7 +11,7 @@ namespace AKVA.Player
         [SerializeField] private LevelManager.LevelStatesEnum levelState;
         [SerializeField] private bool isLastCheckpoint = false;
         [SerializeField] GameObject [] levelsToDisable;
-
+        bool paHasPlayed;
         void DisableALevel()
         {
             if(levelsToDisable.Length > 0)
@@ -27,12 +28,25 @@ namespace AKVA.Player
             if (other.CompareTag("Player"))
             {
                 LevelManager.Instance.SetCurrentLevel(levelState);
+                EnablePASystem();
                 DisableALevel();
                 savedCheckpoint.position = transform.position;
                 savedCheckpoint.forward = transform.forward;
                 savedCheckpoint.isSaved = true;
                 savedCheckpoint.stateEnum = levelState;
                 savedCheckpoint.isLastCheckPoint = isLastCheckpoint;
+            }
+        }
+
+        void EnablePASystem()
+        {
+            if (paHasPlayed) { return; }
+            switch (levelState)
+            {
+                case LevelManager.LevelStatesEnum.Level2:
+                    SubtitleManager.Instance.PlayPublicAnnoucememnt("PA System: (Overhead speaker) Serial Number 1YQ4X-R18WW, please report to Facility Room No. 8 immediately.", 0, 7f);
+                    paHasPlayed = true;
+                    break;
             }
         }
     }

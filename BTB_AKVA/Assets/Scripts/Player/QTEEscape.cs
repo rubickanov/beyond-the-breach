@@ -165,6 +165,7 @@ namespace AKVA.Player
         {
             gameIntro.SetActive(false);
             qteSlider.SetActive(false);
+            playerBlueHUD.SetActive(true);
             if (CameraShaker.Instance)
             {
                 CameraShaker.Instance.enabled = false;
@@ -174,6 +175,7 @@ namespace AKVA.Player
 
         public void DisableUI()
         {
+            playerBlueHUD.SetActive(true);
             gameIntro.SetActive(false);
             qteSlider.SetActive(false);
         }
