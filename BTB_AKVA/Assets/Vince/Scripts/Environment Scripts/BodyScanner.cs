@@ -1,4 +1,5 @@
 using AKVA.Vince.SO;
+using Codice.CM.WorkspaceServer.Tree;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq.Expressions;
@@ -24,6 +25,7 @@ namespace AKVA.Assets.Vince.Scripts.Environment
 
         public UnityEvent OnEnterScan;
         public UnityEvent ScanInitSfx2;
+        public UnityEvent OnScan;
         public UnityEvent OnScanSuccess;
         public UnityEvent OnCorrectRot;
         public UnityEvent OnScanFailed;
@@ -38,12 +40,15 @@ namespace AKVA.Assets.Vince.Scripts.Environment
         bool error;
         bool [] initSFxPlayed;
         bool[] correctRotSfx;
+        bool[] scanSfxIsPlaying; 
 
         private void Awake()
         {
             successfulScan = new bool[4];
             initSFxPlayed = new bool[2];
             correctRotSfx = new bool[4];
+            scanSfxIsPlaying = new bool[4];
+
             SetScannerOuterLightsColor(scanFailed);
             SetScannerRayLightColor(scanSuccess);
             outerLightsMat.SetColor("_EmissionColor", Color.red);
@@ -72,6 +77,7 @@ namespace AKVA.Assets.Vince.Scripts.Environment
             {
                 scientist = other.gameObject;
                 OnEnterScan.Invoke();
+                SetSubtitle("Initializing scanning sequence. Please stand by for the required protocol.", scanningProcedureDelayTime);
                 ScanningProceedureForScientist();
                 scientistEntered = true;
             }
@@ -117,6 +123,7 @@ namespace AKVA.Assets.Vince.Scripts.Environment
         {
             yield return new WaitForSeconds(scanningProcedureDelayTime);
 
+            SetSubtitle("Ensure you face the specified direction once the green light activates, following protocol ID 0626.", 7f);
             ScanInitSfx2.Invoke();
 
             yield return new WaitForSeconds(7);
@@ -124,6 +131,7 @@ namespace AKVA.Assets.Vince.Scripts.Environment
             while (rotateCount < 3 && scientist != null && !error)
             {
                 yield return new WaitForSeconds(1);
+                OnScan.Invoke();
                 scanLight.SetActive(true);
                 yield return new WaitForSeconds(scanInterval);
                 OnCorrectRot.Invoke();
@@ -136,6 +144,7 @@ namespace AKVA.Assets.Vince.Scripts.Environment
                 rotateCount++;
             }
             scientist.transform.Rotate(new Vector3(0f, 180f, 0f));
+            SetSubtitle("Scan complete. You may now proceed.", 3f);
             OnScanSuccess.Invoke();
             SetScannerOuterLightsColor(scanSuccess);
         }
@@ -144,6 +153,7 @@ namespace AKVA.Assets.Vince.Scripts.Environment
         {
             if (!initSFxPlayed[0])
             {
+                SetSubtitle("Initializing scanning sequence. Please stand by for the required protocol." , scanningProcedureDelayTime);
                 OnEnterScan.Invoke();
                 initSFxPlayed[0] = true;
             }
@@ -151,6 +161,7 @@ namespace AKVA.Assets.Vince.Scripts.Environment
 
             if (!initSFxPlayed[1])
             {
+                SetSubtitle("Ensure you face the specified direction once the green light activates, following protocol ID 0626.", 7f);
                 initSFxPlayed[1] = true;
                 ScanInitSfx2.Invoke();
             }
@@ -203,6 +214,7 @@ namespace AKVA.Assets.Vince.Scripts.Environment
                     if ((playerRotationY > 340 && playerRotationY < 360) || (playerRotationY >= 0 && playerRotationY < 40))
                     {
                         PlayCorrectRotSfx(2);
+                        SetSubtitle("Scan complete. You may now proceed.", 3f);
                         OnScanSuccess.Invoke();
                         successfulScan[3] = true;
                         scanLight.SetActive(false);
@@ -216,6 +228,7 @@ namespace AKVA.Assets.Vince.Scripts.Environment
                 else if (successfulScan[3])
                 {
                     SetScannerOuterLightsColor(scanSuccess);
+                    this.enabled = false;
                 }
             }
         }
@@ -242,6 +255,8 @@ namespace AKVA.Assets.Vince.Scripts.Environment
             successfulScan[scanIndex] = true;
             startPlayerScanTime = true;
             scanLight.SetActive(true);
+
+            PlayScanSfx(scanIndex);
         }
 
         public void SetScannerRayLightColor(Color lightColor)
@@ -259,6 +274,7 @@ namespace AKVA.Assets.Vince.Scripts.Environment
         {
             if (!beginLightAnimation)
             {
+                SetSubtitle("Scan failed. Non-compliance detected. Shutdown protocol activated.", 12f);
                 OnScanFailed.Invoke();
                 playerIsDead.value = true;
                 beginLightAnimation = true;
@@ -291,9 +307,18 @@ namespace AKVA.Assets.Vince.Scripts.Environment
             }
         }
 
-        void SetSubtitle()
+        void PlayScanSfx(int boolIndex)
         {
-            
+            if (!scanSfxIsPlaying[boolIndex])
+            {
+                scanSfxIsPlaying[boolIndex] = true;
+                OnScan.Invoke();
+            }
+        }
+
+        void SetSubtitle(string subTxt, float txtDuration)
+        {
+            SubtitleManager.Instance.ShowSubtitle("Scanning Machine:",subTxt, txtDuration);
         }
     }
 }

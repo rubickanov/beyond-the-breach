@@ -10,8 +10,10 @@ namespace AKVA.Assets.Vince.Scripts.Environment
         [SerializeField] Material conveyorMat;
         [SerializeField] bool conveyorEnabled = true;
         [SerializeField] float conveyorSpeed = 0.5f;
+        [SerializeField] float objectConveyorSpeed = 0.7f;
         [SerializeField] private float objectOnConveyorSpeed = 90.0f; // IF YOU CHANGE CONVEYOR SPEED - YOU ALSO NEED TO CHANGE THIS VARIABLE TO MATCH SPEED OF CONVEYOR AND FORCE ON OBJECT 
         Transform objDetected;
+        [SerializeField] List<Transform> junks;
         private void Start()
         {
             conveyorMat.SetFloat("_AnimSpeed", conveyorSpeed);
@@ -32,6 +34,18 @@ namespace AKVA.Assets.Vince.Scripts.Environment
         private void FixedUpdate()
         {
             MoveObjectsOnTheConveyorBelt();
+            MoveConveyorJunks();
+        }
+
+        void MoveConveyorJunks()
+        {
+            if (junks.Count > 0)
+            {
+                foreach (Transform t in junks)
+                {
+                    t.position += -transform.right * objectConveyorSpeed * Time.deltaTime;
+                }
+            }
         }
 
         private void MoveObjectsOnTheConveyorBelt()
@@ -53,14 +67,17 @@ namespace AKVA.Assets.Vince.Scripts.Environment
             {
                 objDetected = collision.gameObject.transform;
             }
+
+            if (collision.gameObject.tag == "Junk" && this.enabled)
+            {
+                junks.Add(collision.gameObject.transform);
+            }
         }
+
 
         private void OnCollisionStay(Collision collision)
         {
-            if(collision.gameObject.tag == "Junk" && this.enabled)
-            {
-                collision.transform.position += -transform.right * conveyorSpeed * Time.deltaTime;
-            }
+         
         }
 
 

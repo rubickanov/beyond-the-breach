@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1db560367352a8d4eb1f54d883d26721, type: 3}
   m_Name: Saved Checkpoint
   m_EditorClassIdentifier: 
-  position: {x: 25.673964, y: -0.81219, z: 45.25188}
-  forward: {x: 1.0000001, y: 0, z: -0.00000011920929}
+  position: {x: 54.102974, y: -0.81219, z: 73.615585}
+  forward: {x: 0, y: 0, z: 1}
   isSaved: 1
-  stateEnum: 3
+  stateEnum: 4
   isLastCheckPoint: 0

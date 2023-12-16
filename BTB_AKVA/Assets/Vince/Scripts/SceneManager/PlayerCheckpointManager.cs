@@ -73,7 +73,6 @@ namespace AKVA.Player
             {
                 case LevelManager.LevelStatesEnum.Level1:
                     sceneLevels[0].SetActive(true);
-                    sceneLevels[1].SetActive(true);
                     break;
                 case LevelManager.LevelStatesEnum.Level2 :
                     sceneLevels[0].SetActive(true);

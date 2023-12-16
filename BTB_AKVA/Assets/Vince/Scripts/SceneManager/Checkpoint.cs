@@ -44,7 +44,7 @@ namespace AKVA.Player
             switch (levelState)
             {
                 case LevelManager.LevelStatesEnum.Level2:
-                    SubtitleManager.Instance.PlayPublicAnnoucememnt("PA System: (Overhead speaker) Serial Number 1YQ4X-R18WW, please report to Facility Room No. 8 immediately.", 0, 7f);
+                    SubtitleManager.Instance.PlayPublicAnnoucememnt("PA System (Overhead speaker):","Serial Number 1YQ4X-R18WW, please report to Facility Room No. 8 immediately.", 0, 7f);
                     paHasPlayed = true;
                     break;
             }

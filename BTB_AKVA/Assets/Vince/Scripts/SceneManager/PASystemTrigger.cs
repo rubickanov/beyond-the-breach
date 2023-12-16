@@ -5,14 +5,16 @@ using UnityEngine;
 
 public class PASystemTrigger : MonoBehaviour
 {
-    [SerializeField] string txtAnnoucement;
+    [SerializeField] string speaker;
+    [TextArea]
+    public string txtAnnoucement;
     [SerializeField] float annoucementDuration;
     [SerializeField] int clipIndex;
     private void OnTriggerEnter(Collider other)
     {
         if(other.tag == "Player")
         {
-            SubtitleManager.Instance.PlayPublicAnnoucememnt(txtAnnoucement, clipIndex, annoucementDuration);
+            SubtitleManager.Instance.PlayPublicAnnoucememnt(speaker, txtAnnoucement, clipIndex, annoucementDuration);
             Destroy(gameObject);
         }
     }

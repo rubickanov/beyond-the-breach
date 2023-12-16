@@ -2,11 +2,13 @@ using AKVA.Vince.SO;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Fire : MonoBehaviour
 {
     [SerializeField] BoolReference playerDead;
     [SerializeField] Transform fire;
+    [SerializeField] UnityEvent OnJunkCollision;
 
     public float maxExpandTime = .5f;
     float currentTime;
@@ -50,15 +52,16 @@ public class Fire : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.tag == "Player")
+        if (other.tag == "Player")
         {
             playerDead.value = true;
         }
 
-        if(other.tag == "Junk")
+        if (other.tag == "Junk")
         {
+            OnJunkCollision.Invoke();
             fireExpanded = true;
-            Destroy(other.gameObject);
+            other.gameObject.SetActive(false);
         }
     }
 }

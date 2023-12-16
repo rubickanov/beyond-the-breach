@@ -1,5 +1,3 @@
-using AKVA.Controls;
-using AKVA.Player;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -9,6 +7,7 @@ public class SubtitleManager : MonoBehaviour
 {
     [SerializeField] AudioSource audioSource;
     [SerializeField] public AudioClip [] clips;
+    [SerializeField] TextMeshProUGUI speakerTxt;
     [SerializeField] TextMeshProUGUI subtitleTxt;
 
     public static SubtitleManager Instance { get; private set; }
@@ -25,11 +24,20 @@ public class SubtitleManager : MonoBehaviour
         }
     }
    
-    public void PlayPublicAnnoucememnt(string annoucememntTxt, int clipIndex, float txtDuration)
+    public void PlayPublicAnnoucememnt(string speaker, string annoucememntTxt, int clipIndex, float txtDuration)
     {
         subtitleTxt.gameObject.SetActive(true);
+        speakerTxt.SetText(speaker);
         subtitleTxt.SetText(annoucememntTxt);
         audioSource.PlayOneShot(clips[clipIndex]);
+        StartCoroutine(DisableSubtitle(txtDuration));
+    }
+
+    public void ShowSubtitle(string speaker, string annoucememntTxt, float txtDuration)
+    {
+        speakerTxt.SetText(speaker);
+        subtitleTxt.gameObject.SetActive(true);
+        subtitleTxt.SetText(annoucememntTxt);
         StartCoroutine(DisableSubtitle(txtDuration));
     }
 
