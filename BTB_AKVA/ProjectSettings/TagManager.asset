@@ -10,6 +10,7 @@ TagManager:
   - Scientist
   - Robot
   - Junk
+  - SFX
   layers:
   - Default
   - TransparentFX
@@ -28,7 +29,7 @@ TagManager:
   - SecurityCamera
   - BodyScanner
   - HiddenWires
-  - 
+  - CameraRay
   - 
   - 
   - 

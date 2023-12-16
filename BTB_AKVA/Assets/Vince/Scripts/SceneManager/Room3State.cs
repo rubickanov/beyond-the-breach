@@ -299,10 +299,14 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
 
             yield return new WaitForSeconds(5);
             errorAnimating = false;
+            state.movementTestTxt.gameObject.SetActive(false);
+            systemTxt.gameObject.SetActive(false);
             movementUI.gameObject.SetActive(false);
-            yield return new WaitForSeconds(state.loadDelay);
-            Debug.Log("Scene Loaded");
-            //UnityEngine.SceneManagement.SceneManager.LoadScene(state.sceneName);
+            state.sfx.Stop();
+            state.bgMusic.Stop();
+            state.alarmSound.Stop();
+            yield return new WaitForSeconds(state.preMainSceneDelay);
+            state.SwitchState(state.preMainSceneState);
         }
 
         void SetRoomToRed(SceneStateManager state)

@@ -13,7 +13,7 @@ namespace AKVA.Assets.Vince.Scripts.AI
         private float visionRad;
         ScientistAIAnim anim;
 
-        float maxScanningTime = 20f;
+        float maxScanningTime = 34f;
         float currentTime;
         bool animated;
         ScientistBT sciBT;

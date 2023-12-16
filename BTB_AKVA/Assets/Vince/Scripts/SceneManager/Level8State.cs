@@ -17,7 +17,7 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
         public override void OnUpdateState(LevelManager state)
         {
             ActivateBangingDoor(state);
-            MoveAllRobotsToExit(state);
+       
         }
 
         private void ActivateBangingDoor(LevelManager state)
@@ -26,23 +26,6 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
             {
                 state.scientistLevel8.SetActive(true);
                 state.backSideDoor.enabled = true;
-            }
-        }
-
-        private void MoveAllRobotsToExit(LevelManager state)
-        {
-            if (state.moveAllRobotsToExit)
-            {
-                if (!robotActivated)
-                {
-                    robotActivated = true;
-                    
-                    foreach(RobotMovement robot in state.level7Robots)
-                    {
-                        robot.moveToNextLocation = true;
-                    }
-
-                }
             }
         }
     }
