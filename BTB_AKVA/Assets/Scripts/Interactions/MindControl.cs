@@ -63,7 +63,6 @@ namespace AKVA.Interaction
             {
                 if (Physics.Raycast(playerCamera.position, playerCamera.forward, out hit, distanceToMindControl))
                 {
-
                     if (hit.transform.TryGetComponent(out mindControlledObject) && mindControlledObject.enabled)
                     {
                         ShowUI(hit);
