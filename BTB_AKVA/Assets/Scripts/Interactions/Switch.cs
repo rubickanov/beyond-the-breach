@@ -17,6 +17,7 @@ namespace AKVA.Interaction
         float currentXRot;
         float targetRot = 36;
         bool interactionCooldown = false;
+        bool eventInvoked;
 
         private void Awake()
         {
@@ -45,12 +46,17 @@ namespace AKVA.Interaction
                     if (currentXRot < targetRot)
                     {
                         currentXRot = Mathf.Lerp(currentXRot, targetRot, 5f * Time.deltaTime);
-                        OnSwitchDown.Invoke();
+                        if (!eventInvoked)
+                        {
+                            eventInvoked = true;
+                            OnSwitchDown.Invoke();
+                        }
                     }
                     if (currentXRot > 35)
                     {
                         currentXRot = 36;
                         targetRot = -36;
+                        eventInvoked = false;
                         Interacted = false;
                         StartInteractionCooldown();
                     }
@@ -60,12 +66,17 @@ namespace AKVA.Interaction
                     if (currentXRot > targetRot)
                     {
                         currentXRot = Mathf.Lerp(currentXRot, targetRot, 5f * Time.deltaTime);
-                        OnSwitchUp.Invoke();
+                        if (!eventInvoked)
+                        {
+                            eventInvoked = true;
+                            OnSwitchUp.Invoke();
+                        }
                     }
                     if (currentXRot < -35)
                     {
                         currentXRot = -36;
                         targetRot = 36;
+                        eventInvoked = false;
                         Interacted = false;
                         StartInteractionCooldown();
                     }

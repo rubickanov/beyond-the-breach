@@ -43,8 +43,6 @@ namespace AKVA.Assets.Vince.Scripts.Environment
                 }
                 if (gate.transform.localPosition.y <= -2.4f)
                 {
-
-                    Debug.Log("Reached gate destination");
                     ReachedDestination.Invoke();
                     brokenDoor = true;
                     gate.transform.localPosition = new Vector3(gate.transform.localPosition.x, targetYPos, gate.transform.localPosition.z);

@@ -14,9 +14,12 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
         int dotNum = 0;
         TextMeshProUGUI movementCheckTxt;
         bool started;
+        bool movementSpeechEnabled;
+        SceneStateManager state;
 
         public override void OnEnterState(SceneStateManager state)
         {
+            this.state = state;
             movementTask = new bool[3];
             movementCheckTxt = state.movementTestTxt;
             movementCheckTxt.gameObject.SetActive(true);
@@ -27,7 +30,6 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
                 state.StartCoroutine(AnimTxt());
             }
             state.StartCoroutine(EnableMovement(2));
-            state.tutorialScreen.turnOnTV = true;
             state.tutorialScreen.SetKeyLettersAndInsruction("[W]", "TO MOVE FORWARD");
         }
         public override void OnUpdateState(SceneStateManager state)
@@ -86,6 +88,7 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
 
                 if (dotNum < 4)
                 {
+                    state.OnLoad.Invoke();
                     movementCheckTxt.SetText("CHECKING MOVEMENT SYSTEM" + new string('.', dotNum));
                 }
                 else
@@ -96,6 +99,7 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
                 dotNum++;
             }
             movementCheckTxt.SetText("MOVEMENT SYSTEM SUCCESS");
+            EnableMovementSpeech();
         }
 
         IEnumerator EnableMovement(float time)
@@ -103,6 +107,15 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
             //Enables Movement again after disabling it
             yield return new WaitForSeconds(time);
             PlayerInput.Instance.EnablePlayerInput();
+        }
+
+        void EnableMovementSpeech()
+        {
+            if (!movementSpeechEnabled)
+            {
+                movementSpeechEnabled = true;
+                state.MovementSuccess.Invoke();
+            }
         }
     }
 }

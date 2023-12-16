@@ -17,6 +17,7 @@ namespace AKVA.Interaction
         bool interactionCooldown = false;
         public bool powerOn;
 
+        bool leverInvoked;
         void Awake()
         {
             EnableMatEmission(powerOn);
@@ -44,10 +45,15 @@ namespace AKVA.Interaction
                     if (currentXRot < targetRot)
                     {
                         currentXRot = Mathf.Lerp(currentXRot, targetRot, 5f * Time.deltaTime);
-                        OnleverUp.Invoke();
+                        if (!leverInvoked)
+                        {
+                            leverInvoked = true;
+                            OnleverUp.Invoke();
+                        }
                     }
                     if (currentXRot > 88)
                     {
+                        leverInvoked = false;
                         currentXRot = 90;
                         targetRot = -90;
                         activate = false;
@@ -59,10 +65,15 @@ namespace AKVA.Interaction
                     if (currentXRot > targetRot)
                     {
                         currentXRot = Mathf.Lerp(currentXRot, targetRot, 5f * Time.deltaTime);
-                        OnleverDown.Invoke();
+                        if (!leverInvoked)
+                        {
+                            leverInvoked = true;
+                            OnleverDown.Invoke();
+                        }
                     }
                     if (currentXRot < -88)
                     {
+                        leverInvoked = false;
                         currentXRot = -90;
                         targetRot = 90;
                         activate = false;

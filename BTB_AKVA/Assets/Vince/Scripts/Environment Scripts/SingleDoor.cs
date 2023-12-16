@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace AKVA.Assets.Vince.Scripts.Environment
 {
@@ -17,11 +18,19 @@ namespace AKVA.Assets.Vince.Scripts.Environment
         [SerializeField] float doorSpeed = 3f;
         [SerializeField] Transform detectionPos;
         [SerializeField] float boxDetectionSize = 3f;
-        [SerializeField] Renderer [] doorRenderers;
+        [SerializeField] Renderer[] doorRenderers;
         float doorInitPos;
         float targetXPos = 2.54f;
         float currentXPos;
         bool detected;
+
+        public UnityEvent OnDoorActivated;
+        public UnityEvent OnDoorOpening;
+        public UnityEvent OnDoorClosing;
+
+        bool doorActiveInvoke;
+        bool doorOpeningInvoke;
+        bool doorClosingInvoke;
         private void Start()
         {
             doorInitPos = slidingDoor.localPosition.x;
@@ -84,6 +93,13 @@ namespace AKVA.Assets.Vince.Scripts.Environment
             {
                 currentXPos = Mathf.Lerp(slidingDoor.localPosition.x, targetXPos, doorSpeed * Time.deltaTime);
                 slidingDoor.localPosition = new Vector3(currentXPos, 0f, 0f);
+
+                if (!doorOpeningInvoke)
+                {
+                    doorClosingInvoke = false;
+                    doorOpeningInvoke = true;
+                    OnDoorOpening.Invoke();
+                }
             }
         }
 
@@ -93,6 +109,13 @@ namespace AKVA.Assets.Vince.Scripts.Environment
             {
                 currentXPos = Mathf.Lerp(slidingDoor.localPosition.x, doorInitPos, doorSpeed * Time.deltaTime);
                 slidingDoor.localPosition = new Vector3(currentXPos, 0f, 0f);
+
+                if (!doorClosingInvoke)
+                {
+                    doorOpeningInvoke = false;
+                    doorClosingInvoke = true;
+                    OnDoorClosing.Invoke();
+                }
             }
         }
 
@@ -100,6 +123,12 @@ namespace AKVA.Assets.Vince.Scripts.Environment
         {
             activated = enable;
             SetMaterial(enable);
+
+            if (enable)
+            {
+                SetSubtitle("[ Activated Door Sound ]", 3f);
+                OnDoorActivated.Invoke();
+            }
         }
 
         void ActivateDoor()
@@ -109,9 +138,19 @@ namespace AKVA.Assets.Vince.Scripts.Environment
             {
                 activated = true;
                 SetMaterial(true);
+
+                if (!doorActiveInvoke)
+                {
+                    SetSubtitle("[ Activated Door Sound ]", 3f);
+
+                    doorActiveInvoke = true;
+                    OnDoorActivated.Invoke();
+                }
+
             }
             else
             {
+                doorActiveInvoke = false;
                 SetMaterial(false);
                 activated = false;
             }
@@ -130,7 +169,7 @@ namespace AKVA.Assets.Vince.Scripts.Environment
         IEnumerator DeactivateDoorDelay()
         {
             yield return new WaitForSeconds(14);
-            slidingDoor.localPosition = new Vector3(doorInitPos, 0f,0f);
+            slidingDoor.localPosition = new Vector3(doorInitPos, 0f, 0f);
             SetMaterial(false);
             activated = false;
         }
@@ -152,6 +191,13 @@ namespace AKVA.Assets.Vince.Scripts.Environment
             }
         }
 
+        void SetSubtitle(string txt, float subDuration)
+        {
+            if (SubtitleManager.Instance != null)
+            {
+                SubtitleManager.Instance.ShowSubtitle("", txt, subDuration);
+            }
+        }
 
         private void OnDrawGizmos()
         {

@@ -36,7 +36,17 @@ namespace AKVA.Player
         public GameObject gridBarrierImg;
         public GameObject playerBlueHUD;
         public GameObject playerRedHUD;
+        public GameObject gameIntro;
         [FormerlySerializedAs("qte")] public GameObject qteSlider;
+
+        [Header("QTE Sound")]
+        public AudioSource sfxAudioSource;
+        public AudioClip glitchSound;
+        public AudioClip breakSound;
+        float maxTimeToDisableSound = 1f;
+        float currentSoundTime;
+        bool soundIsPlaying;
+        bool pressing;
 
         private void Awake()
         {
@@ -63,6 +73,9 @@ namespace AKVA.Player
 
             if (Input.GetKeyDown(PlayerInput.Instance.Controls.interact))
             {
+                pressing = true;
+                currentSoundTime = 0f;
+
                 gridBarrierImg.SetActive(true);
                 RandomEagleVision();
                 Escape();
@@ -71,8 +84,6 @@ namespace AKVA.Player
             {
                 gridBarrierImg.SetActive(false);
             }
-
-
 
             if (isActive)
             {
@@ -84,6 +95,8 @@ namespace AKVA.Player
             }
 
             rb.velocity = Vector3.zero;
+
+            QTEGlitchSound();
         }
 
         private void Escape()
@@ -134,8 +147,12 @@ namespace AKVA.Player
 
         IEnumerator EnableEagleVisionForCoupleOfSeconds()
         {
+            sfxAudioSource.Stop();
+            sfxAudioSource.volume = .2f;
+            sfxAudioSource.PlayOneShot(breakSound);
             playerBlueHUD.SetActive(true);
             playerRedHUD.SetActive(false);
+            gameIntro.SetActive(false);
             eagleVision.isEagleVision = true;
             yield return new WaitForSeconds(eagleVisionTimeAfterQTE);
             eagleVision.isEagleVision = false;
@@ -146,7 +163,9 @@ namespace AKVA.Player
 
         public void DisableQTE()
         {
+            gameIntro.SetActive(false);
             qteSlider.SetActive(false);
+            playerBlueHUD.SetActive(true);
             if (CameraShaker.Instance)
             {
                 CameraShaker.Instance.enabled = false;
@@ -156,7 +175,31 @@ namespace AKVA.Player
 
         public void DisableUI()
         {
+            playerBlueHUD.SetActive(true);
+            gameIntro.SetActive(false);
             qteSlider.SetActive(false);
+        }
+
+        void QTEGlitchSound()
+        {
+            if (pressing)
+            {
+                if(!soundIsPlaying)
+                {
+                    soundIsPlaying = true;
+                    sfxAudioSource.PlayOneShot(glitchSound);
+                }
+                if(currentSoundTime < maxTimeToDisableSound)
+                {
+                    currentSoundTime += Time.deltaTime;
+                }
+                else
+                {
+                    pressing = false;
+                    sfxAudioSource.Stop();
+                    soundIsPlaying = false;
+                }
+            }
         }
     }
 }

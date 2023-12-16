@@ -3,7 +3,8 @@
     "rootNamespace": "AKVA",
     "references": [
         "Unity.TextMeshPro",
-        "Player"
+        "Player",
+        "Environment"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

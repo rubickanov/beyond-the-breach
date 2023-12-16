@@ -53,11 +53,11 @@ namespace AKVA.Player
         private void Update()
         {
             HandlePlayerInput();
+            HandleMovement();
         }
 
         private void FixedUpdate()
         {
-            HandleMovement();
         }
 
         private void HandleGravity()
@@ -73,7 +73,7 @@ namespace AKVA.Player
                 yVelocity += Physics.gravity.y * Time.fixedDeltaTime;
             }
 
-            rb.velocity = new Vector3(rb.velocity.x, yVelocity, rb.velocity.z);
+            rb.velocity = new Vector3(rb.velocity.x, yVelocity, rb.velocity.z) * Time.fixedDeltaTime;
         }
 
         private void HandleMovement()

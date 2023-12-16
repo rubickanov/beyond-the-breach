@@ -7,6 +7,7 @@ public class FinalLevelAlert : MonoBehaviour
     [SerializeField] float startDelay = 3f;
     [SerializeField] Renderer[] renderers;
     [SerializeField] Material materialToChange;
+
     public void TriggerAlert()
     {
         StartCoroutine(TriggerAlarm());

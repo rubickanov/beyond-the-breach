@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70e901587237ecc44a093f9a9ae65627, type: 3}
   m_Name: Level5Dialouge
   m_EditorClassIdentifier: 
-  SpeakerOne: {fileID: 11400000, guid: 37079361e63245248a4fba90a9512bea, type: 2}
-  SpeakerTwo: {fileID: 11400000, guid: 84a7ab23083943948b892b7d518a8713, type: 2}
+  SpeakerOne: {fileID: 11400000, guid: 58dc6532528eb5a48820e42b04c15483, type: 2}
+  SpeakerTwo: {fileID: 11400000, guid: 58dc6532528eb5a48820e42b04c15483, type: 2}
   Sentences:
   - sentenceText: Thank you for saving me.
     IsFirstSpeaker: 0
