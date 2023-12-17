@@ -1,10 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-namespace AKVA
+namespace AKVA.Player
 {
-    public class PlayerVisual : MonoBehaviour
+    public class PlayerVisualRotation : MonoBehaviour
     {
         [SerializeField] private Transform orientation;
 

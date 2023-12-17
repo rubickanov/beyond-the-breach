@@ -63,7 +63,6 @@ namespace AKVA.Player
 
         private void HandleGravity()
         {
-            //if(OnSlope()) return;
 
             if (IsGrounded)
             {
@@ -79,14 +78,8 @@ namespace AKVA.Player
 
         private void HandleMovement()
         {
-            //transform.forward = orientation.forward;
             movementVector = orientation.forward * playerInput.z + orientation.right * playerInput.x;
             movementVector.Normalize();
-
-            // if (OnSlope())
-            // {
-            //     movementVector = GetSlopeDirection();
-            // }
 
             movementVelocity = Vector3.SmoothDamp(
                 movementVelocity,
