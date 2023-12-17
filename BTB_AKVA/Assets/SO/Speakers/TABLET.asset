@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a2bf5d0df2592e4a972d351d6fdaf0a, type: 3}
   m_Name: TABLET
   m_EditorClassIdentifier: 
-  Name: TABLET
+  Name: STATUS REPORT
   Sprite: {fileID: 0}

@@ -26,6 +26,9 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
 
         [Header("Level 6")]
         public GameObject[] scientistsLevel6;
+        public AudioSource musicAudioSource;
+        public AudioClip musicToPlay;
+        [HideInInspector] public bool level6MusicPlayed;
 
         [Header("Level 7")]
         public GameObject[] scientistsLevel7;
@@ -106,6 +109,9 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
                     break;
                 case LevelStatesEnum.Level6:
                     SwitchState(level6);
+                    break;
+                case LevelStatesEnum.Level7:
+                    SwitchState(level7);
                     break;
                 default:
                     break;

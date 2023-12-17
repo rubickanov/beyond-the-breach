@@ -12,6 +12,7 @@ public class LookAtCamera : MonoBehaviour
 
     private void LookAtCam()
     {
+        if(Camera.main == null) { gameObject.SetActive(false); return; }
         transform.LookAt(Camera.main.transform);
     }
 }
