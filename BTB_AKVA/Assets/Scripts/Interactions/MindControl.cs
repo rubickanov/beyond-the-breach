@@ -16,7 +16,7 @@ namespace AKVA.Interaction
 
         private MindControlledObject mindControlledObject;
 
-        bool isControlling;
+        public bool isControlling;
         private Picking picking;
         [SerializeField] private GameObject playerVisual;
         private Mesh playerMesh;
