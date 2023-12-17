@@ -1,7 +1,5 @@
 using AKVA.Assets.Vince.Scripts.SceneManager;
-using log4net.Core;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace AKVA.Player
 {

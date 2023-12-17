@@ -1,11 +1,7 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using AKVA.Player;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace AKVA
@@ -25,7 +21,7 @@ namespace AKVA
             quitButton.onClick.AddListener(QuitGame);
 
 
-            if (!PlayerPrefs.HasKey("MainSceneUnlocked") || ImitateFirstTime)
+            if (!PlayerPrefs.HasKey("MainSceneUnlocked"))
             {
                 Debug.Log("PLAYER PREF HAS NOT BEEN FOUND");
                 continueButton.interactable = false;

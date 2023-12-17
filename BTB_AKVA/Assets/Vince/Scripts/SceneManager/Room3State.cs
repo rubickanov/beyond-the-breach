@@ -2,16 +2,9 @@ using AKVA.Assets.Vince.Scripts.AI;
 using AKVA.Assets.Vince.Scripts.Environment;
 using AKVA.Player;
 using EZCameraShake;
-using PlasticGui.WorkspaceWindow.BranchExplorer;
-using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Resources;
-using System.Threading;
 using TMPro;
-using UnityEditorInternal;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 
 namespace AKVA.Assets.Vince.Scripts.SceneManager

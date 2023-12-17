@@ -1,9 +1,7 @@
 using AKVA.Animations;
 using AKVA.Assets.Vince.Scripts.Astar;
 using AKVA.Vince.SO;
-using Codice.Client.Common.TreeGrouper;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace AKVA.Assets.Vince.Scripts.AI
