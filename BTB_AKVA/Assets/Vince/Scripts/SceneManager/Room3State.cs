@@ -217,6 +217,7 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
             state.AlarmSound.Invoke();
 
             yield return new WaitForSeconds(3f);
+            SubtitleManager.Instance.PlayPublicAnnoucememnt("Instructor:", "Anomaly detected in NeuroSystem. Error correction initiated. Commencing system diagnostics and force shutdown for resolution.", 10f);
             state.ForceShutdownAudio.Invoke();
 
             yield return new WaitForSeconds(5f);

@@ -75,7 +75,7 @@ namespace AKVA.Assets.Vince.Scripts.Environment
 
         private void OnCollisionExit(Collision collision)
         {
-            if (collision.gameObject.tag == "Battery" && battery == null)
+            if (collision.gameObject.tag == "Battery" && battery != null)
             {
                 onBatteryRemoved?.Invoke();
                 OnSocketDisabled.Invoke();
