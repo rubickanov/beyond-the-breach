@@ -1,4 +1,5 @@
 using System;
+using AKVA;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -71,7 +72,7 @@ public class PauseMenu : MonoBehaviour
 
     private void RestartGame()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        SceneLoader.Instance.LoadLevelWithLoadingScreen(SceneManager.GetActiveScene().buildIndex);
     }
 
     private void ShowOptionsMenu()
