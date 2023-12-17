@@ -57,7 +57,7 @@ namespace AKVA.Assets.Vince.Scripts.Environment
                 foreach (BatterySocket button in floorButton)
                 {
                     button.onBatteryPlaced -= ActivateDoor;
-                    button.onBatteryRemoved -= ActivateDoor;
+                    button.onBatteryRemoved -= DeactivateDoor;
                 }
             }
         }
@@ -143,14 +143,13 @@ namespace AKVA.Assets.Vince.Scripts.Environment
                 {
                     SetSubtitle("[ Activated Door Sound ]", 3f);
 
-                    doorActiveInvoke = true;
                     OnDoorActivated.Invoke();
+                    doorActiveInvoke = true;
                 }
 
             }
             else
             {
-                doorActiveInvoke = false;
                 SetMaterial(false);
                 activated = false;
             }
@@ -158,6 +157,7 @@ namespace AKVA.Assets.Vince.Scripts.Environment
         void DeactivateDoor()
         {
             SetMaterial(false);
+            doorActiveInvoke = false;
             numberOfBtnsActivated--;
             activated = false;
         }

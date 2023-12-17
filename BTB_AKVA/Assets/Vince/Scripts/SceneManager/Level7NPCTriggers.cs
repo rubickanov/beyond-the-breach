@@ -2,6 +2,7 @@ using AKVA.Assets.Vince.Scripts.AI;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace AKVA.Assets.Vince.Scripts.SceneManager
 {
@@ -10,6 +11,7 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
         [SerializeField] GameObject[] scientists;
         [SerializeField] GameObject[] robots;
         public bool triggerScientist, triggerRobots;
+        public UnityEvent OnEnterTrigger;
 
 
         void TriggerScientist()
@@ -36,10 +38,14 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
             {
                 if (triggerScientist)
                 {
+                    OnEnterTrigger.Invoke();
                     TriggerScientist();
-                }else if (triggerRobots)
+                    Destroy(gameObject);
+                }
+                else if (triggerRobots)
                 {
                     TriggerRobots();
+                    OnEnterTrigger.Invoke();
                     Destroy(gameObject);
                 }
             }

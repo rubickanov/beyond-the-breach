@@ -16,6 +16,8 @@ namespace AKVA.Interaction
         float targetRot = 90;
         bool interactionCooldown = false;
         public bool powerOn;
+        public bool enableOneTimeActivation;
+        bool hasInvoked;
 
         bool leverInvoked;
         void Awake()
@@ -48,7 +50,18 @@ namespace AKVA.Interaction
                         if (!leverInvoked)
                         {
                             leverInvoked = true;
-                            OnleverUp.Invoke();
+                            if (enableOneTimeActivation)
+                            {
+                                if (!hasInvoked) {
+                                    hasInvoked = true;
+                                    OnleverUp.Invoke();
+                                    return;
+                                }
+                            }
+                            else
+                            {
+                                OnleverUp.Invoke();
+                            }
                         }
                     }
                     if (currentXRot > 88)

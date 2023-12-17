@@ -33,12 +33,36 @@ public class SubtitleManager : MonoBehaviour
         StartCoroutine(DisableSubtitle(txtDuration));
     }
 
+    public void PlayPublicAnnoucememnt(string speaker, string annoucememntTxt, float txtDuration)
+    {
+        subtitleTxt.gameObject.SetActive(true);
+        speakerTxt.SetText(speaker);
+        subtitleTxt.SetText(annoucememntTxt);
+        StartCoroutine(DisableSubtitle(txtDuration));
+    }
+
     public void ShowSubtitle(string speaker, string annoucememntTxt, float txtDuration)
     {
         speakerTxt.SetText(speaker);
         subtitleTxt.gameObject.SetActive(true);
         subtitleTxt.SetText(annoucememntTxt);
         StartCoroutine(DisableSubtitle(txtDuration));
+    }
+
+    public void ShowSFXSubtitle(string txt)
+    {
+        speakerTxt.SetText("");
+        subtitleTxt.gameObject.SetActive(true);
+        subtitleTxt.SetText(txt);
+        StartCoroutine(DisableSubtitle(3));
+    }
+
+    public void ShowScientistSubtitle(string txt)
+    {
+        speakerTxt.SetText("");
+        subtitleTxt.gameObject.SetActive(true);
+        subtitleTxt.SetText(txt);
+        StartCoroutine(DisableSubtitle(5));
     }
 
     IEnumerator DisableSubtitle(float time)

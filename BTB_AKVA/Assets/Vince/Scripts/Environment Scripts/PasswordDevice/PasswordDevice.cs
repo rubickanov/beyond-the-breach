@@ -11,6 +11,7 @@ namespace AKVA.Assets.Vince.Scripts.Environment
         
         [SerializeField] string password;
         [SerializeField] UnityEvent OnPasswordMatch;
+        [SerializeField] UnityEvent OnButtonPressed;
         [SerializeField] GameObject[] screen;
         [SerializeField] LayerMask passwordKeylayer;
         [SerializeField] Slot[] slots;
@@ -49,6 +50,7 @@ namespace AKVA.Assets.Vince.Scripts.Environment
                     }
                     else if(currentPass.Length < 4)
                     {
+                        OnButtonPressed.Invoke();
                         TurnOnKeyLight(hit.transform);
                         UpdateKeySlots(hit.transform);
                     }

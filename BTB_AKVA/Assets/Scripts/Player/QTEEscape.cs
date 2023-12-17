@@ -200,6 +200,6 @@ namespace AKVA.Player
                     soundIsPlaying = false;
                 }
             }
-        }
+        }  
     }
 }
