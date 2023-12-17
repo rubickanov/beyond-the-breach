@@ -35,7 +35,7 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
         public float movementDelayTime = 13f;
         public TextMeshProUGUI initializeTxt;
         public Image blackBG;
-        public GameObject PlayerHUDSprite, PlayerHUDWithoutAnim, neuroLabLogo, screenTxt;
+        public GameObject PlayerHUDSprite, PlayerHUDWithoutAnim, neuroLabLogo, screenTxt, subtitleTxt;
         public Color hudColor;
         public UnityEvent OnLoad;
         public UnityEvent OnHUDActivate;

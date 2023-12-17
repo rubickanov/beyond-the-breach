@@ -85,6 +85,7 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
             yield return new WaitForSeconds(1f);
             playerHUDNoSprite.SetActive(true);
             playerHUDSprite.SetActive(false);
+            state.subtitleTxt.SetActive(true);
         }
 
         IEnumerator FadeOutBlackScreen(SceneStateManager state)
@@ -120,6 +121,7 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
             {
                 labSpeakerEnabled = true;
                 state.LabSpeaker.Invoke();
+                SubtitleManager.Instance.PlayPublicAnnoucememnt("Instructor:", "Hello and welcome to the Neurolab. Today, the test begins. Follow the designated procedures and proceed to the next room. Your cooperation is appreciated.", 12f);
                 state.StartCoroutine(SetInitializeText(state.movementDelayTime, "MOVEMENT: ENABLED", state));
             }
         }

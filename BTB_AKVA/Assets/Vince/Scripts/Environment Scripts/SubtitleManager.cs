@@ -6,7 +6,7 @@ using UnityEngine;
 public class SubtitleManager : MonoBehaviour
 {
     [SerializeField] AudioSource audioSource;
-    [SerializeField] public AudioClip [] clips;
+    [SerializeField] public AudioClip[] clips;
     [SerializeField] TextMeshProUGUI speakerTxt;
     [SerializeField] TextMeshProUGUI subtitleTxt;
 
@@ -41,6 +41,7 @@ public class SubtitleManager : MonoBehaviour
         audioSource.PlayOneShot(clips[clipIndex]);
         //StartCoroutine(DisableSubtitle(txtDuration));
         subtitleDuration = txtDuration;
+        subtitleIsActive = true;
     }
 
     public void PlayPublicAnnoucememnt(string speaker, string annoucememntTxt, float txtDuration)
@@ -49,6 +50,7 @@ public class SubtitleManager : MonoBehaviour
         speakerTxt.SetText(speaker);
         subtitleTxt.SetText(annoucememntTxt);
         subtitleDuration = txtDuration;
+        subtitleIsActive = true;
     }
 
     public void ShowSubtitle(string speaker, string annoucememntTxt, float txtDuration)
@@ -57,6 +59,7 @@ public class SubtitleManager : MonoBehaviour
         subtitleTxt.gameObject.SetActive(true);
         subtitleTxt.SetText(annoucememntTxt);
         subtitleDuration = txtDuration;
+        subtitleIsActive = true;
     }
 
     public void ShowSFXSubtitle(string txt)
@@ -77,9 +80,9 @@ public class SubtitleManager : MonoBehaviour
 
     void SubTitleDuration()
     {
-        if(subtitleIsActive)
+        if (subtitleIsActive)
         {
-            if(currentTime < subtitleDuration)
+            if (currentTime < subtitleDuration)
             {
                 currentTime += Time.deltaTime;
             }
@@ -87,6 +90,7 @@ public class SubtitleManager : MonoBehaviour
             {
                 currentTime = 0;
                 subtitleIsActive = false;
+                subtitleTxt.gameObject.SetActive(false);
             }
         }
     }

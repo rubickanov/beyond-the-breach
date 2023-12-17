@@ -114,6 +114,7 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
             if (!movementSpeechEnabled)
             {
                 movementSpeechEnabled = true;
+                SubtitleManager.Instance.PlayPublicAnnoucememnt("Instructor:", "Movement system check complete. Proceed to the next room for further evaluation.", 7f);
                 state.MovementSuccess.Invoke();
             }
         }
