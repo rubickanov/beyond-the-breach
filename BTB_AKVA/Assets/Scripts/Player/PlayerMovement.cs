@@ -53,7 +53,6 @@ namespace AKVA.Player
         private void Update()
         {
             HandlePlayerInput();
-
         }
 
         private void FixedUpdate()
