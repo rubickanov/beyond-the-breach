@@ -12,11 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70e901587237ecc44a093f9a9ae65627, type: 3}
   m_Name: Level4Dialouge
   m_EditorClassIdentifier: 
-  SpeakerOne: {fileID: 11400000, guid: 37079361e63245248a4fba90a9512bea, type: 2}
+  SpeakerOne: {fileID: 11400000, guid: 84a7ab23083943948b892b7d518a8713, type: 2}
   SpeakerTwo: {fileID: 11400000, guid: 84a7ab23083943948b892b7d518a8713, type: 2}
   Sentences:
-  - sentenceText: 'You found me. I failed the test thats why I am here. Other robots
-      are in danger. You need to save them '
-    IsFirstSpeaker: 0
-  - sentenceText: The passcode of the door is 5678
-    IsFirstSpeaker: 0
+  - sentenceText: H-Hey.. You're like m-me..
+    IsFirstSpeaker: 1
+  - sentenceText: Oh, don't bother checking my co-components, kid, they're long done
+      for..
+    IsFirstSpeaker: 1
+  - sentenceText: The code is (5678).. It can get you through the door next to me.
+    IsFirstSpeaker: 1

@@ -20,6 +20,7 @@ namespace AKVA.Assets.Vince.Scripts.Environment
         float currentYPos;
         bool brokenDoor;
         bool doorFullyOpened;
+        bool invoked;
         void Start()
         {
             initGatePos = gate.transform.localPosition;
@@ -43,8 +44,6 @@ namespace AKVA.Assets.Vince.Scripts.Environment
                 }
                 if (gate.transform.localPosition.y <= -2.4f)
                 {
-
-                    Debug.Log("Reached gate destination");
                     ReachedDestination.Invoke();
                     brokenDoor = true;
                     gate.transform.localPosition = new Vector3(gate.transform.localPosition.x, targetYPos, gate.transform.localPosition.z);
@@ -64,7 +63,11 @@ namespace AKVA.Assets.Vince.Scripts.Environment
             if (brokenDoor && gate.transform.localPosition.y <= -6.66f)
             {
                 doorFullyOpened = true;
-                DoorFullyOpened.Invoke();
+                if (!invoked)
+                {
+                    DoorFullyOpened.Invoke();
+                    invoked = true;
+                }
             }
             if (brokenDoor && gate.transform.localPosition.y < 0 && doorFullyOpened)
             {

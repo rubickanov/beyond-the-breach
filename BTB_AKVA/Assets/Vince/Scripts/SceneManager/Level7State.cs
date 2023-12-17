@@ -9,18 +9,32 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
     public class Level7State : LevelState
     {
         bool [] robotsTriggered;
+        LevelManager levelManager;
         public override void OnEnterState(LevelManager state)
         {
             robotsTriggered = new bool[3];
-            foreach(GameObject scientist in state.scientistsLevel7)
-            {
-                scientist.SetActive(true);
-            }
+            levelManager = state;
+            //foreach(GameObject scientist in state.scientistsLevel7)
+            //{
+            //    scientist.SetActive(true);
+            //}
+            PlayLevelMusic();
         }
 
         public override void OnUpdateState(LevelManager state)
         {
-            CheckIfPlayerHasReachedTriggerPos(state);
+           // CheckIfPlayerHasReachedTriggerPos(state);
+        }
+
+         void PlayLevelMusic()
+        {
+            if(!levelManager.level6MusicPlayed)
+            {
+                levelManager.level6MusicPlayed = true;
+                levelManager.musicAudioSource.Stop();
+                levelManager.musicAudioSource.clip = levelManager.musicToPlay;
+                levelManager.musicAudioSource.Play();
+            }
         }
 
         private void CheckIfPlayerHasReachedTriggerPos(LevelManager state)

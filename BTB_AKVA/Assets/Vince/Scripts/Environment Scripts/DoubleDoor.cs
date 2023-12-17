@@ -1,4 +1,5 @@
 using System;
+using System.Runtime.InteropServices;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -31,8 +32,10 @@ namespace AKVA.Assets.Vince.Scripts.Environment
         [Header("Events")]
         public UnityEvent OnDoorActive;
         public UnityEvent OnDoorOpened;
-        bool doorOpening;
-        bool doorActive;
+        public UnityEvent OnDoorClosing;
+        bool doorOpeningInvoke;
+        bool doorClosingInvoke;
+        bool eventInvoked;
 
         #region Properties
         public bool EnableDoor { set => activated = value; get => activated; }
@@ -90,28 +93,24 @@ namespace AKVA.Assets.Vince.Scripts.Environment
                 if (Physics.CheckBox(rayOrigin.position, physicsBoxSize, Quaternion.identity,allowedToOpen))
                 {
                     OpenDoor();
-
-                    if (!doorOpening)
-                    {
-                        doorOpening = true;
-                        OnDoorOpened.Invoke();
-                    }
                 }
                 else
                 {
-                    doorOpening = false;
+                    doorOpeningInvoke = false;
                     CloseDoor();
                 }
                 ChangeDoorColor(doorActivated);
 
-                if (!doorActive)
+                if (!eventInvoked)
                 {
-                    doorActive = true;
+                    SetSubtitle("[ Activated Door Sound ]", 3f);
+                    eventInvoked = true;
                     OnDoorActive.Invoke();
                 }
             }
             else
             {
+                eventInvoked = false;
                 ChangeDoorColor(doorDeactivated);
             }
 
@@ -162,6 +161,16 @@ namespace AKVA.Assets.Vince.Scripts.Environment
             {
                 float newX = Mathf.Lerp(leftDoor.localPosition.x, leftDoorTargetPos, doorSpeed * Time.deltaTime);
                 leftDoor.localPosition = new Vector3(newX, leftDoor.localPosition.y, leftDoor.localPosition.z);
+
+                if (!doorOpeningInvoke)
+                {
+                    doorOpeningInvoke = true;
+                    OnDoorOpened.Invoke();
+                }
+            }
+            else
+            {
+                doorOpeningInvoke = false;
             }
 
             if (rightDoor.localPosition.x < rightDoorTargetPos)
@@ -180,6 +189,17 @@ namespace AKVA.Assets.Vince.Scripts.Environment
             {
                 float newX = Mathf.Lerp(leftDoor.localPosition.x, leftDoorTargetPos, doorSpeed * Time.deltaTime);
                 leftDoor.localPosition = new Vector3(newX, leftDoor.localPosition.y, leftDoor.localPosition.z);
+
+                if (!doorClosingInvoke)
+                {
+                    doorClosingInvoke = true;
+                    OnDoorClosing.Invoke();
+                }
+
+            }
+            else
+            {
+                doorClosingInvoke = false;
             }
 
             if (rightDoor.localPosition.x > rightDoorTargetPos)
@@ -192,6 +212,14 @@ namespace AKVA.Assets.Vince.Scripts.Environment
         public void SetDoorToOpen(bool value)
         {
             openDoor = value;
+        }
+
+        void SetSubtitle(string txt, float subDuration)
+        {
+            if(SubtitleManager.Instance != null)
+            {
+                SubtitleManager.Instance.ShowSubtitle("", txt, subDuration);
+            }
         }
 
         private void OnDrawGizmos()

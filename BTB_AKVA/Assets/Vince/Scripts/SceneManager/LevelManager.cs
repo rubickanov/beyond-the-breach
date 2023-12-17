@@ -25,10 +25,13 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
         public RobotAIAnim robotAnim;
 
         [Header("Level 6")]
-         public GameObject [] scientistsLevel6;
+        public GameObject[] scientistsLevel6;
+        public AudioSource musicAudioSource;
+        public AudioClip musicToPlay;
+        [HideInInspector] public bool level6MusicPlayed;
 
         [Header("Level 7")]
-        public GameObject [] scientistsLevel7;
+        public GameObject[] scientistsLevel7;
         public RobotMovement[] level7Robots;
         public Transform robotQueueTriggerPoint, robotQueueTriggerPoint2;
         public float distanceToTriggerRobots = 5f;
@@ -40,8 +43,8 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
         public BangingDoor backSideDoor;
 
         public static LevelManager Instance;
-        
-        public LevelState currentLevel {  get; private set; }
+
+        public LevelState currentLevel { get; private set; }
         public Level1State level1 = new Level1State();
         public Level2State level2 = new Level2State();
         public Level5State level5 = new Level5State();
@@ -58,7 +61,7 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
             {
                 Destroy(this);
             }
-            
+
             //player = GameObject.FindGameObjectWithTag("Player");
             DisableAllMovingAI();
         }
@@ -110,9 +113,6 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
                 case LevelStatesEnum.Level7:
                     SwitchState(level7);
                     break;
-                case LevelStatesEnum.Level8:
-                    SwitchState(level8);
-                    break;
                 default:
                     break;
             }
@@ -120,10 +120,10 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
 
         private void OnDrawGizmos()
         {
-            
+
             Gizmos.color = Color.blue;
             if (checkPoints.Length <= 0) return;
-            foreach(Transform points in checkPoints)
+            foreach (Transform points in checkPoints)
             {
                 Gizmos.DrawWireSphere(points.position, 0.5f);
             }

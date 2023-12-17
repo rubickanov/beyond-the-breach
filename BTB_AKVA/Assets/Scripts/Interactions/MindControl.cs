@@ -3,6 +3,7 @@ using UnityEngine;
 using AKVA.Player;
 using AKVA.Vince.SO;
 using Vector3 = UnityEngine.Vector3;
+using UnityEngine.Events;
 
 namespace AKVA.Interaction
 {
@@ -37,7 +38,10 @@ namespace AKVA.Interaction
         [Header("HUD")]
         [SerializeField] GameObject playerHUD, scientistHUD;
         ShowUI objUI; // UI world canvas
-
+        bool hackingSfxPlaying;
+        public AudioSource sfx;
+        public UnityEvent hudSfx;
+        public UnityEvent hackingSFX;
 
         private void Awake()
         {
@@ -59,25 +63,27 @@ namespace AKVA.Interaction
             {
                 if (Physics.Raycast(playerCamera.position, playerCamera.forward, out hit, distanceToMindControl))
                 {
-
-                    if (hit.transform.TryGetComponent(out mindControlledObject))
+                    if (hit.transform.TryGetComponent(out mindControlledObject) && mindControlledObject.enabled)
                     {
                         ShowUI(hit);
                         IsActive = true;
                         if (Input.GetKey(PlayerInput.Instance.Controls.mindControl) && canSwap)
                         {
                             PlayerInput.Instance.DisablePlayerMouseInput();
-                            playerCamera.transform.forward = Vector3.Lerp(playerCamera.transform.forward,  (mindControlledObject.transform.position - playerCamera.transform.position) + new Vector3(0, 1.5f, 0), 0.15f)
-                               ;
+                            playerCamera.transform.forward = Vector3.Lerp(playerCamera.transform.forward,
+                                (mindControlledObject.transform.position - playerCamera.transform.position) +
+                                new Vector3(0, 1.5f, 0), 0.15f);
                             timerToMindControl += Time.deltaTime;
+                            HackingSFX();
                             if (timerToMindControl >= timeToMindControl)
                             {
+                                DisableHackingSFX();
+
                                 timerToMindControl = 0;
                                 picking.DropObject();
                                 Control(mindControlledObject);
                                 mindControlledObject = hit.transform.GetComponent<MindControlledObject>();
                                 PlayerInput.Instance.EnablePlayerMouseInput();
-
                                 //World Canvas UI
                                 if (objUI != null)
                                 {
@@ -88,6 +94,7 @@ namespace AKVA.Interaction
                         }
                         else
                         {
+                            DisableHackingSFX();
                             PlayerInput.Instance.EnablePlayerInput();
                         }
                     }
@@ -113,8 +120,13 @@ namespace AKVA.Interaction
                     IsActive = true;
 
                     timerToMindControl += Time.deltaTime;
+
+                    HackingSFX();
+
                     if (timerToMindControl >= timeToMindControl)
                     {
+                        DisableHackingSFX();
+
                         timerToMindControl = 0;
                         picking.DropObject();
                         ReturnToBody(mindControlledObject);
@@ -124,6 +136,7 @@ namespace AKVA.Interaction
 
             if (Input.GetKeyUp(PlayerInput.Instance.Controls.mindControl))
             {
+                DisableHackingSFX();
                 timerToMindControl = 0;
                 canSwap = true;
             }
@@ -153,6 +166,7 @@ namespace AKVA.Interaction
 
         public void Control(MindControlledObject controlledObject)
         {
+            hudSfx.Invoke();
             scientistHUD.SetActive(true);
             playerHUD.SetActive(false);
 
@@ -164,6 +178,7 @@ namespace AKVA.Interaction
 
         public void ReturnToBody(MindControlledObject controlledObject)
         {
+            hudSfx.Invoke();
             scientistHUD.SetActive(false);
             playerHUD.SetActive(true);
 
@@ -226,6 +241,7 @@ namespace AKVA.Interaction
                 }
             }
         }
+
         void DisableUI()
         {
             if (objUI != null)
@@ -234,6 +250,21 @@ namespace AKVA.Interaction
                 objUI.SetTheUI(false);
                 objUI = null;
             }
+        }
+
+        void HackingSFX()
+        {
+            if (!hackingSfxPlaying)
+            {
+                hackingSfxPlaying = true;
+                hackingSFX.Invoke();
+            }
+        }
+
+        void DisableHackingSFX()
+        {
+            hackingSfxPlaying = false;
+            //sfx.Stop();
         }
     }
 }

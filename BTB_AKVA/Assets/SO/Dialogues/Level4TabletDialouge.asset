@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70e901587237ecc44a093f9a9ae65627, type: 3}
+  m_Name: Level4TabletDialouge
+  m_EditorClassIdentifier: 
+  SpeakerOne: {fileID: 11400000, guid: eed2c4852c9e63d4dabcb862a64c2fca, type: 2}
+  SpeakerTwo: {fileID: 11400000, guid: eed2c4852c9e63d4dabcb862a64c2fca, type: 2}
+  Sentences:
+  - sentenceText: World's First Laboratory To Be Run By AI!
+    IsFirstSpeaker: 1
+  - sentenceText: 'Talk about heading into the future! NeuroLabs, run by Dr. Jenkins,
+      is a laboratory designed to supposedly be a cart ride into the future! It''s
+      main goal is to create and experiment different beings, both technological
+      and biological, in order to create something new! '
+    IsFirstSpeaker: 1
+  - sentenceText: Their first experiment, which was a group of robots who knew social
+      hierarchy, was a grand success! Each robot presented from a low role to a high
+      role in society, and acted as programmed! Through this, the scientists (the
+      human ones, of course!) will be able to aid the government as to what to do
+      to help the lowly!
+    IsFirstSpeaker: 1

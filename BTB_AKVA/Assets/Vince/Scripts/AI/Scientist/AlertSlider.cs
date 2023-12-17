@@ -30,6 +30,7 @@ namespace AKVA.Assets.Vince.Scripts.AI
 
         public void UpdateSliderValue(float value)
         {
+            if(Camera.main == null) { return; }
             alertSliderObj.transform.LookAt(Camera.main.transform);
             slider.value = value;
         }

@@ -16,7 +16,10 @@ namespace AKVA.Interaction
         float targetRot = 90;
         bool interactionCooldown = false;
         public bool powerOn;
+        public bool enableOneTimeActivation;
+        bool hasInvoked;
 
+        bool leverInvoked;
         void Awake()
         {
             EnableMatEmission(powerOn);
@@ -44,10 +47,26 @@ namespace AKVA.Interaction
                     if (currentXRot < targetRot)
                     {
                         currentXRot = Mathf.Lerp(currentXRot, targetRot, 5f * Time.deltaTime);
-                        OnleverUp.Invoke();
+                        if (!leverInvoked)
+                        {
+                            leverInvoked = true;
+                            if (enableOneTimeActivation)
+                            {
+                                if (!hasInvoked) {
+                                    hasInvoked = true;
+                                    OnleverUp.Invoke();
+                                    return;
+                                }
+                            }
+                            else
+                            {
+                                OnleverUp.Invoke();
+                            }
+                        }
                     }
                     if (currentXRot > 88)
                     {
+                        leverInvoked = false;
                         currentXRot = 90;
                         targetRot = -90;
                         activate = false;
@@ -59,10 +78,15 @@ namespace AKVA.Interaction
                     if (currentXRot > targetRot)
                     {
                         currentXRot = Mathf.Lerp(currentXRot, targetRot, 5f * Time.deltaTime);
-                        OnleverDown.Invoke();
+                        if (!leverInvoked)
+                        {
+                            leverInvoked = true;
+                            OnleverDown.Invoke();
+                        }
                     }
                     if (currentXRot < -88)
                     {
+                        leverInvoked = false;
                         currentXRot = -90;
                         targetRot = 90;
                         activate = false;

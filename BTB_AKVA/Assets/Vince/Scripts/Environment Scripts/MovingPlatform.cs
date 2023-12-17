@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace AKVA.Assets.Vince.Scripts.Environment
 {
@@ -9,7 +10,9 @@ namespace AKVA.Assets.Vince.Scripts.Environment
         public Transform target;
         Vector3 initPos;
         public bool pos1, pos2;
+        public UnityEvent OnMove;
 
+        bool movementInvoked;
         private Rigidbody rb;   
 
         private void Awake()
@@ -29,8 +32,16 @@ namespace AKVA.Assets.Vince.Scripts.Environment
             {
                 //transform.position = Vector3.MoveTowards(transform.position, initPos, platformSpeed * Time.deltaTime);
                 rb.MovePosition(Vector3.MoveTowards(rb.position, initPos, platformSpeed * Time.fixedDeltaTime));
+
+                if (!movementInvoked)
+                {
+                    movementInvoked = true;
+                    OnMove.Invoke();
+                }
+
                 if (Vector3.Distance(transform.position, initPos) <= 0f)
                 {
+                    movementInvoked = false;
                     pos1 = false;
                 }
             }
@@ -38,8 +49,16 @@ namespace AKVA.Assets.Vince.Scripts.Environment
             {
                 //transform.position = Vector3.MoveTowards(transform.position, target.position, platformSpeed * Time.deltaTime);
                 rb.MovePosition(Vector3.MoveTowards(rb.position, target.position, platformSpeed * Time.fixedDeltaTime));
+
+                if (!movementInvoked)
+                {
+                    movementInvoked = true;
+                    OnMove.Invoke();
+                }
+
                 if (Vector3.Distance(transform.position, target.position) <= 0f)
                 {
+                    movementInvoked = false;
                     pos2 = false;
                 }
             }

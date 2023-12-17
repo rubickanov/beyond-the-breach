@@ -10,6 +10,7 @@ namespace AKVA.Assets.Vince.Scripts.Environment
     {
         [SerializeField] UnityEvent OnSocketEnabled;
         [SerializeField] UnityEvent OnSocketDisabled;
+        [SerializeField] UnityEvent PlayEnableSound;
 
         [SerializeField] Transform batteryPlaceHolder;
 
@@ -27,6 +28,7 @@ namespace AKVA.Assets.Vince.Scripts.Environment
         public delegate void OnBatteryRemoved();
         public event OnBatteryRemoved onBatteryRemoved;
 
+        bool sfxPlayed;
 
         private void Start()
         {
@@ -56,12 +58,14 @@ namespace AKVA.Assets.Vince.Scripts.Environment
             {
                 if (isColored && socketMaterial.name == collision.gameObject.GetComponent<Renderer>().material.name)
                 {
+                    PlayEnableSound.Invoke();
                     battery = collision.gameObject.transform;
                     onBatteryPlaced?.Invoke();
                     socketIsActive = true;
                 }
                 else if (!isColored)
                 {
+                    PlayEnableSound.Invoke();
                     battery = collision.gameObject.transform;
                     onBatteryPlaced?.Invoke();
                     socketIsActive = true;

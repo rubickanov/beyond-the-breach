@@ -23,6 +23,9 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
         int dotNum2;
         bool numberSystem = true;
         bool numberTxtAnimating;
+        SceneStateManager state;
+
+        bool[] successSfxPlayed;
 
         bool playerInPosition;
         bool aiActive; //Initiates the AI task
@@ -30,15 +33,17 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
         bool[] taskDone;
         public override void OnEnterState(SceneStateManager state)
         {
+            this.state = state;
             movementUI = state.initializeTxt;
             systemTxt = state.movementTestTxt;
             hudColor = state.hudColor;
+            successSfxPlayed = new bool[3];
             taskDone = new bool[6];
             systemTxt.color = Color.green;
 
             if (!numberTxtAnimating)
             {
-                state.StartCoroutine(NumberAnimTxt());
+                state.StartCoroutine(NumberAnimTxt(state));
                 numberTxtAnimating = true;
             }
         }
@@ -66,7 +71,7 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
                 {
                     state.OnSuccess.Invoke();
                     systemTxt.color = Color.green;
-                    state.StartCoroutine(InteractionAnimTxt());
+                    state.StartCoroutine(InteractionAnimTxt(state));
                     interactionAnim = true;
                 }
                 playerInPosition = true;
@@ -92,6 +97,7 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
                 else if (GetNumberOfActiveSockets(state) == 3 && !taskDone[2] && !enableAI)
                 {
                     PlayerInput.Instance.EnablePlayerInput();
+                    state.OnMovementEnabled.Invoke();
                     state.playerPicking.enabled = true;
                     taskDone[2] = true;
                     SetMovementUI(true);
@@ -161,7 +167,7 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
             return activeSockets;
         }
 
-        IEnumerator InteractionAnimTxt()
+        IEnumerator InteractionAnimTxt(SceneStateManager state)
         {
             yield return new WaitForSeconds(3);
             systemTxt.color = hudColor;
@@ -172,6 +178,7 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
 
                 if (dotNum2 < 4)
                 {
+                    state.OnLoad.Invoke();
                     systemTxt.SetText("CHECKING INTERACTION SYSTEM" + new string('.', dotNum2));
                 }
                 else
@@ -185,7 +192,7 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
             systemTxt.SetText("INTERACTION SYSTEM SUCCESS");
         }
 
-        IEnumerator NumberAnimTxt()
+        IEnumerator NumberAnimTxt(SceneStateManager state)
         {
             yield return new WaitForSeconds(2f);
             systemTxt.color = hudColor;
@@ -195,6 +202,7 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
 
                 if (dotNum1 < 4)
                 {
+                    state.OnLoad.Invoke();
                     systemTxt.SetText("NUMBER RECOGNITION SYSTEM" + new string('.', dotNum1));
                 }
                 else
@@ -211,6 +219,7 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
         {
             if (value)
             {
+                state.OnMovementEnabled.Invoke();
                 movementUI.color = Color.green;
                 movementUI.SetText("MOVEMENT: ENABLED");
             }
@@ -226,6 +235,15 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
             yield return new WaitForSeconds(0f);
             ai.SwitchState(ai.moveState);
             state.SwitchState(state.room2State);
+        }
+
+        void SetSuccessSFX(int successIndex)
+        {
+            if (!successSfxPlayed[successIndex])
+            {
+                successSfxPlayed[successIndex] = true;
+                state.OnSuccess.Invoke();
+            }
         }
     }
 }
