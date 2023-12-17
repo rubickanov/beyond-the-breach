@@ -30693,6 +30693,7 @@ MonoBehaviour:
   isMindControlling: {fileID: 11400000, guid: f11e8dbffda562a4f8c13924e0eb5d2a, type: 2}
   playerHUD: {fileID: 0}
   scientistHUD: {fileID: 0}
+  sfx: {fileID: 0}
   hudSfx:
     m_PersistentCalls:
       m_Calls: []
@@ -35497,6 +35498,9 @@ MonoBehaviour:
   isEagleVision: 0
   qteActivate: 1
   enableEagleVision: {fileID: 0}
+  OnEagleVision:
+    m_PersistentCalls:
+      m_Calls: []
   eagleVisionPostProcessing: {fileID: 0}
 --- !u!4 &8891506159431484291
 Transform:

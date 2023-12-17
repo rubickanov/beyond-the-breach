@@ -53,12 +53,12 @@ namespace AKVA.Player
         private void Update()
         {
             HandlePlayerInput();
-            HandleMovement();
 
         }
 
         private void FixedUpdate()
         {
+            HandleMovement();
         }
 
         private void HandleGravity()
@@ -79,7 +79,7 @@ namespace AKVA.Player
 
         private void HandleMovement()
         {
-            transform.forward = orientation.forward;
+            //transform.forward = orientation.forward;
             movementVector = orientation.forward * playerInput.z + orientation.right * playerInput.x;
             movementVector.Normalize();
 

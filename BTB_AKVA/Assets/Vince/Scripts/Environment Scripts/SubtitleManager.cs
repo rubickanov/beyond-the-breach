@@ -10,6 +10,10 @@ public class SubtitleManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI speakerTxt;
     [SerializeField] TextMeshProUGUI subtitleTxt;
 
+    bool subtitleIsActive;
+    float subtitleDuration;
+    float currentTime;
+
     public static SubtitleManager Instance { get; private set; }
 
     private void Awake()
@@ -23,14 +27,20 @@ public class SubtitleManager : MonoBehaviour
             Instance = this;
         }
     }
-   
+
+    private void Update()
+    {
+        SubTitleDuration();
+    }
+
     public void PlayPublicAnnoucememnt(string speaker, string annoucememntTxt, int clipIndex, float txtDuration)
     {
         subtitleTxt.gameObject.SetActive(true);
         speakerTxt.SetText(speaker);
         subtitleTxt.SetText(annoucememntTxt);
         audioSource.PlayOneShot(clips[clipIndex]);
-        StartCoroutine(DisableSubtitle(txtDuration));
+        //StartCoroutine(DisableSubtitle(txtDuration));
+        subtitleDuration = txtDuration;
     }
 
     public void PlayPublicAnnoucememnt(string speaker, string annoucememntTxt, float txtDuration)
@@ -38,7 +48,7 @@ public class SubtitleManager : MonoBehaviour
         subtitleTxt.gameObject.SetActive(true);
         speakerTxt.SetText(speaker);
         subtitleTxt.SetText(annoucememntTxt);
-        StartCoroutine(DisableSubtitle(txtDuration));
+        subtitleDuration = txtDuration;
     }
 
     public void ShowSubtitle(string speaker, string annoucememntTxt, float txtDuration)
@@ -46,7 +56,7 @@ public class SubtitleManager : MonoBehaviour
         speakerTxt.SetText(speaker);
         subtitleTxt.gameObject.SetActive(true);
         subtitleTxt.SetText(annoucememntTxt);
-        StartCoroutine(DisableSubtitle(txtDuration));
+        subtitleDuration = txtDuration;
     }
 
     public void ShowSFXSubtitle(string txt)
@@ -63,6 +73,22 @@ public class SubtitleManager : MonoBehaviour
         subtitleTxt.gameObject.SetActive(true);
         subtitleTxt.SetText(txt);
         StartCoroutine(DisableSubtitle(5));
+    }
+
+    void SubTitleDuration()
+    {
+        if(subtitleIsActive)
+        {
+            if(currentTime < subtitleDuration)
+            {
+                currentTime += Time.deltaTime;
+            }
+            else
+            {
+                currentTime = 0;
+                subtitleIsActive = false;
+            }
+        }
     }
 
     IEnumerator DisableSubtitle(float time)
