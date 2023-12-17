@@ -82,10 +82,10 @@ namespace AKVA.Player
             movementVector = orientation.forward * playerInput.z + orientation.right * playerInput.x;
             movementVector.Normalize();
 
-            if (OnSlope())
-            {
-                movementVector = GetSlopeDirection();
-            }
+            // if (OnSlope())
+            // {
+            //     movementVector = GetSlopeDirection();
+            // }
 
             movementVelocity = Vector3.SmoothDamp(
                 movementVelocity,
@@ -93,6 +93,7 @@ namespace AKVA.Player
                 ref moveDampVelocity,
                 moveSmoothTime
             );
+
 
             rb.velocity = new Vector3(movementVelocity.x, rb.velocity.y, movementVelocity.z);
         }
@@ -197,6 +198,12 @@ namespace AKVA.Player
                     transform.TransformDirection(new Vector3(transform.position.x + groundCheckRadius * x,
                         transform.position.y, transform.position.z)), Vector3.down * slopeCheckRayLength);
             }
+        }
+
+
+        public bool IsWalking()
+        {
+            return playerInput.magnitude != 0;
         }
     }
 }

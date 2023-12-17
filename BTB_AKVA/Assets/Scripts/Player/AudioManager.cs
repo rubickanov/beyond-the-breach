@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+using AKVA.Player;
 using UnityEngine;
 
 public class AudioManager : MonoBehaviour
@@ -11,6 +10,10 @@ public class AudioManager : MonoBehaviour
 
     public AudioClip[] robotSounds;
     public AudioClip tabletSound;
+
+    [SerializeField] private FloatReference musicVolume;
+    [SerializeField] private FloatReference sfxVolume;
+    
 
     private void Awake()
     {
@@ -27,5 +30,11 @@ public class AudioManager : MonoBehaviour
     public void PlayOneShotAudio(AudioSource selectedAudioSource, AudioClip clipSoud)
     {
         selectedAudioSource.PlayOneShot(clipSoud);
+    }
+
+
+    public void SFX_PlaySoundAtPoint(AudioClip audioClip, Vector3 point, float volume)
+    {
+        AudioSource.PlayClipAtPoint(audioClip, point, (sfxVolume.value * volume) / 100);
     }
 }
