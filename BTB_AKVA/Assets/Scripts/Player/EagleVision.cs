@@ -1,4 +1,6 @@
+using UnityEditor.Build;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.Serialization;
@@ -20,6 +22,11 @@ namespace AKVA.Player
         [Header("UI")]
         public GameObject enableEagleVision;
 
+        [Header("SFX")]
+        public UnityEvent OnEagleVision;
+        bool isPlaying;
+
+
         [SerializeField] private GameObject eagleVisionPostProcessing;
         
             
@@ -32,6 +39,7 @@ namespace AKVA.Player
         {
             if (Input.GetKey(KeyCode.Tab))
             {
+                PlayEagleVisionSfx();
                 enableEagleVision.SetActive(true);
                 isEagleVision = true;
             }
@@ -47,6 +55,7 @@ namespace AKVA.Player
             }
             else
             {
+                isPlaying = false;
                 DisableEagleVision();
             }
         }
@@ -63,6 +72,15 @@ namespace AKVA.Player
             eagleVisionPostProcessing.SetActive(true);
             data.SetRenderer(eagleRendererIndex);
             data.antialiasing = AntialiasingMode.FastApproximateAntialiasing;
+        }
+
+        void PlayEagleVisionSfx()
+        {
+            if (!isPlaying)
+            {
+                isPlaying = true;
+                OnEagleVision.Invoke();
+            }
         }
     }
 }

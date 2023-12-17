@@ -15,7 +15,15 @@ MonoBehaviour:
   SpeakerOne: {fileID: 11400000, guid: 58dc6532528eb5a48820e42b04c15483, type: 2}
   SpeakerTwo: {fileID: 11400000, guid: 58dc6532528eb5a48820e42b04c15483, type: 2}
   Sentences:
-  - sentenceText: Thank you for saving me.
+  - sentenceText: Was- Was it you who stopped it?
     IsFirstSpeaker: 0
-  - sentenceText: The Passcode is 7890. Go save the others
+  - sentenceText: You are.. like me?
+    IsFirstSpeaker: 0
+  - sentenceText: You broke free..! Thank you.
+    IsFirstSpeaker: 0
+  - sentenceText: There's more. More like us, you and me, but they were taken some
+      place else. Somewhere far more dangerous.
+    IsFirstSpeaker: 0
+  - sentenceText: My circuit might blow if I came with you. The code to the door
+      is (7890). We will catch up with you.
     IsFirstSpeaker: 0

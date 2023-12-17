@@ -13,6 +13,11 @@ public class FinalLevelAlert : MonoBehaviour
     [SerializeField] UnityEvent RedLight;
     [SerializeField] UnityEvent SecurityPA;
 
+    private void Awake()
+    {
+        materialToChange.color = Color.white;
+    }
+
     public void TriggerAlert()
     {
         StartCoroutine(TriggerAlarm());

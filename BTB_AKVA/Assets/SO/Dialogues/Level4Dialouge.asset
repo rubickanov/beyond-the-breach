@@ -22,3 +22,5 @@ MonoBehaviour:
     IsFirstSpeaker: 1
   - sentenceText: The code is (5678).. It can get you through the door next to me.
     IsFirstSpeaker: 1
+  - sentenceText: Now go before they- before they.. (Malfunctions)
+    IsFirstSpeaker: 1
