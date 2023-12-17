@@ -95,6 +95,10 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
                 }
                 SetMovementUI(false);
                 PlayerInput.Instance.DisablePlayerMovement();
+                
+                state.playerTransform.GetComponent<Rigidbody>().velocity = Vector3.zero;
+                state.playerTransform.position =
+                    Vector3.Lerp(state.playerTransform.position, state.room3PlayerPos.position, 1);
 
                 SetScreenImages(state.neuroLabSprite, false);
                 SetScreenImages(state.interactableSprites, true);

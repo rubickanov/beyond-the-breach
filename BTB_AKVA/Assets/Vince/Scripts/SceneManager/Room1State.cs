@@ -64,6 +64,9 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
             {
                 state.room1TutorialMonitor.turnOnTV = true;
                 PlayerInput.Instance.DisablePlayerMovement();
+                state.playerTransform.GetComponent<Rigidbody>().velocity = Vector3.zero;
+                state.playerTransform.position =
+                    Vector3.Lerp(state.playerTransform.position, state.room1PlayerPos.position, 1);
                 SetMovementUI(false);
                 state.StartCoroutine(StartAITask(state, 0));
                 numberSystem = false;

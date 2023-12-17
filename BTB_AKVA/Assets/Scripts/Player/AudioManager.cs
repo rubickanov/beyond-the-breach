@@ -1,3 +1,4 @@
+using AKVA;
 using AKVA.Player;
 using UnityEngine;
 
@@ -14,7 +15,7 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private FloatReference musicVolume;
     [SerializeField] private FloatReference sfxVolume;
     
-
+    
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -24,6 +25,17 @@ public class AudioManager : MonoBehaviour
         else
         {
             Instance = this;
+        }
+        
+    }
+
+    private void Start()
+    {
+        GameObject[] allSFX = GameObject.FindGameObjectsWithTag("SFX");
+        foreach (var sfxSoruce in allSFX)
+        {
+            sfxSoruce.AddComponent<AudioSFX>();
+            
         }
     }
 
@@ -37,4 +49,7 @@ public class AudioManager : MonoBehaviour
     {
         AudioSource.PlayClipAtPoint(audioClip, point, (sfxVolume.value * volume) / 100);
     }
+    
+    
+    
 }

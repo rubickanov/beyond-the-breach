@@ -88,6 +88,9 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
                 }
                 SetMovementUI(false);
                 PlayerInput.Instance.DisablePlayerMovement();
+                state.playerTransform.GetComponent<Rigidbody>().velocity = Vector3.zero;
+                state.playerTransform.position =
+                    Vector3.Lerp(state.playerTransform.position, state.room2PlayerPos.position, 1);
                 state.StartCoroutine(StartAITask(state, 0));
                 playerInPosition = true;
             }

@@ -2406,9 +2406,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d63b6ed298ddff446bae412dc0b0878b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  loadingScreen: {fileID: 0}
   applyFadeOutEffect: 1
   blackBG: {fileID: 52029925}
   fadeOutSpeed: 0.5
+  useBGFade: 1
+  loadSceneTime: 0
 --- !u!4 &1097489181
 Transform:
   m_ObjectHideFlags: 0
