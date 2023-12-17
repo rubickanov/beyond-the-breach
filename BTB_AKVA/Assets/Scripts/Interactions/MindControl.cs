@@ -63,15 +63,16 @@ namespace AKVA.Interaction
             {
                 if (Physics.Raycast(playerCamera.position, playerCamera.forward, out hit, distanceToMindControl))
                 {
-
-                    if (hit.transform.TryGetComponent(out mindControlledObject))
+                    if (hit.transform.TryGetComponent(out mindControlledObject) && mindControlledObject.enabled)
                     {
                         ShowUI(hit);
                         IsActive = true;
                         if (Input.GetKey(PlayerInput.Instance.Controls.mindControl) && canSwap)
                         {
                             PlayerInput.Instance.DisablePlayerMouseInput();
-                            playerCamera.transform.forward = Vector3.Lerp(playerCamera.transform.forward,  (mindControlledObject.transform.position - playerCamera.transform.position) + new Vector3(0, 1.5f, 0), 0.15f);
+                            playerCamera.transform.forward = Vector3.Lerp(playerCamera.transform.forward,
+                                (mindControlledObject.transform.position - playerCamera.transform.position) +
+                                new Vector3(0, 1.5f, 0), 0.15f);
                             timerToMindControl += Time.deltaTime;
                             HackingSFX();
                             if (timerToMindControl >= timeToMindControl)

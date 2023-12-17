@@ -24468,6 +24468,11 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 608152688706170387, guid: 1da11da79921ab242b3d324ba6b5949a,
+        type: 3}
+      propertyPath: soundFX
+      value: 
+      objectReference: {fileID: 1469579954}
     - target: {fileID: 911283374103606290, guid: 1da11da79921ab242b3d324ba6b5949a,
         type: 3}
       propertyPath: m_Name
@@ -24533,6 +24538,26 @@ PrefabInstance:
       propertyPath: m_AnchorMin.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4734237159688258588, guid: 1da11da79921ab242b3d324ba6b5949a,
+        type: 3}
+      propertyPath: soundFX
+      value: 
+      objectReference: {fileID: 1469579954}
+    - target: {fileID: 5043668375838588083, guid: 1da11da79921ab242b3d324ba6b5949a,
+        type: 3}
+      propertyPath: soundFX
+      value: 
+      objectReference: {fileID: 1469579954}
+    - target: {fileID: 5547144595068068388, guid: 1da11da79921ab242b3d324ba6b5949a,
+        type: 3}
+      propertyPath: soundFX
+      value: 
+      objectReference: {fileID: 1469579954}
+    - target: {fileID: 7209484085973211815, guid: 1da11da79921ab242b3d324ba6b5949a,
+        type: 3}
+      propertyPath: soundFX
+      value: 
+      objectReference: {fileID: 1469579954}
     - target: {fileID: 7337694745389012587, guid: 1da11da79921ab242b3d324ba6b5949a,
         type: 3}
       propertyPath: m_Color.g

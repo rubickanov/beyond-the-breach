@@ -1,4 +1,3 @@
-using System;
 using EZCameraShake;
 using UnityEngine;
 using AKVA.Assets.Vince.Scripts.SceneManager;
@@ -41,6 +40,7 @@ namespace AKVA.Player
             if (!PlayerPrefs.HasKey("MainSceneUnlocked"))
             {
                 PlayerPrefs.SetInt("MainSceneUnlocked", 1);
+                PlayerPrefs.Save();
             }
         }
 
