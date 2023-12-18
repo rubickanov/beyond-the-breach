@@ -126,6 +126,9 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
                     state.OnSuccess.Invoke();
                     SetMovementUI(false);
                     PlayerInput.Instance.DisablePlayerMovement();
+                    state.playerTransform.GetComponent<Rigidbody>().velocity = Vector3.zero;
+                    state.playerTransform.position =
+                        Vector3.Lerp(state.playerTransform.position, state.room2PlayerPos.position, 1);
                     state.StartCoroutine(LineUP(state));
                     taskDone[3] = true;
                 }

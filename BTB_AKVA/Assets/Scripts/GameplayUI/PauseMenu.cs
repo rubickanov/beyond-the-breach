@@ -30,6 +30,7 @@ public class PauseMenu : MonoBehaviour
         
         exitButton.onClick.AddListener(QuitToMainMenu);
         
+        CloseOptionsMenu();
         ResumeGame();
     }
 
@@ -79,6 +80,11 @@ public class PauseMenu : MonoBehaviour
     {
         pauseUI.SetActive(false);
         optionsUI.SetActive(true);
+    }
+
+    private void CloseOptionsMenu()
+    {
+        optionsUI.SetActive(false);
     }
 
     private void QuitToMainMenu()

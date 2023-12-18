@@ -15,7 +15,8 @@ namespace AKVA.Player
 
         private float xRotation;
         private float yRotation;
-
+        
+        
 
         private void Start()
         {
@@ -44,7 +45,7 @@ namespace AKVA.Player
                 transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(xRotation, yRotation, 0f),
                     cameraSmoothness);
             }
-            else
+            else if (smoothnessMethod == SmoothnessMethod.None)
             {
                 transform.rotation = Quaternion.Euler(xRotation, yRotation, 0f);
             }
@@ -62,6 +63,6 @@ namespace AKVA.Player
     {
         None,
         Lerp,
-        Slerp
+        Slerp,
     }
 }

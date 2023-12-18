@@ -4,7 +4,7 @@ namespace AKVA.Player
 {
     public class PlayerMovement : MonoBehaviour
     {
-        [SerializeField] private Transform orientation;
+        public Transform orientation;
 
         [Header("MOVEMENT PROPERTIES")] [SerializeField]
         private float walkSpeed;

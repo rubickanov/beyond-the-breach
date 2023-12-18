@@ -8,6 +8,7 @@ namespace AKVA
 {
     public class MainMenuManager : MonoBehaviour
     {
+        [SerializeField] private GameObject optionsUI;
         [SerializeField] private AudioSource audioSource;
         [SerializeField] private Button quitButton;
         [SerializeField] private Button continueButton; 
@@ -18,6 +19,7 @@ namespace AKVA
 
         private void Start()
         {
+            optionsUI.SetActive(false);
             quitButton.onClick.AddListener(QuitGame);
 
 

@@ -24,7 +24,7 @@ namespace AKVA.Interaction
         private void Update()
         {
             PlayerInput.Instance.DisablePlayerInput();
-             UpdateSlider();
+            UpdateSlider();
         }
 
         private void UpdateSlider()

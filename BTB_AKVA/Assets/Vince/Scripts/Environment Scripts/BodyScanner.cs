@@ -170,7 +170,7 @@ namespace AKVA.Assets.Vince.Scripts.Environment
         {
             if (startPlayerScan)
             {
-                float playerRotationY = player.transform.rotation.eulerAngles.y;
+                float playerRotationY = player.GetComponent<PlayerOrientationGetterHotfix>().orientation.transform.eulerAngles.y;
                 if (!successfulScan[0])
                 {
                     StartCoroutine(BeginPlayerScan(3, 0));

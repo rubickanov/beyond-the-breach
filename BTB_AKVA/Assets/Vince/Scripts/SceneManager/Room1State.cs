@@ -104,6 +104,9 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
                 {
                     SetMovementUI(false);
                     PlayerInput.Instance.DisablePlayerMovement();
+                    state.playerTransform.GetComponent<Rigidbody>().velocity = Vector3.zero;
+                    state.playerTransform.position =
+                        Vector3.Lerp(state.playerTransform.position, state.room1PlayerPos.position, 1);
                     state.OnSuccess.Invoke();
                     interaction = false;
                     state.StartCoroutine(LineUP(state));

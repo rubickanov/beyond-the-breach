@@ -7,8 +7,6 @@ namespace AKVA.Player
         private Animator animator;
         private PlayerMovement movement;
 
-        [SerializeField] private float isWalkingThreshold;
-
         private const string IS_WALKING = "IsWalking";
 
         private void Start()
