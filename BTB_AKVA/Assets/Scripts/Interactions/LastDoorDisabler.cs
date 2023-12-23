@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace AKVA.Interaction
 {
-    public class LastCheckpointDoorHotfix : MonoBehaviour
+    public class LastDoorDisabler : MonoBehaviour
     {
         private MindControl mindControl;
         private Switch switchScript;
@@ -24,8 +24,8 @@ namespace AKVA.Interaction
                 {
                     if (mindControl.isControlling)
                     {
-                        switchScript.OnSwitchUp.AddListener(OpenDoor);
-                        switchScript.OnSwitchDown.AddListener(CloseDoor); 
+                        switchScript.OnSwitchUp.AddListener(EnableDoor);
+                        switchScript.OnSwitchDown.AddListener(DisableDoor); 
                     }
                 }
             }
@@ -45,14 +45,14 @@ namespace AKVA.Interaction
             }
         }
 
-        private void CloseDoor()
-        {
-            door.enabled = false;
-        }
-
-        private void OpenDoor()
+        private void EnableDoor()
         {
             door.enabled = true;
+        }
+
+        private void DisableDoor()
+        {
+            door.enabled = false;
         }
     }
 }
