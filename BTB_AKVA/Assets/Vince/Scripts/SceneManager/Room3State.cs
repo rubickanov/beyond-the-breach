@@ -2,16 +2,9 @@ using AKVA.Assets.Vince.Scripts.AI;
 using AKVA.Assets.Vince.Scripts.Environment;
 using AKVA.Player;
 using EZCameraShake;
-using PlasticGui.WorkspaceWindow.BranchExplorer;
-using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Resources;
-using System.Threading;
 using TMPro;
-using UnityEditorInternal;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 
 namespace AKVA.Assets.Vince.Scripts.SceneManager
@@ -95,6 +88,10 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
                 }
                 SetMovementUI(false);
                 PlayerInput.Instance.DisablePlayerMovement();
+                
+                state.playerTransform.GetComponent<Rigidbody>().velocity = Vector3.zero;
+                state.playerTransform.position =
+                    Vector3.Lerp(state.playerTransform.position, state.room3PlayerPos.position, 1);
 
                 SetScreenImages(state.neuroLabSprite, false);
                 SetScreenImages(state.interactableSprites, true);
@@ -217,6 +214,7 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
             state.AlarmSound.Invoke();
 
             yield return new WaitForSeconds(3f);
+            SubtitleManager.Instance.PlayPublicAnnoucememnt("Instructor:", "Anomaly detected in NeuroSystem. Error correction initiated. Commencing system diagnostics and force shutdown for resolution.", 10f);
             state.ForceShutdownAudio.Invoke();
 
             yield return new WaitForSeconds(5f);

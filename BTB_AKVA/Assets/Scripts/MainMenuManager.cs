@@ -1,17 +1,14 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using AKVA.Player;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace AKVA
 {
     public class MainMenuManager : MonoBehaviour
     {
+        [SerializeField] private GameObject optionsUI;
         [SerializeField] private AudioSource audioSource;
         [SerializeField] private Button quitButton;
         [SerializeField] private Button continueButton; 
@@ -22,10 +19,11 @@ namespace AKVA
 
         private void Start()
         {
+            optionsUI.SetActive(false);
             quitButton.onClick.AddListener(QuitGame);
 
 
-            if (!PlayerPrefs.HasKey("MainSceneUnlocked") || ImitateFirstTime)
+            if (!PlayerPrefs.HasKey("MainSceneUnlocked"))
             {
                 Debug.Log("PLAYER PREF HAS NOT BEEN FOUND");
                 continueButton.interactable = false;

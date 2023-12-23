@@ -1,13 +1,8 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using AKVA.Player;
 using AKVA.Assets.Vince.Scripts.AI;
 using AKVA.Assets.Vince.Scripts.Environment;
-using PlasticGui.WorkspaceWindow;
-using UnityEditor;
-using UnityEditor.Build;
 using TMPro;
 
 namespace AKVA.Assets.Vince.Scripts.SceneManager
@@ -64,6 +59,9 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
             {
                 state.room1TutorialMonitor.turnOnTV = true;
                 PlayerInput.Instance.DisablePlayerMovement();
+                state.playerTransform.GetComponent<Rigidbody>().velocity = Vector3.zero;
+                state.playerTransform.position =
+                    Vector3.Lerp(state.playerTransform.position, state.room1PlayerPos.position, 1);
                 SetMovementUI(false);
                 state.StartCoroutine(StartAITask(state, 0));
                 numberSystem = false;
@@ -106,6 +104,9 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
                 {
                     SetMovementUI(false);
                     PlayerInput.Instance.DisablePlayerMovement();
+                    state.playerTransform.GetComponent<Rigidbody>().velocity = Vector3.zero;
+                    state.playerTransform.position =
+                        Vector3.Lerp(state.playerTransform.position, state.room1PlayerPos.position, 1);
                     state.OnSuccess.Invoke();
                     interaction = false;
                     state.StartCoroutine(LineUP(state));

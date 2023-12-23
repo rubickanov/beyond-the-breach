@@ -54,7 +54,7 @@ namespace AKVA.Assets.Vince.Scripts.Environment
 
         private void OnCollisionEnter(Collision collision)
         {
-            if (collision.gameObject.tag == "Battery")
+            if (collision.gameObject.tag == "Battery" && battery == null)
             {
                 if (isColored && socketMaterial.name == collision.gameObject.GetComponent<Renderer>().material.name)
                 {
@@ -75,7 +75,7 @@ namespace AKVA.Assets.Vince.Scripts.Environment
 
         private void OnCollisionExit(Collision collision)
         {
-            if (collision.gameObject.tag == "Battery")
+            if (collision.gameObject.tag == "Battery" && battery != null)
             {
                 onBatteryRemoved?.Invoke();
                 OnSocketDisabled.Invoke();

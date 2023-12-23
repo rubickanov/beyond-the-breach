@@ -60,6 +60,8 @@ namespace AKVA.Assets.Vince.Scripts.Environment
                     button.onBatteryRemoved -= DeactivateDoor;
                 }
             }
+
+            slidingDoor.localPosition = new Vector3(doorInitPos, 0f, 0f);
         }
 
         private void Update()
@@ -204,5 +206,7 @@ namespace AKVA.Assets.Vince.Scripts.Environment
             Gizmos.color = Color.red;
             Gizmos.DrawWireCube(detectionPos.position, Vector3.one * boxDetectionSize);
         }
+        
+        
     }
 }

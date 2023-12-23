@@ -1,11 +1,7 @@
 using AKVA.Vince.SO;
-using Codice.CM.WorkspaceServer.Tree;
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq.Expressions;
 using UnityEngine;
 using UnityEngine.Events;
-using static UnityEditor.Experimental.GraphView.GraphView;
 
 namespace AKVA.Assets.Vince.Scripts.Environment
 {
@@ -174,7 +170,7 @@ namespace AKVA.Assets.Vince.Scripts.Environment
         {
             if (startPlayerScan)
             {
-                float playerRotationY = player.transform.rotation.eulerAngles.y;
+                float playerRotationY = player.GetComponent<PlayerOrientationGetterHotfix>().orientation.transform.eulerAngles.y;
                 if (!successfulScan[0])
                 {
                     StartCoroutine(BeginPlayerScan(3, 0));

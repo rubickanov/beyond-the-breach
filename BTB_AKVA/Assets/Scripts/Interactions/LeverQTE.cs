@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 namespace AKVA.Interaction
 {
@@ -15,9 +16,16 @@ namespace AKVA.Interaction
         [SerializeField] GameObject playerFinalCamera;
         [SerializeField] float rotationForce = 0.1f;
         [SerializeField] AudioSource gateAudioSource;
+        [SerializeField] AudioSource sfxAudioSource;
+        [SerializeField] AudioSource musicAudioSource;
+        [SerializeField] AudioClip endingMusic;
         [SerializeField] AudioClip gateForceOpening;
+        [SerializeField] Image titleImage;
+        [SerializeField] float fadeInLogoSpeed;
+        float currentAlpha;
+        float targetSfxVolume = 0.062f;
         bool disabled;
-
+        bool sfxLowVolume;
         //Sound Timer
         float maxTimeToResetSound = 2f;
         float currentSoundTime;
@@ -25,6 +33,7 @@ namespace AKVA.Interaction
         bool soundIsPlaying;
         void OnEnable()
         {
+            EnableEndingMusic();
             leverTransform.Rotate(new Vector3(-99, 0f, 0f));
         }
         void Update()
@@ -34,6 +43,12 @@ namespace AKVA.Interaction
                 leverTransform.Rotate(new Vector3(-0.1f, 0f, 0f));
             }
             PlayGateCreachingSound();
+
+            if (sfxLowVolume)
+            {
+                sfxAudioSource.volume = targetSfxVolume;
+            }
+
         }
         public void ForceRotate()
         {
@@ -47,7 +62,7 @@ namespace AKVA.Interaction
             if (!disabled)
             {
                 playerFinalCamera.SetActive(true);
-                if(Camera.main != null)
+                if (Camera.main != null)
                 {
                     Camera.main.gameObject.SetActive(false);
                     finalLevelQTE.SetActive(true);
@@ -86,6 +101,36 @@ namespace AKVA.Interaction
         public void DisableLever()
         {
             disabled = true;
+        }
+
+        void EnableEndingMusic()
+        {
+            musicAudioSource.Stop();
+            musicAudioSource.clip = endingMusic;
+            musicAudioSource.Play();
+            StartCoroutine(LowerSFXVolume());
+        }
+
+        IEnumerator LowerSFXVolume()
+        {
+            yield return new WaitForSeconds(4f);
+            sfxLowVolume = true;
+        }
+
+        public void ShowGameTitle()
+        {
+            StartCoroutine(FadeInGameTitleLogo());
+        }
+
+        IEnumerator FadeInGameTitleLogo()
+        {
+            yield return new WaitForSeconds(5f);
+            while(titleImage.color.a < 1)
+            {
+                yield return null;
+                currentAlpha += Time.deltaTime * fadeInLogoSpeed;
+                titleImage.color = new Color(titleImage.color.r, titleImage.color.b, titleImage.color.g, currentAlpha);
+            }
         }
     }
 }

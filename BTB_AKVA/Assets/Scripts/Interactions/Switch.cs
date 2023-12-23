@@ -9,8 +9,8 @@ namespace AKVA.Interaction
     {
         [SerializeField] bool Interacted;
         [SerializeField] Transform armRoot;
-        [SerializeField] UnityEvent OnSwitchUp;
-        [SerializeField] UnityEvent OnSwitchDown;
+        [SerializeField] public UnityEvent OnSwitchUp;
+        [SerializeField] public UnityEvent OnSwitchDown;
         [SerializeReference] float interactionCooldownDuration = 1.0f;
         [SerializeField] Renderer[] deviceMat;
         public bool powerOn;

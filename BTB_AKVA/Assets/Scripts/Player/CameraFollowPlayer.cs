@@ -8,7 +8,7 @@ namespace AKVA.Player
 
         private void Update()
         {
-            transform.position = Vector3.Lerp(transform.position, cameraPos.position, 0.5f);
+            transform.position = Vector3.Lerp(transform.position,cameraPos.position, 0.6f);
         }
     }
 }
