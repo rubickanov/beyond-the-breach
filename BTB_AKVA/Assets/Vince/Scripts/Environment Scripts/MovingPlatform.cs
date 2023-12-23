@@ -13,12 +13,35 @@ namespace AKVA.Assets.Vince.Scripts.Environment
         public UnityEvent OnMove;
 
         bool movementInvoked;
-        private Rigidbody rb;   
+        private Rigidbody rb;
+
+        private Transform playerTransform;
+        private Collider col;
+
+        [SerializeField] private GameObject underPlatformCollider;
 
         private void Awake()
         {
             rb = GetComponent<Rigidbody>();
             initPos = transform.position;
+        }
+
+        private void Start()
+        {
+            playerTransform = GameObject.FindWithTag("Player").GetComponent<Transform>();
+            col = GetComponent<Collider>();
+        }
+
+        private void Update()
+        {
+            if (transform.position != initPos)
+            {
+                underPlatformCollider.SetActive(true);
+            }
+            else
+            {
+                underPlatformCollider.SetActive(false);
+            }
         }
 
         void FixedUpdate()
