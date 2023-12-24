@@ -1,8 +1,5 @@
 using AKVA.Assets.Vince.Scripts.Astar;
 using AKVA.Vince.SO;
-using Codice.Client.BaseCommands.BranchExplorer;
-using log4net.Appender;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -19,6 +16,7 @@ namespace AKVA.Assets.Vince.Scripts.AI
         [Header("Movement")]
         [SerializeField] Transform[] wayPoints;
         [SerializeField] bool enablePatrol;
+        public MoveAIWithAStar astar;
 
         [Header("Interaction")]
         [SerializeField] Transform visionPos;

@@ -1,7 +1,6 @@
 using AKVA.Animations;
 using AKVA.Assets.Vince.Scripts.Astar;
 using AKVA.Vince.SO;
-using Codice.Client.Common.TreeGrouper;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -18,6 +17,7 @@ namespace AKVA.Assets.Vince.Scripts.AI
         ScientistAIAnim anim;
         BoolReference objToGuard;
         ScientistBT sciBT;
+        MoveAIWithAStar astar;
         bool patrol;
         public BTPatrol(Transform currentTransform, Transform[] wayPoints, BoolReference objToGuard, bool patrol)
         {
@@ -28,6 +28,7 @@ namespace AKVA.Assets.Vince.Scripts.AI
             this.objToGuard = objToGuard;
             this.patrol = patrol;
             sciBT = currentTransform.GetComponent<ScientistBT>();
+            astar = sciBT.astar;
         }
         public override NodeState Execute()
         {
@@ -45,13 +46,13 @@ namespace AKVA.Assets.Vince.Scripts.AI
                 }
 
                 //Looking at the vending machine
-                if(patrol && Vector3.Distance(currentTransform.position, wayPoints[0].position) <= 1){
-                    currentTransform.rotation = Quaternion.Euler(0f,90f,0f);
-                }else if(patrol && Vector3.Distance(currentTransform.position, wayPoints[1].position) <= 1f)
-                {
-                    currentTransform.rotation = Quaternion.Euler(0f, 90f, 0f);
-                    //currentTransform.GetComponent<ScientistBT>().StartCoroutine(RotateDelay(180f));
-                }
+                //if(patrol && Vector3.Distance(currentTransform.position, wayPoints[0].position) <= 1){
+                //    currentTransform.rotation = Quaternion.Euler(0f,90f,0f);
+                //}else if(patrol && Vector3.Distance(currentTransform.position, wayPoints[1].position) <= 1f)
+                //{
+                //    currentTransform.rotation = Quaternion.Euler(0f, 90f, 0f);
+                //    //currentTransform.GetComponent<ScientistBT>().StartCoroutine(RotateDelay(180f));
+                //}
 
                 if (patrol && !aiMoved)
                 {
@@ -89,7 +90,8 @@ namespace AKVA.Assets.Vince.Scripts.AI
             yield return new WaitForSeconds(timeDelay);
             sciBT.angleToDetect = sciBT.initAngleToDetect;
             anim.ChangeAnimState(anim.Robot_Walk);
-            moveAI.FindPath(wayPoints[targetIndex]);
+            //moveAI.FindPath(wayPoints[targetIndex]);
+            astar.MoveAI(wayPoints[targetIndex]);
         }
 
         IEnumerator RotateDelay(float yRotation)

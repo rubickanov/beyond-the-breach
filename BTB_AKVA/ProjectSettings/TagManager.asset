@@ -11,6 +11,7 @@ TagManager:
   - Robot
   - Junk
   - SFX
+  - Unwalkable
   layers:
   - Default
   - TransparentFX

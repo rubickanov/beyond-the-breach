@@ -1,11 +1,9 @@
 using AKVA.Animations;
 using AKVA.Assets.Vince.Scripts.Astar;
 using AKVA.Assets.Vince.Scripts.Environment;
-using Codice.CM.Common.Tree;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
 
 namespace AKVA.Assets.Vince.Scripts.AI
 {
