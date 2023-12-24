@@ -1,4 +1,5 @@
 using System;
+using AKVA;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -29,6 +30,7 @@ public class PauseMenu : MonoBehaviour
         
         exitButton.onClick.AddListener(QuitToMainMenu);
         
+        CloseOptionsMenu();
         ResumeGame();
     }
 
@@ -71,13 +73,18 @@ public class PauseMenu : MonoBehaviour
 
     private void RestartGame()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        SceneLoader.Instance.LoadLevelWithLoadingScreen(SceneManager.GetActiveScene().buildIndex);
     }
 
     private void ShowOptionsMenu()
     {
         pauseUI.SetActive(false);
         optionsUI.SetActive(true);
+    }
+
+    private void CloseOptionsMenu()
+    {
+        optionsUI.SetActive(false);
     }
 
     private void QuitToMainMenu()

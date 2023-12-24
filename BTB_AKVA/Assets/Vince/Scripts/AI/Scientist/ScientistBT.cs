@@ -1,4 +1,3 @@
-using AKVA.Assets.Vince.Scripts.Astar;
 using AKVA.Vince.SO;
 using System.Collections.Generic;
 using UnityEngine;

@@ -85,7 +85,7 @@ namespace AKVA.Assets.Vince.Scripts.Environment
 
         public void ForceOpenDoor()
         {
-            gate.transform.localPosition += new Vector3(0f, forceOpenStrength * Time.deltaTime, 0f);
+            gate.transform.localPosition += new Vector3(0f, forceOpenStrength, 0f);
         }
 
         public void SetGate(bool value)

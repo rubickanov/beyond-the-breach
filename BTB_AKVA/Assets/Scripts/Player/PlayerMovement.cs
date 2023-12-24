@@ -4,7 +4,7 @@ namespace AKVA.Player
 {
     public class PlayerMovement : MonoBehaviour
     {
-        [SerializeField] private Transform orientation;
+        public Transform orientation;
 
         [Header("MOVEMENT PROPERTIES")] [SerializeField]
         private float walkSpeed;
@@ -53,7 +53,6 @@ namespace AKVA.Player
         private void Update()
         {
             HandlePlayerInput();
-
         }
 
         private void FixedUpdate()
@@ -63,7 +62,6 @@ namespace AKVA.Player
 
         private void HandleGravity()
         {
-            //if(OnSlope()) return;
 
             if (IsGrounded)
             {
@@ -79,14 +77,8 @@ namespace AKVA.Player
 
         private void HandleMovement()
         {
-            //transform.forward = orientation.forward;
             movementVector = orientation.forward * playerInput.z + orientation.right * playerInput.x;
             movementVector.Normalize();
-
-            if (OnSlope())
-            {
-                movementVector = GetSlopeDirection();
-            }
 
             movementVelocity = Vector3.SmoothDamp(
                 movementVelocity,
@@ -94,6 +86,7 @@ namespace AKVA.Player
                 ref moveDampVelocity,
                 moveSmoothTime
             );
+
 
             rb.velocity = new Vector3(movementVelocity.x, rb.velocity.y, movementVelocity.z);
         }
@@ -198,6 +191,12 @@ namespace AKVA.Player
                     transform.TransformDirection(new Vector3(transform.position.x + groundCheckRadius * x,
                         transform.position.y, transform.position.z)), Vector3.down * slopeCheckRayLength);
             }
+        }
+
+
+        public bool IsWalking()
+        {
+            return playerInput.magnitude != 0;
         }
     }
 }

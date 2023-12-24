@@ -6,9 +6,9 @@ namespace AKVA.Player
     {
         [SerializeField] private Transform cameraPos;
 
-        private void LateUpdate()
+        private void Update()
         {
-            transform.position = cameraPos.position;
+            transform.position = Vector3.Lerp(transform.position,cameraPos.position, 0.6f);
         }
     }
 }

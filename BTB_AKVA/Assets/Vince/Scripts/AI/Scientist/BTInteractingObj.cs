@@ -1,8 +1,5 @@
 using AKVA.Animations;
-using AKVA.Assets.Vince.Scripts.Astar;
-using AKVA.Assets.Vince.Scripts.Environment;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace AKVA.Assets.Vince.Scripts.AI

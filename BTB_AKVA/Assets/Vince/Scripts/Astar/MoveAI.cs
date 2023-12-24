@@ -17,10 +17,6 @@ namespace AKVA.Assets.Vince.Scripts.Astar
             initY = transform.position.y;
         }
 
-        private void Update()
-        {
-        }
-
         public void FindPath(Transform target)
         {
             PathRequestManager.RequestPath(transform.position, target.position, OnPathFound);
