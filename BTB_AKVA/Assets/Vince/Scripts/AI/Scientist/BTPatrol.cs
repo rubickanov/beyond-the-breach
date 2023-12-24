@@ -45,13 +45,15 @@ namespace AKVA.Assets.Vince.Scripts.AI
                 }
 
                 //Looking at the vending machine
-                //if(patrol && Vector3.Distance(currentTransform.position, wayPoints[0].position) <= 1){
-                //    currentTransform.rotation = Quaternion.Euler(0f,90f,0f);
-                //}else if(patrol && Vector3.Distance(currentTransform.position, wayPoints[1].position) <= 1f)
-                //{
-                //    currentTransform.rotation = Quaternion.Euler(0f, 90f, 0f);
-                //    //currentTransform.GetComponent<ScientistBT>().StartCoroutine(RotateDelay(180f));
-                //}
+                if (patrol && Vector3.Distance(currentTransform.position, wayPoints[0].position) <= 1)
+                {
+                    currentTransform.rotation = Quaternion.Euler(0f, 90f, 0f);
+                }
+                else if (patrol && Vector3.Distance(currentTransform.position, wayPoints[1].position) <= 1f)
+                {
+                    currentTransform.rotation = Quaternion.Euler(0f, 90f, 0f);
+                    currentTransform.GetComponent<ScientistBT>().StartCoroutine(RotateDelay(180f));
+                }
 
                 if (patrol && !aiMoved)
                 {
@@ -89,8 +91,8 @@ namespace AKVA.Assets.Vince.Scripts.AI
             yield return new WaitForSeconds(timeDelay);
             sciBT.angleToDetect = sciBT.initAngleToDetect;
             anim.ChangeAnimState(anim.Robot_Walk);
-            //moveAI.FindPath(wayPoints[targetIndex]);
-            astar.MoveAI(wayPoints[targetIndex]);
+            moveAI.FindPath(wayPoints[targetIndex]);
+            //astar.MoveAI(wayPoints[targetIndex]);
         }
 
         IEnumerator RotateDelay(float yRotation)
