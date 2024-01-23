@@ -26,6 +26,7 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
         bool aiActive; //Initiates the AI task
         bool enableAI; //Initiate Each AI to be activated
         bool[] taskDone;
+
         public override void OnEnterState(SceneStateManager state)
         {
             this.state = state;
@@ -55,13 +56,18 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
 
         private void CheckIfPlayerIsInThePlaceHolder(SceneStateManager state)
         {
-            if (Vector3.Distance(state.playerTransform.position, state.room1PlayerPos.position) < 1.5f && !playerInPosition) // if player has positioned to its place holder
+            if (Vector3.Distance(state.playerTransform.position, state.room1PlayerPos.position) < 1.5f &&
+                !playerInPosition) // if player has positioned to its place holder
             {
                 state.room1TutorialMonitor.turnOnTV = true;
                 PlayerInput.Instance.DisablePlayerMovement();
                 state.playerTransform.GetComponent<Rigidbody>().velocity = Vector3.zero;
                 state.playerTransform.position =
                     Vector3.Lerp(state.playerTransform.position, state.room1PlayerPos.position, 1);
+                foreach (var box in state.room1Boxes.Items)
+                {
+                    box.GetComponent<Rigidbody>().isKinematic = false;
+                }
                 SetMovementUI(false);
                 state.StartCoroutine(StartAITask(state, 0));
                 numberSystem = false;
@@ -72,6 +78,7 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
                     state.StartCoroutine(InteractionAnimTxt(state));
                     interactionAnim = true;
                 }
+
                 playerInPosition = true;
             }
         }
@@ -100,7 +107,9 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
                     taskDone[2] = true;
                     SetMovementUI(true);
                 }
-                else if (GetNumberOfActiveSockets(state) == 4 && Vector3.Distance(state.playerTransform.position, state.room1PlayerPos.position) < 1.5f && !taskDone[4])
+                else if (GetNumberOfActiveSockets(state) == 4 &&
+                         Vector3.Distance(state.playerTransform.position, state.room1PlayerPos.position) < 1.5f &&
+                         !taskDone[4])
                 {
                     SetMovementUI(false);
                     PlayerInput.Instance.DisablePlayerMovement();
@@ -112,7 +121,8 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
                     state.StartCoroutine(LineUP(state));
                     taskDone[4] = true;
                 }
-                else if (taskDone[4] && !taskDone[5] && Vector3.Distance(state.playerTransform.position, state.room1PlayerPos2.position) < 1f)
+                else if (taskDone[4] && !taskDone[5] &&
+                         Vector3.Distance(state.playerTransform.position, state.room1PlayerPos2.position) < 1f)
                 {
                     state.room1TutorialMonitor.ProceedToNextRoomText();
                     state.room1Door.EnableDoor = true;
@@ -124,6 +134,7 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
                         ai.currentTarget = ai.pathPoints[ai.targetIndex];
                         state.StartCoroutine(ProceedToNextRoom(state, ai));
                     }
+
                     taskDone[5] = true;
                 }
             }
@@ -141,6 +152,7 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
                 ai.SwitchState(ai.moveState);
                 yield return new WaitForSeconds(lineUpDelay);
             }
+
             SetMovementUI(true);
             PlayerInput.Instance.EnablePlayerInput();
         }
@@ -165,6 +177,7 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
                     activeSockets++;
                 }
             }
+
             return activeSockets;
         }
 
@@ -187,8 +200,10 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
                     systemTxt.SetText("CHECKING INTERACTION SYSTEM");
                     dotNum2 = 0;
                 }
+
                 dotNum2++;
             }
+
             systemTxt.color = Color.green;
             systemTxt.SetText("INTERACTION SYSTEM SUCCESS");
         }
@@ -211,8 +226,10 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
                     systemTxt.SetText("NUMBER RECOGNITION SYSTEM");
                     dotNum1 = 0;
                 }
+
                 dotNum1++;
             }
+
             systemTxt.SetText("NUMBER RECOGNITION SUCCESS");
         }
 

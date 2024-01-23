@@ -5361,6 +5361,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8964497620253708474, guid: b28c1c51d5261e9478e901a61153e52a,
+        type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -5402,7 +5407,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19e8570b44032c043b3fa9903354e90a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  runtimeList: {fileID: 11400000, guid: 7e9869224b204c64a896b4e9adec0f86, type: 2}
+  runtimeList: {fileID: 11400000, guid: 96eb17e3aa841f246871d889ab26ec8e, type: 2}
 --- !u!114 &291688993
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5590,6 +5595,7 @@ MonoBehaviour:
     type: 2}
   room2PlayerPos: {fileID: 4974251100227902}
   room2PlayerPos2: {fileID: 740619987}
+  room2Boxes: {fileID: 11400000, guid: 96eb17e3aa841f246871d889ab26ec8e, type: 2}
   room2Buttons: {fileID: 11400000, guid: b62d45560db8388409001cb6887c363e, type: 2}
   room2Door: {fileID: 1324020841}
   aiPos: {fileID: 0}
@@ -7105,6 +7111,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8964497620253708474, guid: b28c1c51d5261e9478e901a61153e52a,
+        type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -10962,10 +10973,20 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 291688985}
     m_Modifications:
+    - target: {fileID: 1852560990662802211, guid: 7026c0d2c8d6c1341b089d5c998c605e,
+        type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
     - target: {fileID: 2911736681048087775, guid: 7026c0d2c8d6c1341b089d5c998c605e,
         type: 3}
       propertyPath: m_Name
       value: ObjUICanvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 2911736681048087775, guid: 7026c0d2c8d6c1341b089d5c998c605e,
+        type: 3}
+      propertyPath: m_Layer
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 3072610000180650827, guid: 7026c0d2c8d6c1341b089d5c998c605e,
         type: 3}
@@ -11066,6 +11087,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5669861133346198124, guid: 7026c0d2c8d6c1341b089d5c998c605e,
+        type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 7291657669302582574, guid: 7026c0d2c8d6c1341b089d5c998c605e,
+        type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 7414108074670960672, guid: 7026c0d2c8d6c1341b089d5c998c605e,
+        type: 3}
+      propertyPath: m_Layer
+      value: 13
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -11495,6 +11531,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8964497620253708474, guid: b28c1c51d5261e9478e901a61153e52a,
+        type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -11528,7 +11569,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19e8570b44032c043b3fa9903354e90a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  runtimeList: {fileID: 11400000, guid: 7e9869224b204c64a896b4e9adec0f86, type: 2}
+  runtimeList: {fileID: 11400000, guid: 96eb17e3aa841f246871d889ab26ec8e, type: 2}
 --- !u!1 &843695030
 GameObject:
   m_ObjectHideFlags: 0
@@ -11802,6 +11843,11 @@ PrefabInstance:
       propertyPath: batteryOnHand
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8964497620253708474, guid: b28c1c51d5261e9478e901a61153e52a,
+        type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -11835,7 +11881,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19e8570b44032c043b3fa9903354e90a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  runtimeList: {fileID: 11400000, guid: 7e9869224b204c64a896b4e9adec0f86, type: 2}
+  runtimeList: {fileID: 11400000, guid: 96eb17e3aa841f246871d889ab26ec8e, type: 2}
 --- !u!1001 &855903040
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -20258,6 +20304,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8964497620253708474, guid: b28c1c51d5261e9478e901a61153e52a,
+        type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -20291,7 +20342,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19e8570b44032c043b3fa9903354e90a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  runtimeList: {fileID: 11400000, guid: 7e9869224b204c64a896b4e9adec0f86, type: 2}
+  runtimeList: {fileID: 11400000, guid: 96eb17e3aa841f246871d889ab26ec8e, type: 2}
 --- !u!1001 &1525231413
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -22985,6 +23036,11 @@ PrefabInstance:
       propertyPath: m_UseGravity
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8964497620253708474, guid: b28c1c51d5261e9478e901a61153e52a,
+        type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -23503,6 +23559,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8964497620253708474, guid: b28c1c51d5261e9478e901a61153e52a,
+        type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -25960,6 +26021,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8964497620253708474, guid: b28c1c51d5261e9478e901a61153e52a,
+        type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
