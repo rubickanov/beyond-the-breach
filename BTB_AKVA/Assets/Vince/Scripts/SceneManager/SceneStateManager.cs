@@ -61,6 +61,7 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
 
         [Header("Room 2 Scene")]
         public Transform room2PlayerPos, room2PlayerPos2;
+        public RuntimeList room2Boxes;
         public RuntimeList room2Buttons;
         public DoubleDoor room2Door;
         [HideInInspector] public Transform aiPos;
