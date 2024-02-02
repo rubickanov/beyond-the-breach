@@ -19,6 +19,8 @@ namespace AKVA
 
         private void Start()
         {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
             optionsUI.SetActive(false);
             quitButton.onClick.AddListener(QuitGame);
 
