@@ -2,6 +2,8 @@ using AKVA.Player;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace AKVA
@@ -11,7 +13,8 @@ namespace AKVA
         [SerializeField] private GameObject optionsUI;
         [SerializeField] private AudioSource audioSource;
         [SerializeField] private Button quitButton;
-        [SerializeField] private Button continueButton; 
+        [SerializeField] private Button skipTutorialButton;
+        [SerializeField] private Button continueButton;
         
         [SerializeField] private FloatReference bgMusicVolume;
 
@@ -28,17 +31,30 @@ namespace AKVA
             if (!PlayerPrefs.HasKey("MainSceneUnlocked"))
             {
                 Debug.Log("PLAYER PREF HAS NOT BEEN FOUND");
+                skipTutorialButton.interactable = false;
+                skipTutorialButton.GetComponentInChildren<TextMeshProUGUI>().color = Color.gray;
+                skipTutorialButton.GetComponent<EventTrigger>().enabled = false;
+            }
+
+            if (!SaveSystem.Instance.IsSaved)
+            {
                 continueButton.interactable = false;
                 continueButton.GetComponentInChildren<TextMeshProUGUI>().color = Color.gray;
                 continueButton.GetComponent<EventTrigger>().enabled = false;
             }
+        }
+        
+        public void LoadSavedGame()
+        {
+            SaveSystem.Instance.LoadGame();
+            SceneManager.LoadScene(2);
         }
 
         private void Update()
         {
             audioSource.volume = bgMusicVolume.value / 100f;
         }
-        
+
         
 
         private void QuitGame()

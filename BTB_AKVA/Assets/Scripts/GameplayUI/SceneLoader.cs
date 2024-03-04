@@ -51,6 +51,11 @@ namespace AKVA
             }
         }
 
+        public void ContinueGame()
+        {
+            
+        }
+        
         IEnumerator FadeOutEffect(string sceneName)
         {
             while(blackBG.color.a < 1)

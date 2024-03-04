@@ -1,9 +1,8 @@
 using AKVA.Assets.Vince.Scripts.SceneManager;
-using Assets.Vince.Scripts.SceneManager;
+using AKVA.Player;
 using UnityEngine;
-using UnityEngine.Serialization;
 
-namespace AKVA.Player
+namespace AKVA
 {
     public class Checkpoint : MonoBehaviour
     {
@@ -35,6 +34,8 @@ namespace AKVA.Player
                 savedCheckpoint.isSaved = true;
                 savedCheckpoint.stateEnum = levelState;
                 savedCheckpoint.isLastCheckPoint = isLastCheckpoint;
+                
+                SaveSystem.Instance.SaveGame(savedCheckpoint);
             }
         }
 
