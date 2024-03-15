@@ -36,6 +36,7 @@ public class OptionsMenu : MonoBehaviour
         SetupSlider(sfxSlider, sfxVolume);
         
         SetupToggle(uiAnimationToggle, useUIAnimation);
+
     }
 
     private void Update()
