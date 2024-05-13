@@ -16,4 +16,4 @@ MonoBehaviour:
   forward: {x: 0, y: 0, z: 0}
   isSaved: 0
   stateEnum: 0
-  isLastCheckPoint: 0
+  isLastCheckPoint: 1

@@ -20,7 +20,7 @@ MonoBehaviour:
   - sentenceText: Oh, don't bother checking my co-components, kid, they're long done
       for..
     IsFirstSpeaker: 1
-  - sentenceText: The code is (5678).. It can get you through the door next to me.
+  - sentenceText: The code is (5678) .. It can get you through the door next to me.
     IsFirstSpeaker: 1
-  - sentenceText: Now go before they- before they.. (Malfunctions)
+  - sentenceText: Now go before they- before they.. [Malfunctions]
     IsFirstSpeaker: 1

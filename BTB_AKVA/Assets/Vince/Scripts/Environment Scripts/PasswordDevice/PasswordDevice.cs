@@ -9,21 +9,25 @@ namespace AKVA.Assets.Vince.Scripts.Environment
     {
         [SerializeField] private float distanceToInteract;
         
-        [SerializeField] string password;
+        public string devicePassword;
         [SerializeField] UnityEvent OnPasswordMatch;
         [SerializeField] UnityEvent OnButtonPressed;
         [SerializeField] GameObject[] screen;
         [SerializeField] LayerMask passwordKeylayer;
         [SerializeField] Slot[] slots;
         [SerializeField] private Transform playerCamera;
+        
         string currentPass = "";
         RaycastHit hit;
         int slotIndex;
 
+        
         private void Awake()
         {
             playerCamera = Camera.main.transform;
         }
+
+   
 
         void Update()
         {
@@ -39,7 +43,7 @@ namespace AKVA.Assets.Vince.Scripts.Environment
                     if (hit.transform.name.Contains("Enter"))
                     {
                         TurnOnKeyLight(hit.transform);
-                        if(currentPass == password)
+                        if(currentPass == devicePassword)
                         {
                             PasswordMatch();
                         }

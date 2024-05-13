@@ -13,6 +13,7 @@ namespace AKVA.Assets.Vince.Scripts.Environment
         [SerializeField] UnityEvent PlayEnableSound;
 
         [SerializeField] Transform batteryPlaceHolder;
+        public bool allowInteractableObj;
 
         [Header("Colored Button")]
         [SerializeField] bool isColored;
@@ -77,6 +78,8 @@ namespace AKVA.Assets.Vince.Scripts.Environment
         {
             if (collision.gameObject.tag == "Battery" && battery != null)
             {
+                if (!allowInteractableObj && collision.transform.gameObject.layer == 11 || !allowInteractableObj && collision.transform.gameObject.layer == 13) return;
+
                 onBatteryRemoved?.Invoke();
                 OnSocketDisabled.Invoke();
                 socketMaterial.DisableKeyword("_EMISSION");

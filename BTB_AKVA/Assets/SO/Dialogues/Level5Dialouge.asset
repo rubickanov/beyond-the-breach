@@ -25,5 +25,5 @@ MonoBehaviour:
       place else. Somewhere far more dangerous.
     IsFirstSpeaker: 0
   - sentenceText: My circuit might blow if I came with you. The code to the door
-      is (7890). We will catch up with you.
+      is (new code). We will catch up with you.
     IsFirstSpeaker: 0

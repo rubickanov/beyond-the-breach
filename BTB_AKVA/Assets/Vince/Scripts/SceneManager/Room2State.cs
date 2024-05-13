@@ -35,6 +35,10 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
             taskDone = new bool[6];
             positioned = new bool[4];
             state.aiPos = state.listOfAI[2].GetComponent<AIStateManager>().pathPoints[6].transform;
+
+            //Waypoint
+            state.missionWayPoint.SetMarkerLocation(state.wayPoints[0]);
+            state.missionWayPoint.SetActiveWayPointMarker(true);
         }
 
         public override void OnExitState(SceneStateManager state)
@@ -78,6 +82,8 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
                         ai.transform.rotation = Quaternion.identity;
                     }
                 }
+
+                state.missionWayPoint.SetActiveWayPointMarker(false);
 
                 //HUD
                 if (!txtAnimated)

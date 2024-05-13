@@ -47,6 +47,11 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
             task = new bool[8];
             electricVFX = state.electricVFX;
             state.tvTurnedOn.value = true;
+
+            //WayPoint
+            state.missionWayPoint.SetActiveWayPointMarker(true);
+            state.missionWayPoint.SetMarkerLocation(state.wayPoints[1]);
+
         }
 
         public override void OnExitState(SceneStateManager state)
@@ -80,6 +85,8 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
         {
             if (Vector3.Distance(state.playerTransform.position, state.room3PlayerPos.position) < 1.5f && !playerInPosition && robotsInPosition) // if player has positioned to its place holder
             {
+                state.missionWayPoint.SetActiveWayPointMarker(false);
+
                 for (int i = 0; i < state.room3TutorialMonitor.Length; i++)
                 {
                     TutorialMonitor monitor = state.room3TutorialMonitor[i];

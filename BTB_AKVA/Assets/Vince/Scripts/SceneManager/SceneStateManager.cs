@@ -29,6 +29,10 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
         [HideInInspector] public Picking playerPicking;
         public GameObject[] listOfAI;
 
+        [Header("WayPoints")]
+        public MissionWayPoint missionWayPoint;
+        public Transform[] wayPoints;
+
         [Header("Game Intro")]
         public float initTxtFadeInTime = 0.5f;
         public float bgImageFadeOutTimeDelay = 8f;
@@ -125,11 +129,6 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
             if (currentState != null)
             {
                 currentState.OnUpdateState(this);
-            }
-
-            if (Input.GetKeyDown(KeyCode.T))
-            {
-                SwitchState(preMainSceneState);
             }
         }
 

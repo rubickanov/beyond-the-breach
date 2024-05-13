@@ -1,6 +1,7 @@
 using EZCameraShake;
 using UnityEngine;
 using AKVA.Assets.Vince.Scripts.SceneManager;
+using System.Collections;
 
 namespace AKVA.Player
 {
@@ -11,14 +12,20 @@ namespace AKVA.Player
         [SerializeField] private SavedCheckpoint savedCheckpoint;
         [SerializeField] private GameIntro gameIntro;
         [SerializeField] private bool enableCheckpoint = true;
+        [SerializeField] GameObject playerHUD;
+
 
         [SerializeField] private GameObject scientist;
         [SerializeField] private GameObject redCircle1;
         [SerializeField] private GameObject redCircle2;
 
-        [SerializeField] GameObject[] sceneLevels; 
+        [SerializeField] GameObject[] sceneLevels;
 
         private LevelManager levelManager;
+        [SerializeField] MissionWayPoint missionWayPoint;
+
+        [Header("Last Waypoints")]
+        [SerializeField] Transform[] waypoints; 
         
         private void Awake()
         {
@@ -75,10 +82,16 @@ namespace AKVA.Player
                     sceneLevels[0].SetActive(true);
                     break;
                 case LevelManager.LevelStatesEnum.Level2 :
+                   
+                    missionWayPoint?.SetMarkerLocation(waypoints[0]);
+
                     sceneLevels[0].SetActive(true);
                     sceneLevels[1].SetActive(true);
                     break;
                 case LevelManager.LevelStatesEnum.Level3:
+
+                    missionWayPoint?.SetMarkerLocation(waypoints[1]);
+
                     sceneLevels[0].SetActive(false);
                     sceneLevels[1].SetActive(true);
                     sceneLevels[2].SetActive(true);
@@ -93,6 +106,8 @@ namespace AKVA.Player
                     break;
                 case LevelManager.LevelStatesEnum.Level5:
 
+                    missionWayPoint?.SetMarkerLocation(waypoints[2]);
+
                     sceneLevels[0].SetActive(false);
                     sceneLevels[1].SetActive(false);
                     sceneLevels[2].SetActive(false);
@@ -101,6 +116,8 @@ namespace AKVA.Player
                     sceneLevels[4].SetActive(true);
                     break;
                 case LevelManager.LevelStatesEnum.Level6:
+
+                    missionWayPoint?.SetMarkerLocation(waypoints[3]);
 
                     sceneLevels[0].SetActive(false);
                     sceneLevels[1].SetActive(false);
@@ -121,6 +138,15 @@ namespace AKVA.Player
                     sceneLevels[5].SetActive(true);
                     break;
             }
+
+            if (savedCheckpoint.stateEnum == LevelManager.LevelStatesEnum.Level1) return;
+            StartCoroutine(EnablePlayerHUD());
+        }
+
+        IEnumerator EnablePlayerHUD()
+        {
+            yield return new WaitForSeconds(.5f);
+            playerHUD.SetActive(true);
         }
     }
 }

@@ -25,8 +25,10 @@ namespace AKVA.Player
         //Unlocking Eagle Vision
 
         [Header("Eagle Vision Event")]
-        EagleVision eagleVision;
 
+        EagleVision eagleVision;
+        public GameObject wayPointmarker;
+        public TutorialUIManager tutorialUIManager;
         public float maxEagleVisionTime = .3f;
         public float eagleVisionTimeAfterQTE = 3f;
         float currentTime;
@@ -104,6 +106,8 @@ namespace AKVA.Player
             slider.value += plusValuePerClick;
             if (slider.value >= maxSliderValue)
             {
+                wayPointmarker.SetActive(true);
+                StartCoroutine(EnableTutorialUI());
                 isActive = false;
                 DisableQTE();
                 StartCoroutine(EnableEagleVisionForCoupleOfSeconds());
@@ -200,6 +204,12 @@ namespace AKVA.Player
                     soundIsPlaying = false;
                 }
             }
-        }  
+        }
+        
+        IEnumerator EnableTutorialUI()
+        {
+            yield return new WaitForSeconds(2);
+            tutorialUIManager.ActivateTutorialUI();
+        }
     }
 }

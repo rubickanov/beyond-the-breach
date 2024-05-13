@@ -10,6 +10,7 @@ namespace AKVA
         [SerializeField] private LevelManager.LevelStatesEnum levelState;
         [SerializeField] private bool isLastCheckpoint = false;
         [SerializeField] GameObject [] levelsToDisable;
+        [SerializeField] Transform wayPointLocation;
         bool paHasPlayed;
         void DisableALevel()
         {
@@ -45,6 +46,7 @@ namespace AKVA
             switch (levelState)
             {
                 case LevelManager.LevelStatesEnum.Level2:
+                    MissionWayPoint.Instance.SetMarkerLocation(wayPointLocation);
                     SubtitleManager.Instance.PlayPublicAnnoucememnt("PA System (Overhead speaker):","Serial Number 1YQ4X-R18WW, please report to Facility Room No. 8 immediately.", 0, 7f);
                     paHasPlayed = true;
                     break;

@@ -19,6 +19,7 @@ namespace AKVA.Interaction
         bool interactionCooldown = false;
         bool eventInvoked;
 
+        ShowUI showUI => GetComponent<ShowUI>();
         private void Awake()
         {
             EnableMatEmission(powerOn);
@@ -101,7 +102,8 @@ namespace AKVA.Interaction
         {
             if (enable)
             {
-                foreach(Renderer mat in deviceMat)
+                showUI?.SetActiveInteractableUI(true);
+                foreach (Renderer mat in deviceMat)
                 {
                     Material[] mats = mat.materials;
                     mats[mats.Length - 1].EnableKeyword("_EMISSION");
@@ -109,6 +111,8 @@ namespace AKVA.Interaction
             }
             else
             {
+                showUI?.SetActiveInteractableUI(false);
+
                 foreach (Renderer mat in deviceMat)
                 {
                     Material[] mats = mat.materials;

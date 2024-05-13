@@ -8,6 +8,7 @@ namespace AKVA.Dialogue
         public SpeakerSO SpeakerOne;
         public SpeakerSO SpeakerTwo;
 
+
         public Sentence[] Sentences;
 
         private void AssignSpeakers()

@@ -20,6 +20,8 @@ namespace AKVA.Interaction
         bool hasInvoked;
 
         bool leverInvoked;
+
+        ShowUI showUI => GetComponent<ShowUI>();
         void Awake()
         {
             EnableMatEmission(powerOn);
@@ -112,6 +114,7 @@ namespace AKVA.Interaction
         {
             if (enable)
             {
+                showUI?.SetActiveInteractableUI(true);
                 foreach (Renderer mat in deviceMat)
                 {
                     Material[] mats = mat.materials;
@@ -120,6 +123,7 @@ namespace AKVA.Interaction
             }
             else
             {
+                showUI?.SetActiveInteractableUI(false);
                 foreach (Renderer mat in deviceMat)
                 {
                     Material[] mats = mat.materials;

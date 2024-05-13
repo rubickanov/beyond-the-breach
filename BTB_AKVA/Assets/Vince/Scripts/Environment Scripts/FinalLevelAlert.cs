@@ -71,4 +71,9 @@ public class FinalLevelAlert : MonoBehaviour
             materialToChange.color = Color.white;
         }
     }
+
+    private void OnDisable()
+    {
+        materialToChange.color = Color.white;
+    }
 }

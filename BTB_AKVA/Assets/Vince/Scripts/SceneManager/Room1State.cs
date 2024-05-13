@@ -59,6 +59,9 @@ namespace AKVA.Assets.Vince.Scripts.SceneManager
             if (Vector3.Distance(state.playerTransform.position, state.room1PlayerPos.position) < 1.5f &&
                 !playerInPosition) // if player has positioned to its place holder
             {
+                //WayPoint
+                state.missionWayPoint.SetActiveWayPointMarker(false);
+
                 state.room1TutorialMonitor.turnOnTV = true;
                 PlayerInput.Instance.DisablePlayerMovement();
                 state.playerTransform.GetComponent<Rigidbody>().velocity = Vector3.zero;

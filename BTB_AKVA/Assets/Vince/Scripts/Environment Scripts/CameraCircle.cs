@@ -9,10 +9,11 @@ namespace AKVA.Assets.Vince.Scripts.Environment
     {
         [SerializeField] BoolReference playerDead;
         [SerializeField] BoolReference isMindControlling;
+        [SerializeField] bool detectDuringMindControl;
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.tag == "Player" && !isMindControlling.value)
+            if (other.tag == "Player" && !isMindControlling.value || other.tag == "Player" && detectDuringMindControl)
             {
                 playerDead.value = true;
             }

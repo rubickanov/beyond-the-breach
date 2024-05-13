@@ -25,7 +25,7 @@ public class OptionsMenu : MonoBehaviour
     [SerializeField] private FloatReference mouseSens; 
     [SerializeField] private FloatReference bgMusicVolume; 
     [SerializeField] private FloatReference sfxVolume; 
-    [SerializeField] private BooleanReference useUIAnimation; 
+    [SerializeField] private BooleanReference useUIAnimation;
 
     private void Start()
     {
@@ -36,7 +36,6 @@ public class OptionsMenu : MonoBehaviour
         SetupSlider(sfxSlider, sfxVolume);
         
         SetupToggle(uiAnimationToggle, useUIAnimation);
-
     }
 
     private void Update()
@@ -47,7 +46,7 @@ public class OptionsMenu : MonoBehaviour
         
         HandleToggle(uiAnimationToggle, useUIAnimation);
     }
-    
+
     private void Close()
     {
         foreach (GameObject o in uiToEnableAfterClose)
@@ -82,9 +81,13 @@ public class OptionsMenu : MonoBehaviour
     {
         toggle.isOn = boolReference.value;
     }
-    
     private void HandleToggle(Toggle toggle, BooleanReference boolReference)
     {
         boolReference.value = toggle.isOn;
+    }
+
+    public void SetQuality(int qualityIndex)
+    {
+        QualitySettings.SetQualityLevel(qualityIndex);
     }
 }

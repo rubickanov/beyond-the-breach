@@ -9,6 +9,7 @@ namespace AKVA
     {
         [SerializeField] bool isRobot;
         [SerializeField] GameObject dialougeUI;
+        [SerializeField] Transform wayPoint;
         Transform playerTransform;
         bool initSoundPlayed;
         private void Start()
@@ -26,6 +27,8 @@ namespace AKVA
             {
                 if (!initSoundPlayed)
                 {
+                    if(wayPoint != null) { MissionWayPoint.Instance.SetMarkerLocation(wayPoint); }
+
                     initSoundPlayed = true;
                     if(isRobot)
                     {

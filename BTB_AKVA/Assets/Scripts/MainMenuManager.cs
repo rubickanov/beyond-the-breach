@@ -19,9 +19,11 @@ namespace AKVA
         [SerializeField] private FloatReference bgMusicVolume;
 
         [SerializeField] private bool ImitateFirstTime;
+        [SerializeField] Material materialToChange;
 
         private void Start()
         {
+            materialToChange.color = Color.white;
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
             optionsUI.SetActive(false);
